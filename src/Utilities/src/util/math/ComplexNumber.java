@@ -1,0 +1,277 @@
+package util.math;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import static util.math.math.sign;
+
+public class ComplexNumber
+        implements Algebraic<ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber, ComplexNumber> {
+
+    private static final double PRECISION = Double.parseDouble("1.0E-12");
+    public static final ComplexNumber ONE = ComplexNumber.a(1),
+            TWO = ComplexNumber.a(2),
+            ZERO = ComplexNumber.a(0),
+            I = ComplexNumber.b(1),
+            PI = ComplexNumber.a(Math.PI),
+            E = ComplexNumber.a(Math.E),
+            NaN = ComplexNumber.ab(Double.NaN, Double.NaN);
+
+    public double real, imaginary;
+
+    public ComplexNumber(double real, double imaginary) {
+        this.real = (Math.abs(real) < PRECISION ? 0.0 : real);
+        this.imaginary = (Math.abs(imaginary) < PRECISION ? 0.0 : imaginary);
+    }
+
+    public static ComplexNumber ab(double a, double b) {
+        return new ComplexNumber(a, b);
+    }
+
+    public static ComplexNumber a(double a) {
+        return new ComplexNumber(a, 0);
+    }
+
+    public static ComplexNumber b(double b) {
+        return new ComplexNumber(0, b);
+    }
+
+    public static ComplexNumber rTheta(double r, double theta) {
+        double a = r * Math.cos(theta);
+        double b = r * Math.sin(theta);
+        return ab(a, b);
+    }
+
+    public ComplexNumber conjugate() {
+        return new ComplexNumber(this.real, this.imaginary * -1.0);
+    }
+
+    public double rSquared() {
+        return this.multiply(this.conjugate()).real;
+    }
+
+    public double r() {
+        return Math.sqrt(rSquared());
+    }
+
+    public double theta() {
+        double r = this.r();
+        if (r == 0.0) {
+            return 0.0;
+        }
+        if (real == r && imaginary == 0.0) {
+            return 0.0;
+        }
+        if (real == 0.0 && imaginary == r) {
+            return Math.PI / 2;
+        }
+        if (real == -1.0 * r && imaginary == 0.0) {
+            return Math.PI;
+        }
+        if (real == 0.0 && imaginary == -1.0 * r) {
+            return 3 * Math.PI / 2;
+        }
+        return Math.atan(imaginary / real);
+    }
+
+    public String toStringRTheta() {
+        return "(r=" + this.r() + ", theta=" + this.theta() + ")";
+    }
+
+    public ComplexNumber pow(double x) {
+        return this.pow(ComplexNumber.a(x));
+    }
+
+    public ComplexNumber pow(ComplexNumber c2) {
+        if (this.equals(ZERO) && ZERO.equals(c2)) {
+            return ComplexNumber.ONE;
+        }
+        if (this.equals(ZERO)) {
+            return ComplexNumber.ZERO;
+        }
+        ComplexNumber log = complexLn(this);
+//        System.out.println("log:" + log);
+        ComplexNumber exponent = log.multiply(c2);
+//        System.out.println("exponent:" + exponent);
+
+        return exp(exponent);
+    }
+
+    public ComplexNumber add(ComplexNumber c2) {
+        double a_1 = this.real + c2.real;
+        double b_1 = this.imaginary + c2.imaginary;
+        return ComplexNumber.ab(a_1, b_1);
+    }
+
+    public ComplexNumber subtract(ComplexNumber c2) {
+        double a_1 = this.real - c2.real;
+        double b_1 = this.imaginary - c2.imaginary;
+        return ComplexNumber.ab(a_1, b_1);
+    }
+
+    public ComplexNumber multiply(ComplexNumber c2) {
+        double a_3 = this.real * c2.real - this.imaginary * c2.imaginary;
+        double b_3 = this.real * c2.imaginary + c2.real * this.imaginary;
+        return ComplexNumber.ab(a_3, b_3);
+    }
+
+    public ComplexNumber divide(ComplexNumber c2) {
+//        System.out.println(c2.toStringRTheta());
+        double r_2 = c2.rSquared();
+        if (r_2 == 0.0) {
+            throw new ArithmeticException("Argument 'c2' is 0");
+        }
+        ComplexNumber numerator = this.multiply(c2.conjugate());
+//        System.out.println("numerator:" + numerator);
+//        System.out.println("1/r^2:" + (1/r_2));
+        ComplexNumber retNumber = numerator.scale(1 / r_2);
+        return retNumber;
+    }
+
+    public ComplexNumber scale(double s) {
+        double a_1 = this.real * s;
+        double b_1 = this.imaginary * s;
+        return ComplexNumber.ab(a_1, b_1);
+    }
+
+    @Override
+    public String toString() {
+        double a_s = sign(real), b_s = sign(imaginary);
+        if (a_s == 0 && b_s == 0) {
+            return 0.0 + "";
+        }
+        if (a_s == 0) {
+            return imaginary + "i";
+        }
+        if (b_s == 0) {
+            return real + "";
+        }
+        String sign = " - ";
+        if (b_s == 1.0) {
+            sign = " + ";
+        }
+        return "(" + real + (b_s == 1.0 ? " + " : " - ") + Math.abs(imaginary) + "i" + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComplexNumber other = (ComplexNumber) obj;
+        if (Double.doubleToLongBits(this.real) != Double.doubleToLongBits(other.real)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.imaginary) != Double.doubleToLongBits(other.imaginary)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static ComplexNumber exp(ComplexNumber z) {
+        double a = z.real, b = z.imaginary;
+//        System.out.println(z);
+        double firstTerm = Math.exp(a);
+        ComplexNumber secondTerm = exp_i(b);
+        ComplexNumber retNumber = secondTerm.scale(firstTerm);
+        return retNumber;
+    }
+
+    public static ComplexNumber pow(double base, ComplexNumber z) {
+        double a = z.real, b = z.imaginary;
+        double scalar = Math.pow(base, -1.0 * b);
+        ComplexNumber retVal = real_i(base, a).scale(scalar);
+        return retVal;
+    }
+
+    public static ComplexNumber exp_i(double theta) {
+        double a_1 = Math.cos(theta);
+        double b_2 = Math.sin(theta);
+        return ComplexNumber.ab(a_1, b_2);
+    }
+
+    public static ComplexNumber real_i(double real, double theta) {
+        if (real == 0.0) {
+            if (theta == 0.0) {
+                return ComplexNumber.ONE;
+            } else {
+                return ComplexNumber.ZERO;
+            }
+        }
+        ComplexNumber complexLog = complexLn(ComplexNumber.a(real));
+        double a = complexLog.real;
+        double b = complexLog.imaginary;
+        double scalar = Math.exp(-1.0 * b);
+        ComplexNumber retNumber = exp_i(a);
+        retNumber = retNumber.scale(scalar);
+        return retNumber;
+    }
+
+    public static ComplexNumber complexLn(ComplexNumber c1) {
+        if (ComplexNumber.ZERO.equals(c1)) {
+            throw new IllegalArgumentException("Cannot take the log of:" + c1);
+        }
+        double r = c1.r();
+        double theta = c1.theta();
+        double a_1 = Math.log(r);
+        double b_1 = theta;
+        return ComplexNumber.ab(a_1, b_1);
+    }
+
+    public static List<ComplexNumber> a(Collection<Double> reals) {
+        List<ComplexNumber> retList = new ArrayList();
+        Iterator<Double> realIterator = reals.iterator();
+        while (realIterator.hasNext()) {
+            Double curr = realIterator.next();
+            retList.add(a(curr));
+        }
+        return retList;
+    }
+
+    public static ComplexNumber[] a(double... reals) {
+        ComplexNumber[] retArray = new ComplexNumber[reals.length];
+        for (int i = 0; i < reals.length; i++) {
+            retArray[i] = ComplexNumber.a(reals[i]);
+        }
+        return retArray;
+    }
+
+    public static List<Algebraic> aAlgebraic(Collection<ComplexNumber> reals) {
+        List<Algebraic> retList = new ArrayList();
+        Iterator<ComplexNumber> realIterator = reals.iterator();
+        while (realIterator.hasNext()) {
+            ComplexNumber curr = realIterator.next();
+            retList.add((Algebraic) curr);
+        }
+        return retList;
+    }
+
+    public static ComplexNumber cos(ComplexNumber z) {
+        /*
+        cos(z) = (1/2)(exp(i*z) + exp(-i*z))
+         */
+        ComplexNumber firstTerm = exp(z.multiply(I));
+        ComplexNumber secondTerm = exp(z.multiply(I).scale(-1.0));
+        ComplexNumber numerator = firstTerm.add(secondTerm);
+        return numerator.scale(0.5);
+    }
+
+    public static ComplexNumber sin(ComplexNumber z) {
+        /*
+        sin(z) = (1/2i)(exp(i*z) - exp(-i*z))
+         */
+        ComplexNumber firstTerm = exp(z.multiply(I));
+        ComplexNumber secondTerm = exp(z.multiply(I).scale(-1.0));
+        ComplexNumber numerator = firstTerm.subtract(secondTerm);
+        return numerator.scale(-0.5).multiply(I);
+    }
+
+}
