@@ -47,4 +47,13 @@ public class Sine extends Operation{
         return new Constant(ComplexNumber.sin(inside_c));
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        if(inside.equals(dVar)){
+            Operation firstTerm = new Cosine(inside);
+            return new Negation(firstTerm);
+        }
+        throw IntegrationException.TRIG_EXCEPTION;
+    }
+
 }

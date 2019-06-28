@@ -1,8 +1,8 @@
 package util.math.symbo;
 
 import java.util.Objects;
-import util.CountList;
-import util.CountObject;
+import util.structures.CountList;
+import util.structures.CountObject;
 
 public class Variable extends Operation {
 
@@ -126,6 +126,14 @@ public class Variable extends Operation {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        if(dVar.equals(this)){
+            return new Power(this, Constant.ONE).getIntegral(dVar);
+        }
+        return new Multiplication(this, dVar);
     }
     
     

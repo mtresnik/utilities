@@ -26,18 +26,18 @@ import util.math.symbo.Constant;
 import util.math.symbo.Division;
 import util.math.symbo.Multiplication;
 import util.math.symbo.Operation;
-import util.math.symbo.Polynomial2d;
 import util.math.symbo.Power;
 import util.math.symbo.Sigma;
 import util.math.symbo.Subtraction;
 import util.math.symbo.Variable;
 import util.math.symbo.Vector;
 import util.math.symbo.interpolation.Regression;
+import util.structures.Node;
 
 public class Main {
 
     public static void main(String[] args) {
-        testLinearRegression();
+        testNode();
     }
 
     public static class Window extends Application {
@@ -234,6 +234,12 @@ public class Main {
 //        plot3.show();
         
     }
+    
+    public static void testNode(){
+        Node<Integer> root = Node.constructBinaryTree(1,2,3,4,5);
+        System.out.println(root.contains(6));
+    }
+    
     
     
 }

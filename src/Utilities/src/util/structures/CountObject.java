@@ -1,4 +1,4 @@
-package util;
+package util.structures;
 
 import java.util.Comparator;
 import java.util.Objects;

@@ -43,6 +43,11 @@ public class Negation extends Operation{
         ComplexNumber c1 = elem.constantRepresentation().value.scale(-1);
         return new Constant(c1);
     }
+
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        return new Negation(elem.getIntegral(dVar));
+    }
     
     
     

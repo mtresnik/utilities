@@ -109,4 +109,15 @@ public class Subtraction extends Operation {
         return retConstant;
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        Operation d_1 = this.values[0].getIntegral(dVar);
+        Operation d_2 = this.values[1].getIntegral(dVar);
+        Operation[] remainder = (this.values.length > 2 ? new Operation[this.values.length - 2] : new Operation[]{});
+        for (int i = 2; i < this.values.length; i++) {
+            remainder[i - 2] = this.values[i].getIntegral(dVar);
+        }
+        return new Subtraction(d_1, d_2, remainder);
+    }
+
 }

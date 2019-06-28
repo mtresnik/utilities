@@ -2,7 +2,6 @@ package util.math.symbo;
 
 import util.math.ComplexNumber;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Multiplication extends Operation {
@@ -121,6 +120,11 @@ public class Multiplication extends Operation {
         }
         return retConstant;
 
+    }
+
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

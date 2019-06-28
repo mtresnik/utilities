@@ -46,4 +46,12 @@ public class Cosine extends Operation {
         return new Constant(ComplexNumber.cos(this.inside.constantRepresentation().value));
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        if(inside.equals(dVar)){
+            return new Sine(dVar);
+        }
+        throw IntegrationException.TRIG_EXCEPTION;
+    }
+
 }

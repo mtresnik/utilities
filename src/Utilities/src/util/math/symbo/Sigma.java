@@ -61,6 +61,11 @@ public class Sigma
         return Variable.SIGMA + "_" + index_variable + " (" + inside + ") [" + b.min + " to " + b.max + "] = " + this.evaluateBounds(b);
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        return new Sigma(inside.getIntegral(dVar), this.index_variable);
+    }
+
     
 
 }

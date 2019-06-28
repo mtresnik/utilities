@@ -87,4 +87,12 @@ public class Log extends Operation {
         return new Constant(numerator.divide(denominator));
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        if(base instanceof Constant && inside.equals(dVar)){
+            return new Multiplication(dVar, new Subtraction(this, Constant.ONE));
+        }
+        throw IntegrationException.LOG_EXCEPTION;
+    }
+
 }

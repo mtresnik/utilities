@@ -140,4 +140,18 @@ public class Power extends Operation<Operation> {
         return new Constant(c1);
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        if(base.equals(dVar) && exponent instanceof Constant){
+            ComplexNumber oldConst = exponent.constantRepresentation().value;
+            if(oldConst.equals(ComplexNumber.NEGATIVE_ONE)){
+                
+            }
+            ComplexNumber newConst = new ComplexNumber(oldConst.real + 1, oldConst.imaginary);
+            Constant newPow = new Constant(newConst);
+            return new Division(new Power(base, newPow), newPow);
+        }
+        throw new IntegrationException("Powers cannot be integrated generally.");
+    }
+
 }

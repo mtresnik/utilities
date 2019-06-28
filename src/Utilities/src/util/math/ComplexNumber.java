@@ -12,6 +12,7 @@ public class ComplexNumber
 
     private static final double PRECISION = Double.parseDouble("1.0E-12");
     public static final ComplexNumber ONE = ComplexNumber.a(1),
+            NEGATIVE_ONE = ComplexNumber.a(-1),
             TWO = ComplexNumber.a(2),
             ZERO = ComplexNumber.a(0),
             I = ComplexNumber.b(1),

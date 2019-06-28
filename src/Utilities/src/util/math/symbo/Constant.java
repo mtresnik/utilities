@@ -101,5 +101,10 @@ public class Constant extends Operation<Algebraic> {
         return value;
     }
 
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        return new Multiplication(new Constant(this.getValue()), dVar);
+    }
+
     
 }

@@ -203,6 +203,8 @@ public abstract class Operation<EVAL extends Algebraic>
 
     public abstract Operation getDerivative(Variable dVar);
 
+    public abstract Operation getIntegral(Variable dVar);
+    
     public boolean containsVar(Variable var) {
         if (this instanceof Variable) {
 //            System.out.println("instanceOf:" + this.toString());

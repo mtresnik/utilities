@@ -143,6 +143,15 @@ public class Vector extends Operation<Constant> {
     public int size(){
         return this.values.length;
     }
+
+    @Override
+    public Operation getIntegral(Variable dVar) {
+        Operation[] d_dVar = new Operation[this.values.length];
+        for(int i = 0; i < this.values.length; i++){
+            d_dVar[i] = this.values[i].getIntegral(dVar);
+        }
+        return new Vector("INT" + this.name, this.index_variable, d_dVar);
+    }
     
     
     
