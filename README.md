@@ -1,14 +1,31 @@
-# Utilities
+# com.resnik.util
 
 
-A novel package for functional and symbolic math, graphing, and image processing in Java.
+A novel catch-all utilities package for Java.
 -
 
 This utilities package is split into:
 
-- Math (using symbolic logic)
-- Images (and common operations on images)
-- Arrays and reflection
+*\*Subject to Change*
+
+- audio *
+	- For generating MIDI and doing Fourier transforms
+- files
+	- json
+	- xml
+	- kml object creation
+- geo 
+	- different geographic utilities
+- images 
+	- common operations on images
+- interfaces 
+	- common expected interfaces
+- math 
+	- uses symbolic logic, supports complex numbers
+- objects *
+	- arrays, reflections, general use objects
+- text
+	- analyzing word-count, and word similarity 
 
 The Math sub-package:
 
@@ -38,7 +55,7 @@ The Images sub-package:
 - Loading Gifs into arrays of images
 - Saving images from byte or int arrays
 
-The Arrays and Reflection sub-package:
+The Objects sub-package:
 
 - Uses reflection techniques on arrays
 - Allows for lambda expressions to be used on arrays

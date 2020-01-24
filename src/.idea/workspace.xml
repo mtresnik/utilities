@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="Selected Files" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="utilities:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f1d034ad-6e7f-4f09-81dd-8f1978573047" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VR7nE6Gw1ZR2rz12GFElf8UL8Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/out" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="com.resnik.util.images.ImageUtils" />
+      <recent name="com.resnik.util.objects.arrays.ArrayUtils" />
+      <recent name="com.resnik.util.math.math" />
+      <recent name="util.math.symbo.interpolation.Interpolation" />
+      <recent name="util.images.features.HOG" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="com.resnik.util.files.kml.style" />
+      <recent name="com.resnik.util.math.graphing" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="util.images.hog" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Github_Projects\mtresnik\utilities\in\graph" />
+      <recent name="D:\Projects\Personal\JavaMath\src\main\java\com\resnik\grapher" />
+      <recent name="D:\Projects\Personal\JavaMath\res\grapher\layouts" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.TestKML.testKML">
+    <configuration name="TestAudio" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.audio.TestAudio" />
+      <module name="utilities" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.resnik.util.audio.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAudio.testScales" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="utilities" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.resnik.util.audio.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.resnik.util.audio" />
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.audio.TestAudio" />
+      <option name="METHOD_NAME" value="testScales" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestHistogram.fromGaussianGif" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="utilities" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.resnik.util.math.plot.histogram.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.resnik.util.math.plot.histogram" />
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.math.plot.histogram.TestHistogram" />
+      <option name="METHOD_NAME" value="fromGaussianGif" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestKML.testKML" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="utilities" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.resnik.util.files.kml.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.resnik.util.files.kml" />
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.files.kml.TestKML" />
+      <option name="METHOD_NAME" value="testKML" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestText.testSimilarity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="utilities" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.resnik.util.text.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.resnik.util.text" />
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.text.TestText" />
+      <option name="METHOD_NAME" value="testSimilarity" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestKML.testKML" />
+        <item itemvalue="JUnit.TestText.testSimilarity" />
+        <item itemvalue="JUnit.TestHistogram.fromGaussianGif" />
+        <item itemvalue="Application.TestAudio" />
+        <item itemvalue="JUnit.TestAudio.testScales" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f1d034ad-6e7f-4f09-81dd-8f1978573047" name="Default Changelist" comment="" />
+      <created>1577204218332</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577204218332</updated>
+    </task>
+    <servers />
+  </component>
+</project>

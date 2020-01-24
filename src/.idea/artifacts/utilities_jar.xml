@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact name="utilities:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/utilities_jar</output-path>
+    <root id="root">
+      <element id="archive" name="utilities.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="utilities" />
+      </element>
+      <element id="library" level="project" name="json-simple-1.1.1" />
+      <element id="library" level="project" name="KotlinJavaRuntime" />
+      <element id="library" level="module" name="JUnit4" module-name="utilities" />
+      <element id="library" level="project" name="fxyz" />
+    </root>
+  </artifact>
+</component>

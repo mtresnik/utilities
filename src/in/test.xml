@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root field1="test field">
+    <sub test="1"/>
+    <sub test="2"/>
+    <sub>
+        <subsub>
+        </subsub>
+    </sub>
+</root>

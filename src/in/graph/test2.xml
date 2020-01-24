@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph>
+	<vertices>
+		<vertex name="v2"/>
+		<vertex name="v3"/>
+		<vertex name="v4"/>
+	</vertices>
+	<edges>
+		<edge weight="0.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="v2"/>
+			</from>
+			<to>
+				<vertex name="v3"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="v3"/>
+			</from>
+			<to>
+				<vertex name="v4"/>
+			</to>
+		</edge>
+	</edges>
+</graph>
