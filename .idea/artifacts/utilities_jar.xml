@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact name="utilities:jar">
+    <output-path>$PROJECT_DIR$/src/out/artifacts/utilities_jar</output-path>
+    <root id="root">
+      <element id="archive" name="utilities.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/out/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="utilities" />
+      </element>
+      <element id="library" level="project" name="hamcrest-core-1.3" />
+      <element id="library" level="project" name="fxyz" />
+      <element id="library" level="project" name="kotlin-reflect" />
+      <element id="library" level="project" name="json-simple-1.1.1" />
+    </root>
+  </artifact>
+</component>
