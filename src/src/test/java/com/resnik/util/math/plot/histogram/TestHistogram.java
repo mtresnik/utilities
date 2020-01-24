@@ -17,7 +17,7 @@ public class TestHistogram {
     @Test
     public void testHistogram() throws IOException {
         Histogram<Integer> integerHistogram = fromRandomInts();
-        ImageUtils.saveImageBuffered(integerHistogram.getBarsImageBuffered(), "res/histogram/randints.png");
+        ImageUtils.saveImageBuffered(integerHistogram.getBarsImageBuffered(), "src/res/histogram/randints.png");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestHistogram {
         }
         BufferedImage[] bufferedArray = bufferedImages.toArray(new BufferedImage[bufferedImages.size()]);
         GifDecoder gd = new GifDecoder();
-        ImageUtils.saveGifBuffered(bufferedArray, gd, "res/histogram/gaussian.gif");
+        ImageUtils.saveGifBuffered(bufferedArray, gd, "src/res/histogram/gaussian.gif");
     }
 
 }

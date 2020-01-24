@@ -20,7 +20,7 @@ public class TestKML {
         kml.setDocument(doc);
         System.out.println(kml);
         try {
-            kml.save("res/kml/test.kml");
+            kml.save("src/res/kml/test.kml");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -22,7 +22,7 @@ public class TestNumbers {
         assert (MathUtils.mult(listPrimeFactors(200)) == 200);
         GifDecoder gd = new GifDecoder();
         BufferedImage[] bufferedArray = getEndingsGif(300);
-        ImageUtils.saveGifBuffered(bufferedArray, gd, "res/histogram/primes.gif");
+        ImageUtils.saveGifBuffered(bufferedArray, gd, "src/res/histogram/primes.gif");
     }
 
     @Test

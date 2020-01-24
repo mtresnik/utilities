@@ -44,7 +44,7 @@ public class TestArrays {
             frames[i] = ImageUtils.bytesToBufferedImage(inputImage);
         }
         GifDecoder gd = new GifDecoder();
-        ImageUtils.saveGifBuffered(frames, gd, "res/static.gif");
+        ImageUtils.saveGifBuffered(frames, gd, "src/res/static.gif");
     }
 
 }

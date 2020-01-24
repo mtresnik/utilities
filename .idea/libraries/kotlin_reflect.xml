@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="kotlin-reflect">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/kotlin-reflect.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/kotlin-stdlib-jdk7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/kotlin-stdlib-jdk8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/kotlin-stdlib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/lib/kotlin-test.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

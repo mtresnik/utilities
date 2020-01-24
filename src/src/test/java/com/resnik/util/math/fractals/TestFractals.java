@@ -11,18 +11,18 @@ public class TestFractals {
 
     @Test
     public void testCircleFractal() throws IOException {
-        CircleApproximation.SquareElement.testCircleSquare("res/fractals/circle_approx.gif");
+        CircleApproximation.SquareElement.testCircleSquare("src/res/fractals/circle_approx.gif");
     }
 
     @Test
     public void testSquareFractal() {
-        generateSquareGif("res/fractals/squareTest.gif");
+        generateSquareGif("src/res/fractals/squareTest.gif");
     }
 
     // Return three triangles and one dark triangle
     // For each return, repeat the algorithm
     @Test
     public void testTriangle() {
-        generateTriangleGif("res/fractals/triangle.gif", 6);
+        generateTriangleGif("src/res/fractals/triangle.gif", 6);
     }
 }

@@ -11,7 +11,7 @@ public class TestTree {
 
     @Test
     public void testBinaryGif(){
-        generateBinaryGif("res/nodes/binaryGif.gif", Arrays.asList(3.0, 2.0,5.0,4.0,2.5, 1.0,6.0, -1.0, 1.5, 7.0, 3.5,4.5, 2.2,2.8));
+        generateBinaryGif("src/res/nodes/binaryGif.gif", Arrays.asList(3.0, 2.0,5.0,4.0,2.5, 1.0,6.0, -1.0, 1.5, 7.0, 3.5,4.5, 2.2,2.8));
     }
 
     @Test

@@ -12,11 +12,11 @@ public class TestXML {
 
     @Test
     public void testXML() throws IOException, SAXException, ParserConfigurationException {
-        XMLTree tree = fromFileLocation("in/test.xml");
+        XMLTree tree = fromFileLocation("src/in/test.xml");
         System.out.println(tree);
         System.out.println(tree.findAllByName("sub"));
         System.out.println(tree.findAllByName("root"));
-        tree.save("out/xml/test.xml");
+        tree.save("src/res/xml/test.xml");
     }
 
 }

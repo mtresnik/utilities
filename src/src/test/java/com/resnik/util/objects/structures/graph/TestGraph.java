@@ -22,16 +22,16 @@ public class TestGraph {
         BFSTraversal bfsTraversal = new BFSTraversal();
         Path ad = bfsTraversal.getPath(a,d, graph);
         System.out.println(ad);;
-        ad.toXMLTree().save("res/graph/bfs_path.xml");
+        ad.toXMLTree().save("src/res/graph/bfs_path.xml");
         System.out.println(bfsTraversal.getPath(g,i, graph));;
-        graph.toXMLTree().save("res/graph/bfs_graph.xml");
+        graph.toXMLTree().save("src/res/graph/bfs_graph.xml");
     }
 
     @Test
     public void testLoadSave() throws IOException, SAXException, ParserConfigurationException {
-        XMLTree tree = XMLTreeParser.fromFileLocation("in/graph/test1.xml");
+        XMLTree tree = XMLTreeParser.fromFileLocation("src/in/graph/test1.xml");
         Graph g1 = Graph.fromXMLNode(tree.getRoot());
-        g1.toXMLTree().save("in/graph/test2.xml");
+        g1.toXMLTree().save("src/in/graph/test2.xml");
         System.out.println(g1);
     }
 
@@ -46,8 +46,8 @@ public class TestGraph {
         path.add(vertices[1]);
         System.out.println(path);
         System.out.println(path.toXMLNode());
-        path.toXMLTree().save("in/graph/test_path.xml");
-        Path loadPath = Path.fromXMLNode(XMLTreeParser.fromFileLocation("in/graph/test_path.xml").getRoot());
+        path.toXMLTree().save("src/in/graph/test_path.xml");
+        Path loadPath = Path.fromXMLNode(XMLTreeParser.fromFileLocation("src/in/graph/test_path.xml").getRoot());
         System.out.println(loadPath);
     }
 
