@@ -19,15 +19,9 @@ public class Sine extends Operation {
     }
     
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
         return "sin(" + inside + ")";
     }
-
-//    @Override
-//    public ComplexNumber evaluate(ComplexNumber t) {
-//        ComplexNumber eval = inside.evaluate(t);
-//        return ComplexNumber.sin(eval);
-//    }
 
     @Override
     public Operation getDerivative(Variable dVar) {

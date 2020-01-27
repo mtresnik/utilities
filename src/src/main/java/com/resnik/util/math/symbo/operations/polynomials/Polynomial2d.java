@@ -96,7 +96,6 @@ public class Polynomial2d extends Polynomial {
         return new Polynomial2d(p_n);
     }
 
-
     public static class SquaredPolynomial extends Polynomial2d implements Rootable, Factorable {
 
         public final Constant a,b,c;

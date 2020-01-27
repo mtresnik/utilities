@@ -20,11 +20,6 @@ public class Negation extends Operation {
         return "(-1.0)*" + elem.toString();
     }
 
-//    @Override
-//    public ComplexNumber evaluate(ComplexNumber x) {
-//        return x.scale(-1.0);
-//    }
-
     @Override
     public Operation getDerivative(Variable dVar) {
         return new Negation(elem.getDerivative(dVar));
@@ -50,8 +45,6 @@ public class Negation extends Operation {
     public Operation getIntegral(Variable dVar) {
         return new Negation(elem.getIntegral(dVar));
     }
-    
-    
-    
-    
+
+
 }

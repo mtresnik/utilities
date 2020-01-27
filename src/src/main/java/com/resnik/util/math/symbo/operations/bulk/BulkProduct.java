@@ -33,7 +33,7 @@ public class BulkProduct extends Operation {
     }
 
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
         return Variable.CAPITAL_PI + "_" + index_variable + " (" + inside + ")";
     }
 

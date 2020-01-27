@@ -3,6 +3,7 @@ package com.resnik.util.math.symbo.operations.base;
 import com.resnik.util.math.symbo.operations.Constant;
 import com.resnik.util.math.symbo.operations.Variable;
 import com.resnik.util.math.symbo.operations.Operation;
+import com.resnik.util.math.symbo.parse.ParseTree;
 
 // Operation wrapper
 public class Parentheses extends Operation {
@@ -18,7 +19,6 @@ public class Parentheses extends Operation {
     public String nonConstantString() {
         return "(" + elem.toString() + ")";
     }
-
 
     @Override
     public Operation getDerivative(Variable dVar) {
@@ -40,10 +40,17 @@ public class Parentheses extends Operation {
         return elem.constantRepresentation();
     }
 
+    public Operation unWrap(){
+        Operation curr = this;
+        while(curr instanceof Parentheses){
+            curr = ((Parentheses) curr).elem;
+        }
+        return curr;
+    }
+
     @Override
     public Operation getIntegral(Variable dVar) {
         return elem.getIntegral(dVar);
     }
-
 
 }

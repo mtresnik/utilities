@@ -2,6 +2,7 @@ package com.resnik.util.math.symbo.operations.polynomials;
 
 
 import com.resnik.util.math.symbo.operations.Constant;
+import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.math.symbo.operations.Variable;
 import com.resnik.util.math.symbo.operations.base.Multiplication;
 
@@ -35,6 +36,5 @@ public class Polynomial3d extends Polynomial{
     public Polynomial3d generate(Multiplication[] p_n) {
         return new Polynomial3d(p_n);
     }
-    
 
 }

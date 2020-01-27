@@ -146,6 +146,18 @@ public final class ArrayUtils {
         return ret;
     }
 
+    public static Character[] charsToCharacters(char[] c1){
+        Character[] c2 = new Character[c1.length];
+        for(int i = 0; i < c1.length; i++){
+            c2[i] = c1[i];
+        }
+        return c2;
+    }
+
+    public static Character[] stringToCharacters(String input){
+        return charsToCharacters(input.toCharArray());
+    }
+
     public static <T> T[] shuffle(T[] inputArr){
         List<Integer> indexMap = new ArrayList();
         for (int i = 0; i < inputArr.length/2;) {

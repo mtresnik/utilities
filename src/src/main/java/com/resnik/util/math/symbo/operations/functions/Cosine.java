@@ -18,7 +18,7 @@ public class Cosine extends Operation {
     }
 
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
         return "cos(" + inside + ")";
     }
 
@@ -52,5 +52,4 @@ public class Cosine extends Operation {
         }
         throw IntegrationException.TRIG_EXCEPTION;
     }
-
 }

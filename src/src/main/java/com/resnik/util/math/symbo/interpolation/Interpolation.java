@@ -33,7 +33,6 @@ public final class Interpolation {
         List<Point2d> pointList = new ArrayList();
         pointList.add(p1);
         pointList.addAll(Arrays.asList(pn));
-//        System.out.println(pointList);
         args = pointList.toArray(args);
         for (int p_i = 0; p_i < args.length; p_i++) {
             for (int COL = 0; COL < X_matrix[0].length; COL++) {
@@ -41,20 +40,12 @@ public final class Interpolation {
             }
             Y_vector[p_i][0] = args[p_i].y;
         }
-//        matrices.printMatrix(X_matrix, "X_matrix");
-//        matrices.printMatrix(Y_vector, "Y_vector");
         ComplexNumber[][] X_inverse = MatrixUtils.inverse(X_matrix);
-//        matrices.printMatrix(X_inverse, "X_inverse");
         ComplexNumber[][] identity_check = MatrixUtils.dot(X_inverse, X_matrix);
         MatrixUtils.printMatrix(identity_check, "Identity:");
         ComplexNumber[][] coefficients = MatrixUtils.dot(X_inverse, Y_vector);
         ComplexNumber[] coefficientLine = MatrixUtils.transpose(coefficients)[0];
-//        System.out.println("coefficient Line:" + Arrays.toString(coefficientLine));
         Polynomial2d poly1 = new Polynomial2d(coefficientLine);
-        for(Point2d p : pointList){
-//            Algebraic error = poly1.evaluate(p.x).subtract(p.y);
-//            System.out.printf("point:%s\terror:%s\n", p, error);
-        }
         return poly1;
     }
 

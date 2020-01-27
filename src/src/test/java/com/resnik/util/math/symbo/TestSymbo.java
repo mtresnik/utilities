@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 public class TestSymbo {
 
+
     @Test
     public void testSymbo(){
         // 5x^2 + 4x + 3
@@ -32,6 +33,15 @@ public class TestSymbo {
 
         Operation euler = Constant.E.pow(Constant.PI.multiply(Constant.I));
         System.out.println(euler);
+    }
+
+    @Test
+    public void testAdd(){
+        Operation poly1 = Variable.X.add(Variable.Y).add(Variable.Z);
+        Operation poly2 = new Parentheses(Variable.Y.add(Variable.X)).add(new Parentheses(Variable.Z));
+        System.out.println(poly1);
+        System.out.println(poly2);
+        System.out.println(poly1.equals(poly2));
     }
 
     @Test
@@ -156,6 +166,16 @@ public class TestSymbo {
         Operation poly2 = Variable.X.add(Variable.Y.multiply(Variable.Y).multiply(Constant.NEGATIVE_ONE)).subtract(new Constant(3));
         Equation tempEq = new Equation(poly, poly2);
         tempEq.solveAndPlot();
+    }
+
+    @Test
+    public void testVector() {
+        Vector v = new Vector("v", new Constant(2), new Constant(3));
+        Vector u = new Vector("u", new Constant(4), new Constant(5));
+        System.out.println(Arrays.toString(v.getValues()));
+        System.out.println(v.magnitude());
+        System.out.println(v.dot(v));
+        System.out.println(v.dot(u));
     }
 
     public static void main(String[] args){

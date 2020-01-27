@@ -12,6 +12,7 @@ public class Constant extends Operation<Algebraic> {
             NEGATIVE_ONE = new Constant(ComplexNumber.NEGATIVE_ONE),
             TWO = new Constant(ComplexNumber.TWO),
             ONE_HALF = new Constant(ComplexNumber.ONE_HALF),
+            TEN = new Constant(ComplexNumber.TEN),
             I = new Constant(ComplexNumber.I),
             PI = new Constant(Math.PI), 
             E = new Constant(Math.E),
@@ -35,7 +36,7 @@ public class Constant extends Operation<Algebraic> {
     @Override
     public String nonConstantString() {
         if(this.value.equals(ComplexNumber.PI)){
-            return "PI";
+            return "π";
         }else if(this.value.equals(ComplexNumber.E)){
             return "e";
         }
@@ -106,8 +107,6 @@ public class Constant extends Operation<Algebraic> {
 
     private static void imaginaryCheck(Constant one, Constant two){
         if(one.value.imaginary != 0.0 || two.value.imaginary != 0.0){
-            System.out.println(one);
-            System.out.println(two);
             throw new IllegalStateException("Cannot compare complex numbers this way.");
         }
     }
@@ -141,5 +140,10 @@ public class Constant extends Operation<Algebraic> {
     public boolean equalTo(Constant other){
         return this.equals(other);
     }
-    
+
+    public static Constant parse(String strVal){
+        ComplexNumber c = ComplexNumber.parse(strVal);
+        return new Constant(c);
+    }
+
 }

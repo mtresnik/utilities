@@ -7,8 +7,6 @@ import com.resnik.util.math.symbo.operations.base.Multiplication;
 import com.resnik.util.math.symbo.operations.base.Power;
 import com.resnik.util.math.symbo.operations.bulk.Sigma;
 
-import java.util.Arrays;
-
 public class Vector extends Operation<Constant> {
 
     protected String name; 
@@ -43,10 +41,20 @@ public class Vector extends Operation<Constant> {
     }
 
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
+        if(this.name == null){
+            String retString = "<";
+            for (int i = 0; i < this.values.length; i++) {
+                retString += this.values[i];
+                if(i < this.values.length - 1){
+                    retString += ",";
+                }
+            }
+            retString += ">";
+            return retString;
+        }
         return this.name +  (index_variable != null ? "_" + index_variable.toString() : "");
     }
-
 
     @Override
     public Operation getDerivative(Variable dVar) {
@@ -90,6 +98,7 @@ public class Vector extends Operation<Constant> {
     public boolean allConstants() {
         return false;
     }
+
     @Override
     public Constant constantRepresentation() {
         return Constant.NaN;
@@ -115,7 +124,6 @@ public class Vector extends Operation<Constant> {
         }
         Power p = new Power(this, o);
         Sigma s1 = new Sigma(p, this.index_variable);
-        System.out.println("s1:" + s1);
         Operation c1 = s1.evaluateBounds(
                 this.getBounds()
         );
@@ -132,8 +140,7 @@ public class Vector extends Operation<Constant> {
     public Operation sumPowReal(double r){
         return sumPowComplex(ComplexNumber.a(r));
     }
-    
-    
+
     public boolean containsVar(Variable var){
         return super.containsVar(var) || var.equals(index_variable);
     }
@@ -180,14 +187,6 @@ public class Vector extends Operation<Constant> {
         return new Addition(sizes);
     }
 
-    public static void main(String[] args) {
-        Vector v = new Vector("v", new Constant(2), new Constant(3));
-        Vector u = new Vector("u", new Constant(4), new Constant(5));
-        System.out.println(Arrays.toString(v.getValues()));
-        System.out.println(v.magnitude());
-        System.out.println(v.dot(v));
-        System.out.println(v.dot(u));
-    }
     
     
 }

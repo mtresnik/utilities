@@ -18,21 +18,10 @@ public class Addition<T extends Operation> extends Operation {
         super(o_n);
     }
 
-//    @Override
-//    public ComplexNumber evaluate(ComplexNumber x) {
-//        ComplexNumber sum = ComplexNumber.ZERO;
-//        for (Operation o : this.values) {
-//            sum = sum.add(o.evaluate(x));
-//        }
-//        return sum;
-//    }
-
     @Override
     public Addition getDerivative(Variable dVar) {
         Operation d_1 = this.values[0].getDerivative(dVar);
         Operation d_2 = this.values[1].getDerivative(dVar);
-//        System.out.println("val0:" + this.values[0]);
-//        System.out.println("d_1:" + d_1);
         Operation[] remainder = (this.values.length > 2 ? new Operation[this.values.length - 2] : new Operation[]{});
         for (int i = 2; i < this.values.length; i++) {
             remainder[i - 2] = this.values[i].getDerivative(dVar);
@@ -103,6 +92,36 @@ public class Addition<T extends Operation> extends Operation {
             remainder[i - 2] = this.values[i].getIntegral(dVar);
         }
         return new Addition(d_1, d_2, remainder);
+    }
+
+    public List<Operation> allValues(){
+        List<Operation> retList = new ArrayList<>();
+        for(Operation value : this.values){
+            Operation temp = value;
+            if(temp instanceof Parentheses){
+                temp = ((Parentheses) temp).unWrap();
+            }
+            if(temp instanceof Addition){
+                retList.addAll(((Addition) temp).allValues());
+            }else{
+                retList.add(temp);
+            }
+        }
+        return retList;
+    }
+
+    public boolean equals(Object other){
+        if(other == this) return true;
+        if(!(other instanceof Addition)) return false;
+        List<Operation> val1 = this.allValues();
+        List<Operation> val2 = ((Addition) other).allValues();
+        if(val1.size() != val2.size()) return false;
+        for(Operation op : val1){
+            if(!val2.contains(op)){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

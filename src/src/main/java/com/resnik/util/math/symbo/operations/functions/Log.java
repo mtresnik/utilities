@@ -45,15 +45,6 @@ public class Log extends Operation {
         return "log" + "(" + base.toString() + ", " + inside.toString() + ")";
     }
 
-//    @Override
-//    public ComplexNumber evaluate(ComplexNumber x) {
-//        ComplexNumber b = base.evaluate(x), a = inside.evaluate(x);
-//        ComplexNumber a_c = null, b_c = null;
-//        ComplexNumber numerator = ComplexNumber.complexLn(a_c);
-//        ComplexNumber denominator = ComplexNumber.complexLn(b_c);
-//        return numerator.divide(denominator);
-//    }
-
     @Override
     public Operation getDerivative(Variable dVar) {
         if (base instanceof Constant) {

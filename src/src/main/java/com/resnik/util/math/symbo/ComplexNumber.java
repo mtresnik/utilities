@@ -1,6 +1,12 @@
 package com.resnik.util.math.symbo;
 
+import com.resnik.util.math.symbo.operations.Operation;
+import com.resnik.util.math.symbo.parse.ParseException;
+import com.resnik.util.math.symbo.parse.SymbolicSyntaxAnalyzer;
+
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.resnik.util.math.MathUtils.sign;
 
@@ -13,6 +19,7 @@ public class ComplexNumber
             TWO = ComplexNumber.a(2),
             ONE_HALF = ComplexNumber.a(0.5),
             ZERO = ComplexNumber.a(0),
+            TEN = ComplexNumber.a(10),
             I = ComplexNumber.b(1),
             PI = ComplexNumber.a(Math.PI),
             E = ComplexNumber.a(Math.E),
@@ -270,6 +277,15 @@ public class ComplexNumber
         ComplexNumber secondTerm = exp(z.multiply(I).scale(-1.0));
         ComplexNumber numerator = firstTerm.subtract(secondTerm);
         return numerator.scale(-0.5).multiply(I);
+    }
+
+    public static ComplexNumber parse(String parseVal) throws ParseException {
+        SymbolicSyntaxAnalyzer analyzer = new SymbolicSyntaxAnalyzer();
+        Operation operation = analyzer.analyze(parseVal);
+        if(!operation.allConstants()){
+            throw new ParseException("Variable input.");
+        }
+        return operation.constantRepresentation().getValue();
     }
 
 }

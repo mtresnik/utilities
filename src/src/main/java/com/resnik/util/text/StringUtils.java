@@ -50,8 +50,25 @@ public final class StringUtils {
         }
         return retString;
     }
-    
-    
-    
 
+
+    public static String[] findRem(String test, String key){
+        if(key == null || !test.contains(key)){
+            return new String[0];
+        }
+        if(test.length() == key.length()){
+            return new String[0];
+        }
+        int index = test.indexOf(key);
+        if(index == 0){
+           return new String[]{test.substring(key.length())};
+        }
+        if(test.endsWith(key)){
+            return new String[]{test.substring(0,test.length() - key.length())};
+        }
+        return new String[]{
+                test.substring(0, index),
+                test.substring(index + key.length())
+        };
+    }
 }

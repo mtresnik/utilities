@@ -50,6 +50,14 @@ public class TreeNode<T> {
         return this.children.add(new TreeNode<>(elem, this));
     }
 
+    public boolean addAll(Iterable<T> iterable){
+        boolean ret = true;
+        for(T t : iterable){
+            ret &= this.add(t);
+        }
+        return ret;
+    }
+
     public boolean addChild(TreeNode<T> child){
         return this.children.add(child);
     }
@@ -119,7 +127,8 @@ public class TreeNode<T> {
     public String toString() {
         return "{" +
                 "value=" + value +
-                ", children=" + children +
+                (children.size() > 0? ", children=" + children : "")
+                 +
                 '}';
     }
 }

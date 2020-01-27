@@ -116,5 +116,4 @@ public class Multiplication extends Operation {
     public Operation getIntegral(Variable dVar) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

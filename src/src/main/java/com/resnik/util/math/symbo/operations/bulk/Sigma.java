@@ -30,7 +30,7 @@ public class Sigma extends Operation {
     }
 
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
         return Variable.SIGMA + "_" + index_variable + " (" + inside + ")";
     }
 
@@ -64,6 +64,5 @@ public class Sigma extends Operation {
         return new Sigma(inside.getIntegral(dVar), this.index_variable);
     }
 
-    
 
 }

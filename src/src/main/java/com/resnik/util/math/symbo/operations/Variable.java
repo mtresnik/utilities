@@ -12,6 +12,7 @@ public class Variable extends Operation {
 
     public static final Variable X = new Variable("x");
     public static final Variable Y = new Variable("y");
+    public static final Variable Z = new Variable("z");
     public static final Variable W = new Variable("w");
     public static final Variable T = new Variable("t");
     public static final Variable I = new Variable("i");
@@ -95,7 +96,7 @@ public class Variable extends Operation {
     }
 
     @Override
-    protected String nonConstantString() {
+    public String nonConstantString() {
         return this.name;
     }
 

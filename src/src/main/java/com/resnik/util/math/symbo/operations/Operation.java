@@ -36,7 +36,7 @@ public abstract class Operation<EVAL extends Algebraic>
         return this.nonConstantString();
     }
 
-    protected abstract String nonConstantString();
+    public abstract String nonConstantString();
 
     public Operation evaluatePrint(Variable var, EVAL t) {
         System.out.println("Eval(var: " + var + " = " + t + ")");
@@ -69,7 +69,6 @@ public abstract class Operation<EVAL extends Algebraic>
         return Operation.this.evaluate(var, ComplexNumber.aAlgebraic(ComplexNumber.a(t)));
     }
 
-    
     public Operation evaluate(Collection<Variable> var, Collection<Algebraic> t) {
         Operation retOperation = this;
         Iterator<Variable> varIter = var.iterator();
@@ -300,6 +299,9 @@ public abstract class Operation<EVAL extends Algebraic>
         }
         return this.generate(newOpList);
     }
-    
-    
+
+    public Operation wrap(){
+        return new Parentheses(this);
+    }
+
 }
