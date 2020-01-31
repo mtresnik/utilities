@@ -1,4 +1,4 @@
-package com.resnik.util.text;
+package com.resnik.util.text.similarity;
 
 import java.util.*;
 

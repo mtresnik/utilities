@@ -36,6 +36,4 @@ public class TestParse {
         balancedParenthesesCheck("(a)()");
     }
 
-
-
 }

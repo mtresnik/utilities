@@ -8,17 +8,19 @@ public class Note implements Cloneable{
     public final long startTime, duration;
     public int instrument;
     public int pitch, volume;
+    public int channel;
 
-    public Note(int instrument, int pitch, int volume, long startTime, long duration) {
-        this.startTime = startTime;
-        this.duration = duration;
+    public Note(int instrument, int channel, int pitch, int volume, long startTime, long duration) {
         this.instrument = instrument;
+        this.channel = channel;
         this.pitch = pitch;
         this.volume = volume;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     public final ShortMessage startMessage() throws InvalidMidiDataException {
-        return new ShortMessage(ShortMessage.NOTE_ON, instrument, pitch, volume);
+        return new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, volume);
     }
 
     public MidiEvent startEvent() throws InvalidMidiDataException {
@@ -26,38 +28,11 @@ public class Note implements Cloneable{
     }
 
     public final ShortMessage endMessage() throws InvalidMidiDataException {
-        return new ShortMessage(ShortMessage.NOTE_OFF, instrument, pitch, volume);
+        return new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, volume);
     }
 
     public MidiEvent endEvent() throws InvalidMidiDataException {
         return new MidiEvent(this.endMessage(), this.startTime + this.duration);
-    }
-
-    public void play(int loopCount) throws MidiUnavailableException, InvalidMidiDataException, InterruptedException {
-        Sequencer sequencer = MidiSystem.getSequencer();
-        sequencer.open();
-
-        Sequence sequence = new Sequence(Sequence.PPQ, 10);
-        Synthesizer synthesizer = MidiSystem.getSynthesizer();
-        synthesizer.open();
-
-        sequencer.setSequence(sequence);
-        Track track = sequence.createTrack();
-        sequencer.setTempoInBPM(60.0f);
-
-        track.add(this.startEvent());
-        track.add(this.endEvent());
-        sequencer.setSequence(sequence);
-        sequencer.setLoopCount(loopCount);
-        sequencer.start();
-        while (true) {
-            if (!sequencer.isRunning()) {
-                sequencer.close();
-                System.exit(1);
-            }
-            Thread.sleep(1000);
-        }
-
     }
 
     public long nextStart(){
@@ -66,11 +41,11 @@ public class Note implements Cloneable{
 
     @Override
     public Note clone(){
-        return new Note(instrument, pitch, volume, startTime, duration);
+        return new Note(instrument, channel, pitch, volume, startTime, duration);
     }
 
     public Note clone(final long nextStart){
-        return new Note(instrument, pitch, volume, nextStart, duration);
+        return new Note(instrument, channel, pitch, volume, nextStart, duration);
     }
 
     @Override

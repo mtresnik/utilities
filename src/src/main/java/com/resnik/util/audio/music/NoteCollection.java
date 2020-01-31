@@ -47,6 +47,7 @@ public class NoteCollection extends ArrayList<Note> implements Playable {
         Track retTrack = sequence.createTrack();
         MidiEvent[] starts = this.getStartEvents(), ends = this.getEndEvents();
         for(int i = 0; i < starts.length; i++){
+            retTrack.add(new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, this.get(i).channel, this.get(i).instrument, 0),0));
             retTrack.add(starts[i]);
             retTrack.add(ends[i]);
         }

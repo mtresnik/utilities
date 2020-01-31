@@ -51,7 +51,6 @@ public final class StringUtils {
         return retString;
     }
 
-
     public static String[] findRem(String test, String key){
         if(key == null || !test.contains(key)){
             return new String[0];

@@ -1,9 +1,14 @@
 package com.resnik.util.math.symbo;
 
+import com.resnik.util.math.symbo.operations.Constant;
 import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.math.symbo.parse.ParseException;
 import com.resnik.util.math.symbo.parse.SymbolicSyntaxAnalyzer;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -286,6 +291,20 @@ public class ComplexNumber
             throw new ParseException("Variable input.");
         }
         return operation.constantRepresentation().getValue();
+    }
+
+    public static List<ComplexNumber> fromConstantList(List<Constant> inputList){
+        List<ComplexNumber> retList = new ArrayList<>();
+        inputList.forEach((elem)->{retList.add(elem.getValue());});
+        return retList;
+    }
+
+    public static List<ComplexNumber> loadFromTxt(String fileLocation) throws FileNotFoundException {
+        return fromConstantList(Constant.loadFromTxt(fileLocation));
+    }
+
+    public static boolean saveToTxt(List<ComplexNumber> input, String fileLocation) throws FileNotFoundException {
+        return Constant.saveToTxt(Constant.fromComplexNumberList(input), fileLocation);
     }
 
 }

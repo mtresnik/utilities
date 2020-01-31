@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.resnik.util.text.Similarity.*;
-import static com.resnik.util.text.WordFrequency.*;
+import static com.resnik.util.text.similarity.Similarity.*;
+import static com.resnik.util.text.similarity.WordFrequency.*;
 
 public class TestText {
 
@@ -21,7 +21,7 @@ public class TestText {
 
     @Test
     public void testFrequency(){
-        CountList<String> countList = getCountListFromList(
+        CountList<String> countList = countListFromStrings(
                 "hello world my name is mike", "i", "like", "peaches", "do you like peaches?",
                 "my", "name", "is", "not mike"
         );

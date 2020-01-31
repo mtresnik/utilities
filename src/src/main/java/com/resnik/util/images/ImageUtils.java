@@ -3,6 +3,8 @@ package com.resnik.util.images;
 import com.resnik.util.files.FileUtils;
 import com.resnik.util.images.features.Gradient;
 import com.resnik.util.images.features.HOG;
+import com.resnik.util.math.symbo.Bounds;
+import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.objects.arrays.ArrayUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -13,6 +15,7 @@ import javafx.util.Pair;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
+import javax.xml.bind.DatatypeConverter;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
@@ -35,6 +38,46 @@ public final class ImageUtils {
     public static final byte[] BLACK_B = new byte[]{BLACK, BLACK, BLACK}, WHITE_B = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE};
     public static final byte[] BLACK_ARGB = new byte[]{BLACK, BLACK, BLACK, -1};
     public static final byte[] WHITE_ARGB = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE, -1};
+
+    public static final Color[] RAINBOW_AWT = new Color[]{
+            Color.RED,
+            Color.ORANGE,
+            Color.YELLOW,
+            Color.GREEN,
+            Color.CYAN,
+            Color.BLUE,
+            Color.MAGENTA
+    };
+
+    public static byte[] gradientRainbow(Color[] inputs, double val){
+        double inner = val*inputs.length;
+        int index = (int)(inner);
+        if(index >= inputs.length - 1){
+            return awtToByte(inputs[inputs.length - 1]);
+        }
+        if(index <= 0){
+            return awtToByte(inputs[0]);
+        }
+        Color left = inputs[index];
+        Color right = inputs[index + 1];
+        double percent = inner - index;
+        return gradientTwo(left, right, percent);
+    }
+
+    public static byte[] gradientRYG(double val){
+        return gradientRainbow(new Color[]{Color.RED, Color.YELLOW, Color.GREEN}, val);
+    }
+
+    public static byte[] gradientTwo(Color red, Color yellow, double val){
+        int r = (int)((yellow.getRed() - red.getRed()) * val + red.getRed());
+        int g = (int)((yellow.getGreen() - red.getGreen()) * val + red.getGreen());
+        int b = (int)((yellow.getBlue() - red.getBlue()) * val + red.getBlue());
+        return awtToByte(new Color(r,g,b));
+    }
+
+    public static byte[] toByteArray(String s) {
+        return DatatypeConverter.parseHexBinary(s);
+    }
 
     public static final byte[] GREY_B(double scale) {
         byte GREY_VAL = (byte) (scale * 255);
@@ -1407,7 +1450,6 @@ public final class ImageUtils {
         }
         return retImage;
     }
-
 
     public static byte[] getColorSliding(double d) {
         if (d > 1.0) {

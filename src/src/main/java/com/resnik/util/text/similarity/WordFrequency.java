@@ -1,4 +1,4 @@
-package com.resnik.util.text;
+package com.resnik.util.text.similarity;
 
 import com.resnik.util.objects.structures.CountList;
 import com.resnik.util.objects.structures.CountObject;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class WordFrequency {
 
-    public static CountList<String> getCountListFromList(kotlin.jvm.functions.Function2<CountObject<String>, Object, Boolean> subEquals, String ... allWords){
+    public static CountList<String> countListFromStrings(kotlin.jvm.functions.Function2<CountObject<String>, Object, Boolean> subEquals, String ... allWords){
         CountList<String> retList = new CountList<>();
         if(subEquals != null){
         }
@@ -26,8 +26,8 @@ public class WordFrequency {
         return retList;
     }
 
-    public static CountList<String> getCountListFromList(String ... allWords){
-        return getCountListFromList(null, allWords);
+    public static CountList<String> countListFromStrings(String ... allWords){
+        return countListFromStrings(null, allWords);
     }
 
 }

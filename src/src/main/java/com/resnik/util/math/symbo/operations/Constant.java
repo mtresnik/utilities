@@ -1,7 +1,15 @@
 package com.resnik.util.math.symbo.operations;
 
 import com.resnik.util.math.symbo.ComplexNumber;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
+
 import com.resnik.util.math.symbo.Algebraic;
 import com.resnik.util.math.symbo.operations.base.Multiplication;
 
@@ -144,6 +152,35 @@ public class Constant extends Operation<Algebraic> {
     public static Constant parse(String strVal){
         ComplexNumber c = ComplexNumber.parse(strVal);
         return new Constant(c);
+    }
+
+    public static List<Constant> fromComplexNumberList(List<ComplexNumber> inputList){
+        List<Constant> retList = new ArrayList<>();
+        inputList.forEach((elem)->{retList.add(new Constant(elem));});
+        return retList;
+    }
+
+    public static List<Constant> loadFromTxt(String fileLocation) throws FileNotFoundException{
+        File file = new File(fileLocation);
+        if(!file.exists()) throw new FileNotFoundException("File:" + file.getAbsolutePath() + " cannot be found.");
+        List<Constant> retList = new ArrayList<>();
+        Scanner sc = new Scanner(file);
+        while(sc.hasNext()){
+            String line = sc.nextLine();
+            retList.add(Constant.parse(line));
+        }
+        sc.close();
+        return retList;
+    }
+
+    public static boolean saveToTxt(List<Constant> input, String fileLocation) throws FileNotFoundException {
+        File file = new File(fileLocation);
+        PrintWriter pw = new PrintWriter(file);
+        for(Constant c : input){
+            pw.println(c.toString());
+        }
+        pw.close();
+        return true;
     }
 
 }
