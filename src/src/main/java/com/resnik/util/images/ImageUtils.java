@@ -34,7 +34,7 @@ import java.util.function.Function;
 public final class ImageUtils {
 
     private static final boolean DEBUG = true;
-    private static final int BLACK = 0x00000000, WHITE = 0xffffffff;
+    public static final int BLACK = 0x00000000, WHITE = 0xffffffff;
     public static final byte[] BLACK_B = new byte[]{BLACK, BLACK, BLACK}, WHITE_B = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE};
     public static final byte[] BLACK_ARGB = new byte[]{BLACK, BLACK, BLACK, -1};
     public static final byte[] WHITE_ARGB = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE, -1};

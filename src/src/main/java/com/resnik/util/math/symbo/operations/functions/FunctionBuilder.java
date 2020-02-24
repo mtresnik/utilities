@@ -55,6 +55,7 @@ public class FunctionBuilder {
         generate("ln", new Variable[]{Variable.X}, (v) ->Log.ln(Variable.X));
         generate("log", new Variable[]{Variable.X}, (v) ->new Log(Constant.TEN, Variable.X));
         generate("abs", new Variable[]{Variable.X}, (v) ->new AbsoluteValue(Variable.X));
+        generate("sqrt", new Variable[]{Variable.X}, (v) -> Variable.X.pow(new Constant(0.5)));
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class Tree<T> implements Collection<T> {
+public class Tree<T, K extends TreeNode<T>> implements Collection<T> {
 
     protected TreeNode<T> root;
 

@@ -1,5 +1,6 @@
 package com.resnik.util.math.symbo.operations;
 
+import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.ComplexNumber;
 import com.resnik.util.math.plot.points.Point3d;
 import com.resnik.util.math.plot.Plot3D;
@@ -15,8 +16,8 @@ import java.util.*;
 
 public class Equation implements Solvable {
 
-    Operation LHS;
-    Operation RHS;
+    public Operation LHS;
+    public Operation RHS;
     Map<Variable, Constant> bestGuess;
     double stepSize;
     public static final Double DEFAULT_STEP_SIZE = 0.00005d;
@@ -296,4 +297,99 @@ public class Equation implements Solvable {
     public Equation clone(Map<Variable, Constant> starter, PrintWriter output){
         return new Equation(this.LHS, this.RHS, starter, output);
     }
+
+    public List<Map<Variable, Double>> satisfies10(){
+        Map<Variable, Bounds> varMap = new LinkedHashMap<>();
+        for(Variable var : this.getVariables()){
+            varMap.put(var, Bounds.DEFAULT_10);
+        }
+        return satisfies(varMap);
+    }
+
+    public List<Map<Variable, Double>> satisfies(Map<Variable, Bounds> varMap){
+        return satisfies(varMap, 1000);
+    }
+
+    public List<Map<Variable, Double>> satisfies(Map<Variable, Bounds> varMap, int separations){
+        return satisfies(varMap, separations, 1e-2);
+    }
+
+    public List<Map<Variable, Double>> satisfies(Map<Variable, Bounds> varMap, int separations, double threshold){
+        List<Map<Variable, Double>> retList = new ArrayList<>();
+        Variable[] vars = this.getVariables();
+        for(Variable v : vars){
+            if(!varMap.containsKey(v)){
+                return retList;
+            }
+        }
+        // Iterate through all variables
+        // Plug in all bounds combinations
+        for(Variable v1 : vars){
+            Bounds b1 = varMap.get(v1);
+            List<Double> d1 = b1.toDoubleList(separations);
+            for(Double val : d1){
+                Operation nLHS = this.LHS.substitute(v1, new Constant(val));
+                Operation nRHS = this.RHS.substitute(v1, new Constant(val));
+                if(nLHS.allConstants() && nRHS.allConstants()){
+                    Map<Variable, Double> valMap = new LinkedHashMap<>();
+                    valMap.put(v1, val);
+                    Constant diff = nRHS.subtract(nLHS).abs().constantRepresentation();
+                    if(diff.getValue().real <= threshold){
+                        retList.add(valMap);
+                    }
+                }else{
+                    Map<Variable, Bounds> nVarMap = new LinkedHashMap<>();
+                    for(Map.Entry<Variable, Bounds> entry : varMap.entrySet()){
+                        if(entry.getKey().equals(v1)){
+                            continue;
+                        }
+                        nVarMap.put(entry.getKey(), entry.getValue());
+                    }
+                    // Without current variable, so add in
+                    List<Map<Variable, Double>> subMap = new Equation(nLHS, nRHS).satisfies(nVarMap, separations, threshold);
+                    for(Map<Variable, Double> currSub : subMap){
+                        currSub.put(v1, val);
+                        retList.add(currSub);
+                    }
+                }
+            }
+        }
+
+        return retList;
+    }
+
+    private List<Map<Variable, Double>> standardEquation(Map<Variable, Bounds> varMap, int separations){
+        Variable[] lhsVars = LHS.getVariables();
+        Variable[] rhsVars = RHS.getVariables();
+        if(lhsVars.length != 1 && rhsVars.length != 1){
+            System.err.println("Non standard equation.");
+            return null;
+        }
+        // Plug in all X values, expect y
+        Operation evalSide = null;
+        Operation inputSide = null;
+        if(LHS instanceof Variable){
+            evalSide = LHS;
+            inputSide = RHS;
+        }else if(RHS instanceof Variable){
+            evalSide = RHS;
+            inputSide = LHS;
+        }else {
+            System.err.println("Non standard equation.");
+            return null;
+        }
+
+        return null;
+    }
+
+    public static Equation parse(String inputString){
+        if(!inputString.contains("=")){
+            return null;
+        }
+        String[] sides = inputString.split("=");
+        Operation left = Operation.parse(sides[0]);
+        Operation right = Operation.parse(sides[1]);
+        return new Equation(left, right);
+    }
+
 }

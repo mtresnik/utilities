@@ -3,11 +3,11 @@ package com.resnik.util.math.fractals;
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
 import com.resnik.util.math.symbo.ComplexNumber;
-import com.resnik.util.math.symbo.operations.Constant;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Mandelbrot {
 
@@ -40,8 +40,12 @@ public class Mandelbrot {
             for(int COL = 0; COL < width; COL++){
                 double curr_x = d_x*COL + xMin;
                 byte[] pixel = ImageUtils.WHITE_B;
-                if(convergenceLinear(new ComplexNumber(curr_x, curr_i)) == 100){
-                    pixel = ImageUtils.BLACK_B;
+                double convergenceNumber = convergenceLinear(new ComplexNumber(curr_x, curr_i));
+                if(convergenceNumber >= n || convergenceNumber == MAX_CONVERGENCE){
+                    pixel = ImageUtils.BLACK_ARGB;
+                }else{
+                    double gradient = Math.min(convergenceNumber / n, 1.0);
+                    pixel = CircleApproximation.gradientB(gradient);
                 }
                 retImage[ROW][COL] = pixel;
             }
@@ -52,7 +56,7 @@ public class Mandelbrot {
 
     public static void writeGif() throws IOException{
         int max = 65;
-        int min = 15;
+        int min = 10;
         int stride = 5;
         BufferedImage[] ret = new BufferedImage[(max - min)/stride];
         int count = 0;
@@ -83,7 +87,7 @@ public class Mandelbrot {
                 double convergenceNumber = convergenceLinear(curr);
                 double gradient = Math.min(convergenceNumber / MAX_CONVERGENCE, 1.0);
                 byte[] pixel = CircleApproximation.gradientB(gradient);
-                if(convergenceNumber == 100){
+                if(convergenceNumber == MAX_CONVERGENCE){
                     pixel = ImageUtils.BLACK_B;
                 }
                 retImage[ROW][COL] = pixel;
@@ -94,7 +98,8 @@ public class Mandelbrot {
     }
 
     public static void main(String[] args) throws IOException {
-        ImageUtils.saveImageBytes(convergencePlot(), "res/convergence.bmp");
+        writeGif();
+//        ImageUtils.saveImageBytes(convergencePlot(), "res/convergence.bmp");
     }
 
 }

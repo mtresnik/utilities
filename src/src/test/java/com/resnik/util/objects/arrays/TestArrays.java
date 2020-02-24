@@ -47,4 +47,18 @@ public class TestArrays {
         ImageUtils.saveGifBuffered(frames, gd, "src/res/static.gif");
     }
 
+    @Test
+    public void testFlatten(){
+        int[][] input = new int[][]{
+                {1,2,3},
+                {4,5,6,7,8}
+        };
+        double[][] dInput = new double[][]{
+                {1,2.32,4},
+                {5.6}
+        };
+        System.out.println(Arrays.toString(ArrayUtils.flatten(input)));
+        System.out.println(Arrays.toString(ArrayUtils.flatten(dInput)));
+    }
+
 }

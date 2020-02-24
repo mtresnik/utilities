@@ -130,8 +130,9 @@ public class Variable extends Operation {
         }
         return new Multiplication(this, dVar);
     }
-    
-    
 
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

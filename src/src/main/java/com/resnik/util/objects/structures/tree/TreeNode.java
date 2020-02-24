@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class TreeNode<T> {
-    T value;
+    public T value;
     TreeNode<T> parent;
     List<TreeNode<T>> children = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class TreeNode<T> {
     }
 
     public boolean add(T elem){
-        return this.children.add(new TreeNode<>(elem, this));
+        return this.addChild(new TreeNode<>(elem, this));
     }
 
     public boolean addAll(Iterable<T> iterable){

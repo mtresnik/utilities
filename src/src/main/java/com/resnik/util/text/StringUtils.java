@@ -1,5 +1,7 @@
 package com.resnik.util.text;
 
+import java.util.Arrays;
+
 import static com.resnik.util.objects.reflection.ReflectionUtils.stringOf;
 
 public final class StringUtils {
@@ -69,5 +71,36 @@ public final class StringUtils {
                 test.substring(0, index),
                 test.substring(index + key.length())
         };
+    }
+
+    public static String generalToString(Object o){
+        if(o == null){
+            return "null";
+        }
+        if(o instanceof int[]){
+            return Arrays.toString((int[]) o);
+        }
+        if(o instanceof byte[]){
+            return Arrays.toString((byte[]) o);
+        }
+        if(o instanceof double[]){
+            return Arrays.toString((double[]) o);
+        }
+        if(o instanceof float[]){
+            return Arrays.toString((float[]) o);
+        }
+        if(o instanceof char[]){
+            return Arrays.toString((char[]) o);
+        }
+        if(o instanceof short[]){
+            return Arrays.toString((short[]) o);
+        }
+        if(o instanceof long[]){
+            return Arrays.toString((long[]) o);
+        }
+        if(o instanceof Object[]){
+            return Arrays.toString((Object[]) o);
+        }
+        return o.toString();
     }
 }

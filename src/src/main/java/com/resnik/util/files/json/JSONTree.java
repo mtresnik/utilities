@@ -1,10 +1,11 @@
 package com.resnik.util.files.json;
 
 import com.resnik.util.files.xml.XMLTree;
+import com.resnik.util.objects.structures.tree.SimpleTree;
 import com.resnik.util.objects.structures.tree.Tree;
 import com.resnik.util.objects.structures.tree.TreeNode;
 
-public class JSONTree extends Tree<JSONElement> {
+public class JSONTree extends SimpleTree<JSONElement> {
 
     public JSONTree(JSONNode root){
         super(root);

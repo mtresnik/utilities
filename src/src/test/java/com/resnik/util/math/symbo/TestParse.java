@@ -1,6 +1,7 @@
 package com.resnik.util.math.symbo;
 
 import com.resnik.util.math.symbo.operations.Constant;
+import com.resnik.util.math.symbo.operations.Equation;
 import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.math.symbo.operations.Variable;
 import com.resnik.util.math.symbo.parse.ParseException;
@@ -28,6 +29,12 @@ public class TestParse {
         Operation operation = analyzer.analyze("sin(2x)+ (5/7)x + abs(20x)");
         System.out.println(operation);
         System.out.println(operation.getDerivativeX());
+    }
+
+    @Test
+    public void testEquation(){
+        Equation equation = Equation.parse("y=mx + b");
+        System.out.println(equation);
     }
 
     public static void main(String[] args) {

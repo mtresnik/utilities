@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plotlineset3d>
+    <points>
+        <point3d x="1" y="0" z="1" color="black"/>
+        <point3d x="1" y="1" z="1" color="blue"/>
+        <point3d x="-1" y="0" z="-1" color="black"/>
+        <point3d x="-1" y="1" z="-1" color="blue"/>
+        <point3d x="1" y="0" z="-1" color="black"/>
+        <point3d x="1" y="1" z="-1" color="blue"/>
+    </points>
+    <lines>
+        <line3d aIndex="0" bIndex="1" color="green"/>
+        <line3d aIndex="0" bIndex="2" color="green"/>
+        <line3d aIndex="0" bIndex="3" color="green"/>
+        <line3d aIndex="0" bIndex="4" color="green"/>
+        <line3d aIndex="0" bIndex="5" color="green"/>
+        <line3d aIndex="1" bIndex="2" color="green"/>
+        <line3d aIndex="1" bIndex="3" color="green"/>
+        <line3d aIndex="1" bIndex="4" color="green"/>
+        <line3d aIndex="1" bIndex="5" color="green"/>
+        <line3d aIndex="2" bIndex="3" color="green"/>
+        <line3d aIndex="2" bIndex="4" color="green"/>
+        <line3d aIndex="2" bIndex="5" color="green"/>
+        <line3d aIndex="3" bIndex="4" color="green"/>
+        <line3d aIndex="3" bIndex="5" color="green"/>
+        <line3d aIndex="4" bIndex="5" color="green"/>
+    </lines>
+</plotlineset3d>

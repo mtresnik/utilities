@@ -146,6 +146,61 @@ public final class ArrayUtils {
         return ret;
     }
 
+    public static double[] intsToDoubles(int[] a){
+        if(a == null){
+            return null;
+        }
+        double[] ret = new double[a.length];
+        for(int i = 0; i < a.length; i++){
+            ret[i] = a[i];
+        }
+        return ret;
+    }
+
+    public static int numElements(int[][] input){
+        int ret = 0;
+        for (int[] row : input) {
+            for (int COL = 0; COL < row.length; COL++) {
+                ret++;
+            }
+        }
+        return ret;
+    }
+
+    public static int numElements(double[][] input){
+        int ret = 0;
+        for (double[] row : input) {
+            for (int COL = 0; COL < row.length; COL++) {
+                ret++;
+            }
+        }
+        return ret;
+    }
+
+    public static int[] flatten(int[][] input){
+        int[] ret = new int[numElements(input)];
+        int count = 0;
+        for(int ROW = 0; ROW < input.length; ROW++){
+            for(int COL = 0; COL < input[ROW].length; COL++){
+                ret[count] = input[ROW][COL];
+                count++;
+            }
+        }
+        return ret;
+    }
+
+    public static double[] flatten(double[][] input){
+        double[] ret = new double[numElements(input)];
+        int count = 0;
+        for(int ROW = 0; ROW < input.length; ROW++){
+            for(int COL = 0; COL < input[ROW].length; COL++){
+                ret[count] = input[ROW][COL];
+                count++;
+            }
+        }
+        return ret;
+    }
+
     public static Character[] charsToCharacters(char[] c1){
         Character[] c2 = new Character[c1.length];
         for(int i = 0; i < c1.length; i++){
@@ -240,4 +295,17 @@ public final class ArrayUtils {
         }
         return retArray;
     }
+
+    public static <T> T[] yoke(T[] arr1, T[] arr2){
+        T[] ret = Arrays.copyOf(arr1, arr1.length + arr2.length);
+        int count = 0;
+        for(int i = 0; i < arr1.length; i++, count++){
+            ret[count] = arr1[i];
+        }
+        for(int j = 0; j < arr2.length; j++, count++){
+            ret[count] = arr2[j];
+        }
+        return ret;
+    }
+
 }

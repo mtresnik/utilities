@@ -73,5 +73,87 @@ public final class Similarity {
         return retMap;
     }
 
+    public static String stripPunctuation(String input){
+        String retString = "";
+        String puncSet = ".,/\\[]{}!?@#$%^&*()-_=+\"';`~<>";
+        for(char c : input.toCharArray()){
+            if(!puncSet.contains(c+"")){
+                retString += c;
+            }
+        }
+        return retString;
+    }
+
+    public static List<String> addIgnoreCase(String[] vals, List<String> ret){
+        for(String aTemp : vals){
+            boolean contains = false;
+            for(String uTemp : ret){
+                if(aTemp.equalsIgnoreCase(uTemp)){
+                    contains = true;
+                    break;
+                }
+            }
+            if(!contains){
+                ret.add(aTemp);
+            }
+        }
+        return ret;
+    }
+
+    public static Map<String, Integer> countIgnoreCase(String[] vals, Map<String, Integer> ret){
+        for(String temp : vals){
+            String match = null;
+            for(String subTemp : ret.keySet()){
+                if(temp.equalsIgnoreCase(subTemp)){
+                    match = subTemp;
+                    break;
+                }
+            }
+            int count = ret.get(match);
+            ret.put(match, count+1);
+        }
+        return ret;
+    }
+
+    public static double cosine(String a, String b){
+        String[] aSplit = stripPunctuation(a).split(" ");
+        String[] bSplit = stripPunctuation(b).split(" ");
+        return cosine(aSplit, bSplit);
+    }
+
+    public static double cosine(String[] aSplit, String[] bSplit){
+        System.out.println(Arrays.toString(aSplit) + "\t" + Arrays.toString(bSplit));
+        Map<String, Integer> aMap = new LinkedHashMap<>();
+        Map<String, Integer> bMap = new LinkedHashMap<>();
+        List<String> uniqueYoke = addIgnoreCase(aSplit, new ArrayList<>());
+        addIgnoreCase(bSplit, uniqueYoke);
+        for(String temp : uniqueYoke){
+            aMap.put(temp, 0);
+            bMap.put(temp, 0);
+        }
+        countIgnoreCase(aSplit, aMap);
+        countIgnoreCase(bSplit, bMap);
+        Collection<Integer> aVec = aMap.values();
+        Collection<Integer> bVec = bMap.values();
+        // a . b = |a|*|b|*cos(a^b)
+        assert (aVec.size() == bVec.size());
+        Integer[] aArr = aVec.toArray(new Integer[aVec.size()]);
+        Integer[] bArr = bVec.toArray(new Integer[bVec.size()]);
+        System.out.println(Arrays.toString(aArr) + "\t" + Arrays.toString(bArr));
+        double dot = 0.0;
+        double aSquareSum = 0.0;
+        double bSquareSum = 0.0;
+        for(int i = 0; i < aArr.length; i++){
+            dot += aArr[i]*bArr[i];
+            aSquareSum += Math.pow(aArr[i], 2);
+            bSquareSum += Math.pow(bArr[i], 2);
+        }
+        double aMag = Math.sqrt(aSquareSum);
+        double bMag = Math.sqrt(bSquareSum);
+        return dot / (aMag * bMag);
+    }
+
+
+
 
 }

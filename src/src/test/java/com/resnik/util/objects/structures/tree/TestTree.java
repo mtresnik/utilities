@@ -22,7 +22,7 @@ public class TestTree {
 
     @Test
     public void testTree(){
-        Tree<Double> tree = new Tree<>();
+        SimpleTree<Double> tree = new SimpleTree<>();
         tree.add(10.0);
         tree.add(5.0);
         tree.add(7.0);

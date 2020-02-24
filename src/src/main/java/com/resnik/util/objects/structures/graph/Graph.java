@@ -25,7 +25,6 @@ public class Graph implements XMLElementConvertable {
     }
 
 
-
     public Graph(){
         this(new LinkedHashSet<>(), new LinkedHashSet<>());
     }
@@ -86,7 +85,6 @@ public class Graph implements XMLElementConvertable {
         root.addChild(edges);
         return root;
     }
-
 
     public static Graph fromXMLNode(XMLNode node){
         if(!node.getName().equals(NAME)) return null;

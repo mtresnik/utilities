@@ -6,6 +6,7 @@ import com.resnik.util.math.MathUtils;
  * Refs https://www.movable-type.co.uk/scripts/latlong.html
  */
 public final class GeoUtils {
+
     public static final double EARTH_RADIUS_METERS = 6371e3;
     private GeoUtils(){}
 

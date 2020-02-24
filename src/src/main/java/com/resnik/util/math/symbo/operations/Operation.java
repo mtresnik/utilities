@@ -5,6 +5,8 @@ import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.ComplexNumber;
 import com.resnik.util.math.symbo.operations.base.*;
 import com.resnik.util.math.symbo.operations.bulk.Sigma;
+import com.resnik.util.math.symbo.operations.functions.AbsoluteValue;
+import com.resnik.util.math.symbo.parse.SymbolicSyntaxAnalyzer;
 
 import java.util.*;
 
@@ -302,6 +304,15 @@ public abstract class Operation<EVAL extends Algebraic>
 
     public Operation wrap(){
         return new Parentheses(this);
+    }
+
+    public static Operation parse(String inputString){
+        SymbolicSyntaxAnalyzer analyzer = new SymbolicSyntaxAnalyzer();
+        return analyzer.analyze(inputString);
+    }
+
+    public AbsoluteValue abs(){
+        return new AbsoluteValue(this);
     }
 
 }

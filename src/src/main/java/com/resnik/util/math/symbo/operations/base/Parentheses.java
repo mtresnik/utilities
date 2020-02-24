@@ -3,7 +3,6 @@ package com.resnik.util.math.symbo.operations.base;
 import com.resnik.util.math.symbo.operations.Constant;
 import com.resnik.util.math.symbo.operations.Variable;
 import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.parse.ParseTree;
 
 // Operation wrapper
 public class Parentheses extends Operation {

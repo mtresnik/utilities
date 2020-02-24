@@ -51,6 +51,7 @@ public class Plot3D {
         private int xTicks, yTicks, zTicks;
         private Camera camera;
         private Stage stage;
+        public boolean useAxes = true;
 
 
         public CartesianPlot(PlotElement3D... graphElements) {
@@ -115,7 +116,9 @@ public class Plot3D {
             StackPane root = new StackPane();
 
             root.getChildren().add(axes);
-            root.getChildren().addAll(yLabels);
+            if(useAxes){
+                root.getChildren().addAll(yLabels);
+            }
             System.out.println(this.graphElements);
             for(PlotElement3D element : this.graphElements) {
                 axes.getChildren().add(element.getGroup(new Point3d((1.0*axesSize)/xTicks, (1.0*axesSize)/yTicks, (1.0*axesSize)/zTicks), axes));
@@ -195,6 +198,9 @@ public class Plot3D {
 
         public void updateText() {
             // Maps text onto axes using ticks and Text lists.
+            if(!useAxes){
+                return;
+            }
             for (int i = 0; i < this.yLabelsTEMP.size(); i++) {
                 Node from = yLabelsTEMP.get(i);
                 Node to = yLabels.get(i);
@@ -326,6 +332,9 @@ public class Plot3D {
 
             Group axes = new Group();
 
+            if(!useAxes){
+                return axes;
+            }
             // size of the cube
             Color color = Color.TRANSPARENT;
 

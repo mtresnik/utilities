@@ -37,6 +37,10 @@ public class ComplexNumber
         this.imaginary = (Math.abs(imaginary) < PRECISION ? 0.0 : imaginary);
     }
 
+    public static final Comparator<ComplexNumber> REAL_COMPARATOR = Comparator.comparingDouble(a -> a.real);
+    public static final Comparator<ComplexNumber> IMAGINARY_COMPARATOR = Comparator.comparingDouble(a -> a.imaginary);
+    public static final Comparator<ComplexNumber> R_COMPARATOR = Comparator.comparingDouble(ComplexNumber::r);
+
     public static ComplexNumber ab(double a, double b) {
         return new ComplexNumber(a, b);
     }
@@ -140,6 +144,15 @@ public class ComplexNumber
         double a_1 = this.real * s;
         double b_1 = this.imaginary * s;
         return ComplexNumber.ab(a_1, b_1);
+    }
+
+    public boolean isReal(){
+        return this.imaginary == 0.0;
+    }
+
+    public boolean isInteger(){
+        if(!isReal()) return false;
+        return this.real == Math.floor(this.real);
     }
 
     @Override

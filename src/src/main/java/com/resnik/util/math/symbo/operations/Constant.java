@@ -5,10 +5,7 @@ import com.resnik.util.math.symbo.ComplexNumber;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 import com.resnik.util.math.symbo.Algebraic;
 import com.resnik.util.math.symbo.operations.base.Multiplication;
@@ -35,6 +32,10 @@ public class Constant extends Operation<Algebraic> {
     public Constant(ComplexNumber value) {
         this.value = value;
     }
+
+    public static final Comparator<Constant> REAL_COMPARATOR = (a,b) -> ComplexNumber.REAL_COMPARATOR.compare(a.value,b.value);
+    public static final Comparator<Constant> IMAGINARY_COMPARATOR = (a,b) -> ComplexNumber.IMAGINARY_COMPARATOR.compare(a.value,b.value);
+    public static final Comparator<Constant> R_COMPARATOR = (a,b) -> ComplexNumber.REAL_COMPARATOR.compare(a.value,b.value);
 
     @Override
     public Constant getDerivative(Variable dVar) {
@@ -147,6 +148,10 @@ public class Constant extends Operation<Algebraic> {
 
     public boolean equalTo(Constant other){
         return this.equals(other);
+    }
+
+    public boolean isInteger(){
+        return this.value.isInteger();
     }
 
     public static Constant parse(String strVal){

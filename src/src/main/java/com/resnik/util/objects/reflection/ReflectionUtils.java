@@ -103,32 +103,18 @@ public final class ReflectionUtils {
         return ((obj1.getClass().isArray()) ? Arrays.toString((Object[]) obj1) : obj1.toString());
     }
 
-    /**
-     * Converts any object into its byte array representation.
-     *
-     * @param obj Object to be converted.
-     * @return Byte array representation of passed object.
-     * @throws IOException when there are input or output stream errors.
-     */
-    public static byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(obj);
-        return out.toByteArray();
+    public static Class fromSimpleName(String simpleName) throws ClassNotFoundException {
+        Class clazz = Class.forName(simpleName);
+        return clazz;
     }
 
-    /**
-     * Converts any byte representation to a corresponding object.
-     *
-     * @param data Byte representation to be converted.
-     * @return The corresponding object.
-     * @throws IOException when there are input or output stream errors.
-     * @throws ClassNotFoundException when the corresponding class isn't found.
-     */
-    public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(data);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return is.readObject();
+    public static void main(String[] args) {
+        try {
+            System.out.println(fromSimpleName("ReflectionUtils"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
 
 }

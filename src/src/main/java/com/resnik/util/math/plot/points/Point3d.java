@@ -1,13 +1,18 @@
 package com.resnik.util.math.plot.points;
 
 
+import com.resnik.util.files.xml.XMLElement;
+import com.resnik.util.files.xml.XMLNode;
 import com.resnik.util.math.symbo.ComplexNumber;
+import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
 public class Point3d extends Point{
 
+    public static final String NAME = "point3d";
     public ComplexNumber x, y, z;
+    public Color color;
 
     public Point3d(ComplexNumber x, ComplexNumber y, ComplexNumber z) {
         super(x,y,z);
@@ -22,10 +27,20 @@ public class Point3d extends Point{
         this.y = ComplexNumber.a(y);
         this.z = ComplexNumber.a(z);
     }
+
+    public Point3d(double x, double y, double z, Color color){
+        this(x,y,z);
+        this.color = color;
+    }
+
+    public Point3d(ComplexNumber x, ComplexNumber y, ComplexNumber z, Color color) {
+        this(x,y,z);
+        this.color = color;
+    }
     
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ", " + z+ ")";
+        return "(" + x + ", " + y + ", " + z+ ") :" + color;
     }
 
     public static Point3d midpoint(Point3d a, Point3d b){
@@ -58,6 +73,18 @@ public class Point3d extends Point{
 
     public static ComplexNumber dot(Point3d a, Point3d b){
         return a.x.multiply(b.x).add(a.y.multiply(b.y)).add(a.z.multiply(b.z));
+    }
+
+    public static Point3d fromXMLNode(XMLNode element){
+        if(!element.getName().equals(NAME)){
+            return null;
+        }
+        ComplexNumber x = ComplexNumber.parse(((XMLElement)element.getValue()).getOrDefault("x", "0.0").toString());
+        ComplexNumber y = ComplexNumber.parse(((XMLElement)element.getValue()).getOrDefault("y", "0.0").toString());
+        ComplexNumber z = ComplexNumber.parse(((XMLElement)element.getValue()).getOrDefault("z", "0.0").toString());
+        String colorString = ((XMLElement)element.getValue()).getOrDefault("color", "black").toString();
+        Color color = Color.web(colorString);
+        return new Point3d(x, y, z, color);
     }
 
     @Override

@@ -14,10 +14,6 @@ public class PlotDataset3D extends PlotElement3D {
     private boolean drawLines, drawPoints;
     private PointType type;
 
-    public enum PointType{
-        SPHERE, CUBE;
-    }
-
     public PlotDataset3D(Color color, Point3d ... points) {
         super(color);
         this.drawPoints = true;

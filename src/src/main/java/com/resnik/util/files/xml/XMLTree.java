@@ -1,6 +1,7 @@
 package com.resnik.util.files.xml;
 
 import com.resnik.util.files.FileUtils;
+import com.resnik.util.objects.structures.tree.SimpleTree;
 import com.resnik.util.objects.structures.tree.Tree;
 import com.resnik.util.objects.structures.tree.TreeNode;
 import org.w3c.dom.Node;
@@ -11,7 +12,7 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 
-public class XMLTree extends Tree<XMLElement> {
+public class XMLTree extends SimpleTree<XMLElement> {
 
     public static final String XML_TAG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 

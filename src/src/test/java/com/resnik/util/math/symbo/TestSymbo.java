@@ -10,6 +10,8 @@ import com.resnik.util.math.symbo.operations.polynomials.Polynomial2d;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class TestSymbo {
 
@@ -159,6 +161,13 @@ public class TestSymbo {
         Operation poly2 = new Constant(0);
         Equation equation = new Equation(poly1, poly2);
         System.out.println(Equation.solutions(equation, 3));
+    }
+
+    @Test
+    public void testEquationSatisfies(){
+        Equation e = Equation.parse("y = 2x ");
+        List<Map<Variable, Double>> res = e.satisfies10();
+        System.out.println(res);
     }
 
     public static void testEquationPlot(){

@@ -1,6 +1,7 @@
 package com.resnik.util.text;
 
 import com.resnik.util.objects.structures.CountList;
+import com.resnik.util.text.similarity.Similarity;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -26,6 +27,11 @@ public class TestText {
                 "my", "name", "is", "not mike"
         );
         System.out.println(countList);
+    }
+
+    @Test
+    public void testCosine(){
+        System.out.println(Similarity.cosine("Julie loves John more than Linda loves John", "Jane loves John more than Julie loves John?"));
     }
 
 }
