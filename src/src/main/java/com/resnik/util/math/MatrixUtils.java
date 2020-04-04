@@ -1,5 +1,6 @@
 package com.resnik.util.math;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.Algebraic;
 import com.resnik.util.math.symbo.ComplexNumber;
 import com.resnik.util.math.symbo.operations.Constant;
@@ -15,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class MatrixUtils {
+
+    public static final String TAG = MatrixUtils.class.getSimpleName();
 
     private MatrixUtils() {
 
@@ -105,39 +108,39 @@ public final class MatrixUtils {
 
     public static void printMatrix(double[][] A, String name) {
         if (name.length() > 0) {
-            System.out.println("Matrix " + name + ":" + dimString(A));
+            Log.v(TAG,"Matrix " + name + ":" + dimString(A));
         }
-        System.out.println("[");
+        Log.v(TAG,"[");
         for (int ROW = 0; ROW < A.length; ROW++) {
-            System.out.println(Arrays.toString(A[ROW]));
+            Log.v(TAG,Arrays.toString(A[ROW]));
             if (ROW == A.length - 1) {
-                System.out.println("]");
+                Log.v(TAG,"]");
             }
         }
     }
 
     public static void printMatrix(ComplexNumber[][] A, String name) {
         if (name.length() > 0) {
-            System.out.println("Matrix " + name + ":" + dimString(A));
+            Log.v(TAG,"Matrix " + name + ":" + dimString(A));
         }
-        System.out.println("[");
+        Log.v(TAG,"[");
         for (int ROW = 0; ROW < A.length; ROW++) {
-            System.out.println(Arrays.toString(A[ROW]));
+            Log.v(TAG,Arrays.toString(A[ROW]));
             if (ROW == A.length - 1) {
-                System.out.println("]");
+                Log.v(TAG,"]");
             }
         }
     }
 
     public static void printMatrix(Operation[][] A, String name) {
         if (name.length() > 0) {
-            System.out.println("Matrix " + name + ":" + dimString(A));
+            Log.v(TAG,"Matrix " + name + ":" + dimString(A));
         }
-        System.out.println("[");
+        Log.v(TAG,"[");
         for (int ROW = 0; ROW < A.length; ROW++) {
-            System.out.println(Arrays.toString(A[ROW]));
+            Log.v(TAG,Arrays.toString(A[ROW]));
             if (ROW == A.length - 1) {
-                System.out.println("]");
+                Log.v(TAG,"]");
             }
         }
 
@@ -608,10 +611,10 @@ public final class MatrixUtils {
         if (det_a.equals(ComplexNumber.ZERO)) {
             throw new IllegalArgumentException("A is not an invertible matrix.");
         }
-        System.out.println("det:" + det_a);
+        Log.v(TAG,"det:" + det_a);
         ComplexNumber[][] adjugate_a = adjugate(A);
         ComplexNumber det_a_1 = ComplexNumber.ONE.divide(det_a);
-        System.out.println("det_1:" + det_a_1);
+        Log.v(TAG,"det_1:" + det_a_1);
         ComplexNumber[][] retMatrix = scale(adjugate_a, det_a_1);
         return retMatrix;
     }

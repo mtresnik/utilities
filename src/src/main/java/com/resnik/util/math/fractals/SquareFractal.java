@@ -3,6 +3,7 @@ package com.resnik.util.math.fractals;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SquareFractal {
+
+    public static final String TAG = SquareFractal.class.getSimpleName();
 
     public static void generateSquareGif(String outDir){
         final int NUM = 4;
@@ -44,7 +47,7 @@ public class SquareFractal {
                 }
             }
         }
-        System.out.println(ROOT);
+        Log.v(TAG,ROOT);
         SquareElement dark = ROOT.getBlackSquare();
         for (double ROW = 0; ROW < SIZE; ROW++) {
             for (double COL = 0; COL < SIZE; COL++) {
@@ -53,7 +56,7 @@ public class SquareFractal {
                 }
             }
         }
-        System.out.println(dark);
+        Log.v(TAG,dark);
         SquareElement[] subSquares = ROOT.getWhiteSquares();
         List<BufferedImage> retList = new ArrayList();
         retList.add(ImageUtils.bytesToBufferedImage(retImage));
@@ -74,7 +77,7 @@ public class SquareFractal {
                     }
             }
             retList.add(ImageUtils.bytesToBufferedImage(retImage));
-            System.out.println(subSquaresList.size());
+            Log.v(TAG,subSquaresList.size());
             subSquares = subSquaresList.toArray(new SquareElement[subSquaresList.size()]);
         }
 

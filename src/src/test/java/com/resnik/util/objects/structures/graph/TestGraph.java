@@ -2,6 +2,7 @@ package com.resnik.util.objects.structures.graph;
 
 import com.resnik.util.files.xml.XMLTree;
 import com.resnik.util.files.xml.XMLTreeParser;
+import com.resnik.util.logger.Log;
 import com.resnik.util.objects.structures.graph.traversals.BFSTraversal;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 public class TestGraph {
 
+    public static final String TAG = TestGraph.class.getSimpleName();
+
     @Test
     public void testTraversal() throws FileNotFoundException {
         Graph graph = Graph.testGraph();
@@ -21,9 +24,9 @@ public class TestGraph {
         Vertex i = graph.getVertex("i");
         BFSTraversal bfsTraversal = new BFSTraversal();
         Path ad = bfsTraversal.getPath(a,d, graph);
-        System.out.println(ad);;
+        Log.v(TAG,ad);;
         ad.toXMLTree().save("src/res/graph/bfs_path.xml");
-        System.out.println(bfsTraversal.getPath(g,i, graph));;
+        Log.v(TAG,bfsTraversal.getPath(g,i, graph));;
         graph.toXMLTree().save("src/res/graph/bfs_graph.xml");
     }
 
@@ -32,7 +35,7 @@ public class TestGraph {
         XMLTree tree = XMLTreeParser.fromFileLocation("src/in/graph/test1.xml");
         Graph g1 = Graph.fromXMLNode(tree.getRoot());
         g1.toXMLTree().save("src/in/graph/test2.xml");
-        System.out.println(g1);
+        Log.v(TAG,g1);
     }
 
     @Test
@@ -44,11 +47,11 @@ public class TestGraph {
         Path path = new Path();
         path.add(vertices[0]);
         path.add(vertices[1]);
-        System.out.println(path);
-        System.out.println(path.toXMLNode());
+        Log.v(TAG,path);
+        Log.v(TAG,path.toXMLNode());
         path.toXMLTree().save("src/in/graph/test_path.xml");
         Path loadPath = Path.fromXMLNode(XMLTreeParser.fromFileLocation("src/in/graph/test_path.xml").getRoot());
-        System.out.println(loadPath);
+        Log.v(TAG,loadPath);
     }
 
 }

@@ -2,6 +2,7 @@ package com.resnik.util.files.json;
 
 import com.resnik.util.files.xml.XMLTree;
 import com.resnik.util.files.xml.XMLTreeParser;
+import com.resnik.util.logger.Log;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class TestJSON {
 
+    public static final String TAG = TestJSON.class.getSimpleName();
 
     @Test
     public void testParse() throws IOException, SAXException, ParserConfigurationException, ParseException {
@@ -20,10 +22,10 @@ public class TestJSON {
         JSONParser parser = new JSONParser();
         Object jsonRoot = parser.parse(new FileReader(fileLocation));
         JSONTree tree = JSONTree.generateFromObject(jsonRoot);
-        System.out.println(tree);
+        Log.v(TAG,tree);
         XMLTree xmlTree = tree.toXMLTree();
         xmlTree.save("src/in/xml/from_test_json.xml");
-        System.out.println(xmlTree);
+        Log.v(TAG,xmlTree);
         XMLTree loaded = XMLTreeParser.fromFileLocation("src/in/xml/from_test_json.xml");
     }
 }

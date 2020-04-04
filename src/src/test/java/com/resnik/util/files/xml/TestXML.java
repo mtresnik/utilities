@@ -1,5 +1,6 @@
 package com.resnik.util.files.xml;
 
+import com.resnik.util.logger.Log;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -10,12 +11,14 @@ import static com.resnik.util.files.xml.XMLTreeParser.fromFileLocation;
 
 public class TestXML {
 
+    public static final String TAG = TestXML.class.getSimpleName();
+
     @Test
     public void testXML() throws IOException, SAXException, ParserConfigurationException {
         XMLTree tree = fromFileLocation("src/in/test.xml");
-        System.out.println(tree);
-        System.out.println(tree.findAllByName("sub"));
-        System.out.println(tree.findAllByName("root"));
+        Log.v(TAG,tree);
+        Log.v(TAG,tree.findAllByName("sub"));
+        Log.v(TAG,tree.findAllByName("root"));
         tree.save("src/res/xml/test.xml");
     }
 

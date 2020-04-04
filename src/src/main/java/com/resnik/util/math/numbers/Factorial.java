@@ -1,5 +1,7 @@
 package com.resnik.util.math.numbers;
 
+import com.resnik.util.logger.Log;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
@@ -55,7 +57,6 @@ public class Factorial {
 
     public static BigDecimal eX(BigDecimal x, BigInteger n){
         BigDecimal ret = new BigDecimal("0");
-        System.out.println("x:"+x);
         for(BigInteger k = BigInteger.ZERO; k.compareTo(n) <= 0; k = k.add(BigInteger.ONE)){
             BigDecimal term = pow(x, k);
             term = term.divide(new BigDecimal(fact(k)), mc);

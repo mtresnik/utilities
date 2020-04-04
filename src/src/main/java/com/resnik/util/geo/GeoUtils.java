@@ -10,6 +10,10 @@ public final class GeoUtils {
     public static final double EARTH_RADIUS_METERS = 6371e3;
     private GeoUtils(){}
 
+    public static double haversine(LatLon p1, LatLon p2){
+        return haversine(p1.lat, p1.lon, p2.lat, p2.lon);
+    }
+
     public static double haversine(double lat1, double lon1, double lat2, double lon2){
         double lat1Rads = Math.toRadians(lat1);
         double lat2Rads = Math.toRadians(lat2);

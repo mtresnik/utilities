@@ -3,6 +3,7 @@ package com.resnik.util.math.fractals;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,7 +13,8 @@ import java.util.logging.Logger;
 
 public class TriangleFractal {
 
-    
+    public static final String TAG = TriangleFractal.class.getSimpleName();
+
     public static void generateTriangleGif(String outDir, int kMax){
         BufferedImage[] gifBuffered = new BufferedImage[kMax + 1];
         for (int k = 0; k < kMax + 1; k++) {
@@ -40,8 +42,8 @@ public class TriangleFractal {
         Point p2 = new Point(0.5, Math.sqrt(3)/2 + height);
         Point p3 = new Point(1 - height, 0 + height);
         TriangleElement ROOT = new TriangleElement(p1, p2, p3);
-        System.out.println("ROOT:" + ROOT);
-        System.out.println(ROOT.isInside(0.5, 0.5));
+        Log.v(TAG,"ROOT:" + ROOT);
+        Log.v(TAG,ROOT.isInside(0.5, 0.5));
         for (double ROW = 0; ROW < SIZE; ROW++) {
             for (double COL = 0; COL < SIZE; COL++) {
                 double x = COL / SIZE;
@@ -59,7 +61,7 @@ public class TriangleFractal {
                 }
             }
         }
-        System.out.println(dark);
+        Log.v(TAG,dark);
         
         TriangleElement[] subTriangles = ROOT.lightTriangles();
         for (int k = 0; k < kMax; k++) {
@@ -240,7 +242,7 @@ public class TriangleFractal {
         public static double THRESH = 0.00001;
         
         public boolean isInside(double x, double y) {
-//            System.out.println("isInside:" + x + " " + y);
+//            Log.v(TAG,"isInside:" + x + " " + y);
             double A1 = Math.abs(x1 * (y2 - y) + x2 * (y - y1) + x * (y1 - y2));
             double A2 = Math.abs(x1 * (y - y3) + x * (y3 - y1) + x3 * (y1 - y));
             double A3 = Math.abs(x * (y2 - y3) + x2 * (y3 - y) + x3 * (y - y2));

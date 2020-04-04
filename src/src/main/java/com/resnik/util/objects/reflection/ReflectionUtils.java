@@ -1,15 +1,21 @@
 package com.resnik.util.objects.reflection;
 
+import com.resnik.util.logger.Log;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.instrument.Instrumentation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.Arrays;
 
 public final class ReflectionUtils {
+
+    public static final String TAG = ReflectionUtils.class.getSimpleName();
 
     private ReflectionUtils() {
     }
@@ -19,6 +25,16 @@ public final class ReflectionUtils {
             a = a.getSuperclass();
         }
         return a;
+    }
+
+    public static Class<?> findClass(String name){
+        try {
+            Class clazz = Class.forName(name);
+            return clazz;
+        } catch (ClassNotFoundException e) {
+            Log.e(TAG, "Class not found:" + e.getMessage());
+        }
+        return null;
     }
 
     public static boolean isParent(Class<?> a, Class<?> b) {
@@ -110,7 +126,7 @@ public final class ReflectionUtils {
 
     public static void main(String[] args) {
         try {
-            System.out.println(fromSimpleName("ReflectionUtils"));
+            Log.v(TAG,fromSimpleName("ReflectionUtils"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.resnik.util.math.numbers;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.MathUtils;
 import org.junit.Test;
 
@@ -16,9 +17,11 @@ import static com.resnik.util.math.numbers.Prime.*;
 
 public class TestNumbers {
 
+    public static final String TAG = TestNumbers.class.getSimpleName();
+
     @Test
     public void testPrimes() throws IOException {
-        System.out.println(Arrays.toString(listPrimeFactors(200)));
+        Log.v(TAG,Arrays.toString(listPrimeFactors(200)));
         assert (MathUtils.mult(listPrimeFactors(200)) == 200);
         GifDecoder gd = new GifDecoder();
         BufferedImage[] bufferedArray = getEndingsGif(300);
@@ -27,14 +30,14 @@ public class TestNumbers {
 
     @Test
     public void testFib(){
-        System.out.println(Arrays.toString(fibBigArrLinear(100)));
-        System.out.println(goldenRatioApproxBig(200000));
-        System.out.println(GOLDEN_RATIO_PLUS);
+        Log.v(TAG,Arrays.toString(fibBigArrLinear(100)));
+        Log.v(TAG,goldenRatioApproxBig(200000));
+        Log.v(TAG,GOLDEN_RATIO_PLUS);
     }
 
     @Test
     public void testContinuedFraction(){
-        System.out.println(Arrays.toString(generateContinuedFraction(new BigDecimal(Double.toString(3.1415926)))));
+        Log.v(TAG,Arrays.toString(generateContinuedFraction(new BigDecimal(Double.toString(3.1415926)))));
     }
 
 }

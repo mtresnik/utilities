@@ -2,10 +2,14 @@ package com.resnik.util.objects.structures;
 
 import java.util.*;
 import java.util.function.Function;
+
+import com.resnik.util.logger.Log;
 import javafx.util.Pair;
 import com.resnik.util.objects.FunctionUtils.Function2;
 
 public class CountList<T> implements List<CountObject<T>> {
+
+    public static final String TAG = CountList.class.getSimpleName();
 
     private List<CountObject<T>> elements;
     private Pair<Boolean, Comparator<CountObject>> maintainOrderPair;
@@ -20,7 +24,7 @@ public class CountList<T> implements List<CountObject<T>> {
 
     public CountList(List<CountObject<T>> elements, boolean maintainOrder) {
         this.elements = elements;
-        System.out.println("elements:" + elements);
+        Log.v(TAG,"elements:" + elements);
         this.init(maintainOrder);
     }
 

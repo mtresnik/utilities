@@ -2,6 +2,7 @@ package com.resnik.util.objects.structures.tree.binary;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 
 import java.awt.*;
 import java.awt.font.TextAttribute;
@@ -15,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BinaryTree<T> implements Collection<T> {
+
+    public static final String TAG = BinaryTree.class.getSimpleName();
 
     private BinaryNode<T> root;
 
@@ -318,10 +321,10 @@ public class BinaryTree<T> implements Collection<T> {
             totalHeight = Math.max(totalHeight, rowIndex + a +  padding);
         }
         
-        System.out.println(colIndexMap);
-        System.out.println("totalWidth:" + totalWidth);
-        System.out.println(rowIndexMap);
-        System.out.println("totalHeight:" + totalHeight);
+        Log.v(TAG,colIndexMap);
+        Log.v(TAG,"totalWidth:" + totalWidth);
+        Log.v(TAG,rowIndexMap);
+        Log.v(TAG,"totalHeight:" + totalHeight);
         byte[][][] writeImage = new byte[totalHeight][totalWidth][];
         for(int ROW = 0; ROW < totalHeight; ROW++){
             for (int COL = 0; COL < totalWidth; COL++) {

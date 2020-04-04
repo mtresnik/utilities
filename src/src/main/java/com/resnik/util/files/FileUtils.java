@@ -1,5 +1,7 @@
 package com.resnik.util.files;
 
+import com.resnik.util.logger.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class FileUtils {
+
+    public static final String TAG = FileUtils.class.getSimpleName();
 
     private FileUtils() {}
     
@@ -30,7 +34,7 @@ public final class FileUtils {
     public static Map<String, List<String>> getFileExtensionNameMap(String directory){
         File dir = new File(directory);
         File[] subFiles = dir.listFiles();
-        System.out.println("subFiles:" + subFiles);
+        Log.v(TAG,"subFiles:" + subFiles);
         Map<String, List<String>> retMap = new HashMap();
         for(File file : subFiles){
             String key = getFileExtension(file);

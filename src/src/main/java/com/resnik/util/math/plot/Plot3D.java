@@ -1,5 +1,6 @@
 package com.resnik.util.math.plot;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.plot.elements3d.PlotElement3D;
 import com.resnik.util.math.plot.points.Point3d;
 import javafx.application.Application;
@@ -34,6 +35,8 @@ import java.util.logging.Logger;
 public class Plot3D {
 
     public static class CartesianPlot extends Application {
+
+        public static final String TAG = CartesianPlot.class.getSimpleName();
 
         private List<PlotElement3D> graphElements;
         private com.resnik.util.math.symbo.Bounds xBounds, yBounds, zBounds;
@@ -119,7 +122,7 @@ public class Plot3D {
             if(useAxes){
                 root.getChildren().addAll(yLabels);
             }
-            System.out.println(this.graphElements);
+            Log.v(TAG,this.graphElements);
             for(PlotElement3D element : this.graphElements) {
                 axes.getChildren().add(element.getGroup(new Point3d((1.0*axesSize)/xTicks, (1.0*axesSize)/yTicks, (1.0*axesSize)/zTicks), axes));
             }
@@ -163,18 +166,18 @@ public class Plot3D {
                         return;
                     }
                     if(event.getCode().equals(KeyCode.LEFT)){
-                        System.out.println("left");
+                        Log.v(TAG,"left");
                         root.setTranslateX(root.getTranslateX() - 20);
                     }else if(event.getCode().equals(KeyCode.RIGHT)){
-                        System.out.println("right");
+                        Log.v(TAG,"right");
                         root.setTranslateX(root.getTranslateX() + 20);
 
                     }else if(event.getCode().equals(KeyCode.UP)){
-                        System.out.println("up");
+                        Log.v(TAG,"up");
                         root.setTranslateY(root.getTranslateY() - 20);
 
                     }else if(event.getCode().equals(KeyCode.DOWN)){
-                        System.out.println("down");
+                        Log.v(TAG,"down");
                         root.setTranslateY(root.getTranslateY() + 20);
                     }else if(event.getCode().equals(KeyCode.C)){
                         root.setTranslateX(0);

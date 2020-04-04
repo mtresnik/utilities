@@ -1,11 +1,16 @@
 package com.resnik.util.math.numbers;
 
+import com.resnik.util.logger.Log;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.*;
 
 public class Fibonacci {
+
+    public static final String TAG = Fibonacci.class.getSimpleName();
+
 
     public static final int SMALL_FIB_LIMIT = 47;
 
@@ -17,6 +22,7 @@ public class Fibonacci {
 
     private static final BigInteger[] FIRST_5_BIG = new BigInteger[FIRST_5.length];
     private static final Map<Integer, BigInteger> EVALUATED_BIG = new LinkedHashMap<>();
+    private static final Map<Integer, BigInteger> EVALUATED_RANDOM_BIG = new LinkedHashMap<>();
 
     static {
         for(int index = 0; index<FIRST_5.length; index++){
@@ -24,6 +30,8 @@ public class Fibonacci {
             FIRST_5_BIG[index] = new BigInteger(Integer.toString(FIRST_5[index]));
             EVALUATED_BIG.put(index, FIRST_5_BIG[index]);
         }
+        EVALUATED_RANDOM_BIG.put(0, new BigInteger("1"));
+        EVALUATED_RANDOM_BIG.put(1, new BigInteger("1"));
     }
 
     @Deprecated
@@ -120,6 +128,35 @@ public class Fibonacci {
         return EVALUATED_BIG.get(n);
     }
 
+    public static BigInteger fibBigLinearRandom(int n){
+        if(EVALUATED_RANDOM_BIG.containsKey(n)){
+            return EVALUATED_RANDOM_BIG.get(n);
+        }
+        BigInteger minusOne = new BigInteger("-1");
+        if(EVALUATED_RANDOM_BIG.containsKey(n - 2) && EVALUATED_RANDOM_BIG.containsKey(n - 1)){
+            BigInteger res = Math.random() > 0.5 ? minusOne : BigInteger.ONE;
+            return EVALUATED_RANDOM_BIG.get(n - 2).add(res.multiply(EVALUATED_RANDOM_BIG.get(n - 1)));
+        }
+        int lastIndex = 2;
+        for(Map.Entry<Integer, BigInteger> entry : EVALUATED_RANDOM_BIG.entrySet()){
+            lastIndex = Math.max(entry.getKey(), lastIndex);
+        }
+        for(int index = lastIndex; index <= n; index++){
+            BigInteger res = Math.random() > 0.5 ? new BigInteger("-1") : BigInteger.ONE;
+            BigInteger currFib = EVALUATED_RANDOM_BIG.get(index - 2).add(res.multiply(EVALUATED_RANDOM_BIG.get(index - 1)));
+            EVALUATED_RANDOM_BIG.putIfAbsent(index, currFib);
+        }
+        return EVALUATED_RANDOM_BIG.get(n);
+    }
+
+    public static BigDecimal ratio(int n){
+        BigInteger next = fibBigLinearRandom(n + 1);
+        BigInteger curr = fibBigLinear(n);
+        BigDecimal nextD = new BigDecimal(next);
+        BigDecimal currD = new BigDecimal(curr);
+        return nextD.divide(currD, MathContext.DECIMAL32);
+    }
+
     @Deprecated
     public static BigInteger[] fibBigArrRecursive(int n){
         BigInteger[] retArray = new BigInteger[n];
@@ -155,6 +192,10 @@ public class Fibonacci {
         }
 
         return retArray;
+    }
+
+    public static void main(String[] args) {
+        Log.v(TAG,ratio(100000));
     }
 
 }

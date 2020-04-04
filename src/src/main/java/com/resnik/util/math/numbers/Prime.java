@@ -1,6 +1,7 @@
 package com.resnik.util.math.numbers;
 
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.MathUtils;
 import com.resnik.util.math.plot.histogram.Histogram;
 import com.resnik.util.objects.structures.CountList;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class Prime {
+
+    public static final String TAG = Prime.class.getSimpleName();
 
     private static final int[] FIRST_10 = new int[]{2,3,5,7,11,13,17,19,23,29};
     private static final Map<Integer, Integer> EVALUATED = new LinkedHashMap<>();
@@ -114,7 +117,7 @@ public final class Prime {
         int[] digits = new int[]{0,1,2,3,4,5,6,7,8,9};
         List<CountObject<Integer>> endingsList = new ArrayList<>();
         for(int curr : digits){
-            System.out.println(curr);
+            Log.v(TAG,curr);
             int count = tempList.getCountOr(curr, 0);
             endingsList.add(new CountObject<>(curr, count));
         }

@@ -1,6 +1,7 @@
 package com.resnik.util.math.plot;
 
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.plot.elements3d.*;
 import com.resnik.util.math.plot.points.Point3d;
 import com.resnik.util.math.symbo.ComplexNumber;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class TestPlot3D {
 
+    public static final String TAG = TestPlot3D.class.getSimpleName();
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 
@@ -76,7 +78,6 @@ public class TestPlot3D {
     private static List<Line3d> elevate(List<Line3d> lines, double delta){
         List<Line3d> retList = new ArrayList<>();
 
-        
         for(Line3d line : lines){
             Point3d a = line.a;
             Point3d b = line.b;
@@ -172,7 +173,7 @@ public class TestPlot3D {
     @Test
     public void testPlotLoad() throws ParserConfigurationException, SAXException, IOException {
         PlotLineSet3D plotLineSet3D = PlotLineSet3DXMLLoader.load("src/in/plot/testplot3d.xml");
-        System.out.println(plotLineSet3D);
+        Log.v(TAG,plotLineSet3D);
     }
 
 

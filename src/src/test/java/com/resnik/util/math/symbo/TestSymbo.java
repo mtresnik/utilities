@@ -1,5 +1,6 @@
 package com.resnik.util.math.symbo;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.MatrixUtils;
 import com.resnik.util.math.plot.points.Point2d;
 import com.resnik.util.math.symbo.interpolation.Regression;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 public class TestSymbo {
 
+    public static final String TAG = TestSymbo.class.getSimpleName();
 
     @Test
     public void testSymbo(){
@@ -23,39 +25,39 @@ public class TestSymbo {
                 new Constant(5).multiply(Variable.X.pow(Constant.TWO))
                         .add(new Constant(4).multiply(Variable.X))
                         .add(new Constant(3));
-        System.out.println(poly1);
+        Log.v(TAG,poly1);
         Operation derivative1 = poly1.getDerivative(Variable.X);
         System.out.printf("%s\n\n",derivative1);
 
         // (2i+5)x + 4
         Operation poly2 = new Constant(new ComplexNumber(5,2)).multiply(Variable.X).add(new Constant(4));
-        System.out.println(poly2);
+        Log.v(TAG,poly2);
         Operation derivative2 = poly2.getDerivative(Variable.X);
         System.out.printf("%s\n\n",derivative2);
 
         Operation euler = Constant.E.pow(Constant.PI.multiply(Constant.I));
-        System.out.println(euler);
+        Log.v(TAG,euler);
     }
 
     @Test
     public void testAdd(){
         Operation poly1 = Variable.X.add(Variable.Y).add(Variable.Z);
         Operation poly2 = new Parentheses(Variable.Y.add(Variable.X)).add(new Parentheses(Variable.Z));
-        System.out.println(poly1);
-        System.out.println(poly2);
-        System.out.println(poly1.equals(poly2));
+        Log.v(TAG,poly1);
+        Log.v(TAG,poly2);
+        Log.v(TAG,poly1.equals(poly2));
     }
 
     @Test
     public void testSub() {
         Variable x = Variable.X, y = Variable.Y;
         Addition poly1 = new Addition(new Multiplication(x, new Constant(4)), new Multiplication(y, new Constant(3)));
-        System.out.println(poly1);
+        Log.v(TAG,poly1);
         Operation poly2 = poly1.substitute(x, Power.var(x, x));
-        System.out.println(poly2);
-        System.out.println(poly2.getDerivativeX());
+        Log.v(TAG,poly2);
+        Log.v(TAG,poly2.getDerivativeX());
         Operation o1 = poly1.evaluate(x, new Constant(0.0));
-        System.out.println(o1);
+        Log.v(TAG,o1);
     }
 
     @Test
@@ -69,7 +71,7 @@ public class TestSymbo {
                 {abcd[2], abcd[3]}
         };
         Algebraic det = MatrixUtils.det(matTest);
-        System.out.println(det);
+        Log.v(TAG,det);
 
     }
 
@@ -82,33 +84,33 @@ public class TestSymbo {
         Division testDiv = new Division(f, g);
         Power testPow = new Power(f, g);
 
-        System.out.println("Addition:" + testAdd);
-        System.out.println("derivative:" + testAdd.getDerivativeX());
-        System.out.println("derivative^2:" + testAdd.getDerivativeX(2));
-        System.out.println("derivative_f:" + testAdd.getDerivativeX(2).getDerivative(f));
-        System.out.println("");
-        System.out.println("Subtraction:" + testSub);
-        System.out.println("derivative:" + testSub.getDerivativeX());
-        System.out.println("derivative^2:" + testSub.getDerivativeX(2));
-        System.out.println("");
-        System.out.println("Multiplication:" + testMult);
-        System.out.println("derivative:" + testMult.getDerivativeX());
-        System.out.println("derivative^2:" + testMult.getDerivativeX(2));
-        System.out.println("");
-        System.out.println("Division:" + testDiv);
-        System.out.println("derivative:" + testDiv.getDerivativeX());
-        System.out.println("");
-        System.out.println("Power:" + testPow);
-        System.out.println("derivative:" + testPow.getDerivativeX());
+        Log.v(TAG,"Addition:" + testAdd);
+        Log.v(TAG,"derivative:" + testAdd.getDerivativeX());
+        Log.v(TAG,"derivative^2:" + testAdd.getDerivativeX(2));
+        Log.v(TAG,"derivative_f:" + testAdd.getDerivativeX(2).getDerivative(f));
+        Log.v(TAG,"");
+        Log.v(TAG,"Subtraction:" + testSub);
+        Log.v(TAG,"derivative:" + testSub.getDerivativeX());
+        Log.v(TAG,"derivative^2:" + testSub.getDerivativeX(2));
+        Log.v(TAG,"");
+        Log.v(TAG,"Multiplication:" + testMult);
+        Log.v(TAG,"derivative:" + testMult.getDerivativeX());
+        Log.v(TAG,"derivative^2:" + testMult.getDerivativeX(2));
+        Log.v(TAG,"");
+        Log.v(TAG,"Division:" + testDiv);
+        Log.v(TAG,"derivative:" + testDiv.getDerivativeX());
+        Log.v(TAG,"");
+        Log.v(TAG,"Power:" + testPow);
+        Log.v(TAG,"derivative:" + testPow.getDerivativeX());
     }
 
     public static void testLinearRegressionPlot() {
         Vector x = new Vector("x", Variable.I, 0);
         Operation o = x.average();
-        System.out.println("average:" + o);
+        Log.v(TAG,"average:" + o);
         Power p = new Power(x, new Constant(2));
         Sigma s = new Sigma(p, Variable.I);
-        System.out.println(s.evaluateBoundsToString(x.getBounds()));
+        Log.v(TAG,s.evaluateBoundsToString(x.getBounds()));
         Point2d[] points = Point2d.parsePoints(
                 12.4, 11.2,
                 14.3, 12.5,
@@ -137,21 +139,21 @@ public class TestSymbo {
         Regression r = new Regression(1, points);
         r.plot();
         Vector[] x_y = Point2d.toVectors(points);
-        System.out.println(Arrays.toString(points));
-        System.out.println(Arrays.toString(x_y[0].getValues()));
-        System.out.println(Arrays.toString(x_y[1].getValues()));
-        System.out.println("poly:" + r.polynomial);
-        System.out.println("r^2:" + r.rSquared());
+        Log.v(TAG,Arrays.toString(points));
+        Log.v(TAG,Arrays.toString(x_y[0].getValues()));
+        Log.v(TAG,Arrays.toString(x_y[1].getValues()));
+        Log.v(TAG,"poly:" + r.polynomial);
+        Log.v(TAG,"r^2:" + r.rSquared());
     }
 
     @Test
     public void testRoots() {
         Polynomial2d.SquaredPolynomial polynomial = new Polynomial2d.SquaredPolynomial(new Constant(1), new Constant(6), new Constant(-40));
-        System.out.println(Arrays.toString(polynomial.findRoots()));
-        System.out.println(polynomial.getFactors());
-        System.out.println(polynomial.factoredForm());
+        Log.v(TAG,Arrays.toString(polynomial.findRoots()));
+        Log.v(TAG,polynomial.getFactors());
+        Log.v(TAG,polynomial.factoredForm());
         Equation tempEq = new Equation(polynomial, Constant.ZERO);
-        System.out.println(Equation.solutions(tempEq, 10));
+        Log.v(TAG,Equation.solutions(tempEq, 10));
     }
 
     @Test
@@ -160,14 +162,14 @@ public class TestSymbo {
         Addition poly1 = new Addition(new Power(x, Constant.TWO), new Power(y, Constant.TWO));
         Operation poly2 = new Constant(0);
         Equation equation = new Equation(poly1, poly2);
-        System.out.println(Equation.solutions(equation, 3));
+        Log.v(TAG,Equation.solutions(equation, 3));
     }
 
     @Test
     public void testEquationSatisfies(){
         Equation e = Equation.parse("y = 2x ");
         List<Map<Variable, Double>> res = e.satisfies10();
-        System.out.println(res);
+        Log.v(TAG,res);
     }
 
     public static void testEquationPlot(){
@@ -181,10 +183,10 @@ public class TestSymbo {
     public void testVector() {
         Vector v = new Vector("v", new Constant(2), new Constant(3));
         Vector u = new Vector("u", new Constant(4), new Constant(5));
-        System.out.println(Arrays.toString(v.getValues()));
-        System.out.println(v.magnitude());
-        System.out.println(v.dot(v));
-        System.out.println(v.dot(u));
+        Log.v(TAG,Arrays.toString(v.getValues()));
+        Log.v(TAG,v.magnitude());
+        Log.v(TAG,v.dot(v));
+        Log.v(TAG,v.dot(u));
     }
 
     public static void main(String[] args){

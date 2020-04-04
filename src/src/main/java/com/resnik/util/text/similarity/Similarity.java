@@ -1,8 +1,12 @@
 package com.resnik.util.text.similarity;
 
+import com.resnik.util.logger.Log;
+
 import java.util.*;
 
 public final class Similarity {
+
+    public static final String TAG = Similarity.class.getSimpleName();
 
     private Similarity(){}
 
@@ -122,7 +126,7 @@ public final class Similarity {
     }
 
     public static double cosine(String[] aSplit, String[] bSplit){
-        System.out.println(Arrays.toString(aSplit) + "\t" + Arrays.toString(bSplit));
+        Log.v(TAG,Arrays.toString(aSplit) + "\t" + Arrays.toString(bSplit));
         Map<String, Integer> aMap = new LinkedHashMap<>();
         Map<String, Integer> bMap = new LinkedHashMap<>();
         List<String> uniqueYoke = addIgnoreCase(aSplit, new ArrayList<>());
@@ -139,7 +143,7 @@ public final class Similarity {
         assert (aVec.size() == bVec.size());
         Integer[] aArr = aVec.toArray(new Integer[aVec.size()]);
         Integer[] bArr = bVec.toArray(new Integer[bVec.size()]);
-        System.out.println(Arrays.toString(aArr) + "\t" + Arrays.toString(bArr));
+        Log.v(TAG,Arrays.toString(aArr) + "\t" + Arrays.toString(bArr));
         double dot = 0.0;
         double aSquareSum = 0.0;
         double bSquareSum = 0.0;

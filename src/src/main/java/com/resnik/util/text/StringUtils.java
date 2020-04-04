@@ -53,6 +53,14 @@ public final class StringUtils {
         return retString;
     }
 
+    public static String repeatString(String c, int n){
+        String retString = "";
+        for(int i = 0; i < n; i++){
+            retString += c;
+        }
+        return retString;
+    }
+
     public static String[] findRem(String test, String key){
         if(key == null || !test.contains(key)){
             return new String[0];

@@ -2,6 +2,7 @@ package com.resnik.util.images.features;
 
 import com.resnik.util.images.StructuringElement;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.MatrixUtils;
 import com.resnik.util.objects.arrays.ArrayUtils;
 import com.resnik.util.files.FileUtils;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class HOG {
+
+    public static final String TAG = HOG.class.getSimpleName();
 
     public final int[][] positive_representation, negative_representation;
     public final Cell[][] cells;
@@ -48,12 +51,12 @@ public final class HOG {
         negDir.mkdirs();
         posDir.mkdirs();
         String fullInputDirectory = root + inputDirName;
-        System.out.println(fullInputDirectory);
+        Log.v(TAG,fullInputDirectory);
         Map<String, List<String>> fileMap = FileUtils.getFileExtensionNameMap(fullInputDirectory);
-        System.out.println(fileMap);
+        Log.v(TAG,fileMap);
         String[] names = FileUtils.getNames(fullInputDirectory, "bmp");
         String[] locs = FileUtils.getLocations(fullInputDirectory, "bmp");
-        System.out.println(Arrays.toString(locs));
+        Log.v(TAG,Arrays.toString(locs));
         HOG[] hogs = new HOG[locs.length];
         for (int LOC_INDEX = 0; LOC_INDEX < locs.length; LOC_INDEX++) {
             byte[][][] original = ImageUtils.loadImageBytes(locs[LOC_INDEX]);
@@ -287,7 +290,7 @@ public final class HOG {
                         double perc = delta / binsize;
                         double amt_r = perc * curr.mag;
                         double amt_l = (1 - perc) * curr.mag;
-                        // System.out.println("delta:" + delta + "\tperc:" + perc + "\ti:" + i  + "\tleft:" + left+ "\tcurr:" + theta + "\tright:" + right + "\tamtL:" + amt_l + "\tamtR:" + amt_r);
+                        // Log.v(TAG,"delta:" + delta + "\tperc:" + perc + "\ti:" + i  + "\tleft:" + left+ "\tcurr:" + theta + "\tright:" + right + "\tamtL:" + amt_l + "\tamtR:" + amt_r);
 
                         if (i + 1 < tempArray.length) {
                             tempArray[i] += (int) amt_l;
@@ -300,7 +303,7 @@ public final class HOG {
                 }
             }
         }
-        // System.out.println("temp:" + Arrays.toString(tempArray));
+        // Log.v(TAG,"temp:" + Arrays.toString(tempArray));
         int[] retArray = new int[number_of_bins];
         tempArray[1] += tempArray[0];
         tempArray[tempArray.length - 2] += tempArray[tempArray.length - 1];

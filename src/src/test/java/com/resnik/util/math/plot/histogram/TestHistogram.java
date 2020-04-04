@@ -44,4 +44,10 @@ public class TestHistogram {
         ImageUtils.saveGifBuffered(bufferedArray, gd, "src/res/histogram/gaussian.gif");
     }
 
+    @Test
+    public void testBinaryGif() throws IOException{
+        // Any more than 20 can throw a integer overflow
+        BinaryDistribution.saveGif(20,"src/res/histogram/binary.gif");
+    }
+
 }

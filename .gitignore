@@ -1,2 +1,4 @@
 src/out/*
-
+# For size purposes
+*.gif
+!sunglasses.gif

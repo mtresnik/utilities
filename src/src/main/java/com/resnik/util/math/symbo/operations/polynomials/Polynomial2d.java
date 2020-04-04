@@ -53,17 +53,17 @@ public class Polynomial2d extends Polynomial {
             Pair<Constant, Constant> currPair = new Pair(coefficients[i], exponents[i]);
             pairList.add(currPair);
         }
-//        System.out.println(pairList);
+//        Log.v(TAG,pairList);
         Multiplication[] retArray = new Multiplication[pairList.size()];
         for (int i = 0; i < retArray.length; i++) {
             Pair<Constant, Constant> currPair = pairList.get(i);
             Multiplication tempProduct = new Multiplication(
                     new Constant(currPair.getKey().getValue()),
                     Power.var(var, currPair.getValue().getValue()));
-//            System.out.println(Arrays.toString(tempProduct.values));
+//            Log.v(TAG,Arrays.toString(tempProduct.values));
             retArray[i] = tempProduct;
         }
-//        System.out.println("retArray:" + Arrays.toString(retArray));
+//        Log.v(TAG,"retArray:" + Arrays.toString(retArray));
         return retArray;
     }
 
@@ -74,9 +74,9 @@ public class Polynomial2d extends Polynomial {
     public static Multiplication[] generateProducts(Constant[] coefficients) {
         double[] exponents = ArrayUtils.generateSequenceDouble(coefficients.length - 1, -1, -1);
         Constant[] exponent_constants = Constant.parseArray(exponents);
-//        System.out.println("exponent_constants:" + Arrays.toString(exponent_constants));
+//        Log.v(TAG,"exponent_constants:" + Arrays.toString(exponent_constants));
         Multiplication[] retProducts = generateProducts(coefficients, exponent_constants);
-//        System.out.println("retProducts:" + Arrays.toString(retProducts));
+//        Log.v(TAG,"retProducts:" + Arrays.toString(retProducts));
         return retProducts;
     }
 

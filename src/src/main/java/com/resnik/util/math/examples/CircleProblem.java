@@ -1,5 +1,6 @@
 package com.resnik.util.math.examples;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.numbers.BigNumberUtils;
 import com.resnik.util.math.numbers.Factorial;
 
@@ -11,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class CircleProblem {
+
+    public static final String TAG = CircleProblem.class.getSimpleName();
 
     public static final MathContext mc = new MathContext(32, RoundingMode.HALF_EVEN);
     public static final BigInteger DEFAULT_CAP = new BigInteger("1000");
@@ -152,12 +155,12 @@ public final class CircleProblem {
     }
 
     public static void main(String[] args) {
-        System.out.println(r(new BigInteger("0")));
-        System.out.println(R(new BigInteger("12")));
-        System.out.println(generateAFromR(new BigInteger("3000")));
-        System.out.println(A);
-        System.out.println(wFromTest(DEFAULT_CAP, new BigDecimal("0"), 20));
-        System.out.println(W_test_MAP);
+        Log.v(TAG,r(new BigInteger("0")));
+        Log.v(TAG,R(new BigInteger("12")));
+        Log.v(TAG,generateAFromR(new BigInteger("3000")));
+        Log.v(TAG,A);
+        Log.v(TAG,wFromTest(DEFAULT_CAP, new BigDecimal("0"), 20));
+        Log.v(TAG,W_test_MAP);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.resnik.util.math.symbo.operations;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.ComplexNumber;
 import com.resnik.util.math.plot.points.Point3d;
@@ -15,6 +16,8 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class Equation implements Solvable {
+
+    public static final String TAG = Equation.class.getSimpleName();
 
     public Operation LHS;
     public Operation RHS;
@@ -97,7 +100,7 @@ public class Equation implements Solvable {
         ComplexNumber z = this.error().value;
         TempPoint3d rep = new TempPoint3d(x,z,y);
         attempts.add(rep);
-        System.out.println(attempts.size());
+        Log.v(TAG,attempts.size());
         PlotDataset3D dataset3D = new PlotDataset3D(Color.RED, attempts);
         dataset3D.setLines(true);
         PlotPoly3D poly1 = new PlotPoly3D(Color.BLUE, LHS);
@@ -105,7 +108,7 @@ public class Equation implements Solvable {
 
         Plot3D.CartesianPlot plot = new Plot3D.CartesianPlot(dataset3D, poly1, poly2);
         plot.show();
-        System.out.println(this.bestGuess);
+        Log.v(TAG,this.bestGuess);
     }
 
     private void init(){

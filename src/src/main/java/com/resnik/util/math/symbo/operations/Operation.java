@@ -1,5 +1,6 @@
 package com.resnik.util.math.symbo.operations;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.Algebraic;
 import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.ComplexNumber;
@@ -12,6 +13,8 @@ import java.util.*;
 
 public abstract class Operation<EVAL extends Algebraic> 
         implements Algebraic<Operation, Addition, Operation, Subtraction, Operation, Multiplication, Operation, Division, Operation, Power> {
+
+    public static final String TAG = Operation.class.getSimpleName();
 
     protected Operation[] values;
 
@@ -41,7 +44,7 @@ public abstract class Operation<EVAL extends Algebraic>
     public abstract String nonConstantString();
 
     public Operation evaluatePrint(Variable var, EVAL t) {
-        System.out.println("Eval(var: " + var + " = " + t + ")");
+        Log.v(TAG,"Eval(var: " + var + " = " + t + ")");
         return Operation.this.evaluate(var, t);
     }
 
@@ -51,7 +54,7 @@ public abstract class Operation<EVAL extends Algebraic>
         while (varIter.hasNext() && numberIter.hasNext()) {
             Variable currVar = varIter.next();
             Algebraic currNumber = numberIter.next();
-            System.out.println("Eval(var: " + currVar + " = " + currNumber + ")");
+            Log.v(TAG,"Eval(var: " + currVar + " = " + currNumber + ")");
         }
         return Operation.this.evaluate(var, t);
     }
@@ -62,7 +65,7 @@ public abstract class Operation<EVAL extends Algebraic>
         while (varIter.hasNext() && numberIter.hasNext()) {
             Variable currVar = varIter.next();
             Double currNumber = numberIter.next();
-            System.out.println("Eval(var: " + currVar + " = " + currNumber + ")");
+            Log.v(TAG,"Eval(var: " + currVar + " = " + currNumber + ")");
         }
         return evaluateReal(var, t);
     }
@@ -147,8 +150,8 @@ public abstract class Operation<EVAL extends Algebraic>
 
     public final Operation[] evaluatePrint(EVAL[] x_values) {
         Operation[] retArray = this.evaluateX(x_values);
-        System.out.println("x:\t" + Arrays.toString(x_values));
-        System.out.println("f(x):\t" + Arrays.toString(retArray));
+        Log.v(TAG,"x:\t" + Arrays.toString(x_values));
+        Log.v(TAG,"f(x):\t" + Arrays.toString(retArray));
         return retArray;
     }
 
@@ -205,7 +208,7 @@ public abstract class Operation<EVAL extends Algebraic>
     
     public boolean containsVar(Variable var) {
         if (this instanceof Variable) {
-//            System.out.println("instanceOf:" + this.toString());
+//            Log.v(TAG,"instanceOf:" + this.toString());
             return var.equals(this);
         }
         return varOperations(var).length > 0;
@@ -216,7 +219,7 @@ public abstract class Operation<EVAL extends Algebraic>
         List<Operation> validOperationsList = new ArrayList();
         for (Operation curr : this.values) {
             if (curr instanceof Constant || curr.allConstants()) {
-//                System.out.println("all constants:" + curr);
+//                Log.v(TAG,"all constants:" + curr);
                 continue;
             }
             if (curr.containsVar(var)) {

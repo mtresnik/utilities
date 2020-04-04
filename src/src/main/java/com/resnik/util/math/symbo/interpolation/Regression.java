@@ -2,6 +2,8 @@ package com.resnik.util.math.symbo.interpolation;
 
 import java.util.Arrays;
 import java.util.function.Function;
+
+import com.resnik.util.logger.Log;
 import javafx.scene.paint.Color;
 import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.ComplexNumber;
@@ -21,6 +23,8 @@ import com.resnik.util.math.symbo.operations.Variable;
 import com.resnik.util.math.symbo.operations.Vector;
 
 public class Regression {
+
+    public static final String TAG = Regression.class.getSimpleName();
 
     public final Polynomial2d polynomial;
     public final Point2d[] dataset;
@@ -94,12 +98,12 @@ public class Regression {
         };
         PlotElement2D f1 = new PlotFunction2D(f, Color.RED);
         PlotElement2D d1 = new PlotDataset2D(this.dataset, Color.WHITE);
-        System.out.println("f1:" + f1);
-        System.out.println("d1:" + d1);
+        Log.v(TAG,"f1:" + f1);
+        Log.v(TAG,"d1:" + d1);
         Bounds[] bounds_xy = Point2d.findBounds(dataset);
-        System.out.println("bounds:" + Arrays.toString(bounds_xy));
+        Log.v(TAG,"bounds:" + Arrays.toString(bounds_xy));
         Bounds[] bounds_spaced = Point2d.findBoundsSpaced(2, 5, dataset);
-        System.out.println("bounds_spaced:" + Arrays.toString(bounds_spaced));
+        Log.v(TAG,"bounds_spaced:" + Arrays.toString(bounds_spaced));
         CartesianPlot p = new CartesianPlot(bounds_spaced[0], bounds_spaced[1], f1, d1);
         p.show();
     }

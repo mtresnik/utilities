@@ -2,6 +2,7 @@ package com.resnik.util.math.fractals;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.ComplexNumber;
 
 import java.awt.image.BufferedImage;
@@ -10,6 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Mandelbrot {
+
+    public static final String TAG = Mandelbrot.class.getSimpleName();
 
     public static int MAX_CONVERGENCE = 100;
 
@@ -49,7 +52,7 @@ public class Mandelbrot {
                 }
                 retImage[ROW][COL] = pixel;
             }
-            System.out.println("Completed Row:" + ROW);
+            Log.v(TAG,"Completed Row:" + ROW);
         }
         return retImage;
     }
@@ -92,7 +95,7 @@ public class Mandelbrot {
                 }
                 retImage[ROW][COL] = pixel;
             }
-            System.out.println("Completed Row:" + ROW);
+            Log.v(TAG,"Completed Row:" + ROW);
         }
         return retImage;
     }

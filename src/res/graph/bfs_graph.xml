@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph>
+	<vertices>
+		<vertex name="a"/>
+		<vertex name="e"/>
+		<vertex name="b"/>
+		<vertex name="f"/>
+		<vertex name="c"/>
+		<vertex name="h"/>
+		<vertex name="g"/>
+		<vertex name="d"/>
+	</vertices>
+	<edges>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="a"/>
+			</from>
+			<to>
+				<vertex name="e"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="a"/>
+			</from>
+			<to>
+				<vertex name="b"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="e"/>
+			</from>
+			<to>
+				<vertex name="b"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="b"/>
+			</from>
+			<to>
+				<vertex name="f"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="b"/>
+			</from>
+			<to>
+				<vertex name="c"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="f"/>
+			</from>
+			<to>
+				<vertex name="h"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="c"/>
+			</from>
+			<to>
+				<vertex name="h"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="g"/>
+			</from>
+			<to>
+				<vertex name="c"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="c"/>
+			</from>
+			<to>
+				<vertex name="d"/>
+			</to>
+		</edge>
+		<edge weight="1.0" direction="BIDIRECTIONAL">
+			<from>
+				<vertex name="g"/>
+			</from>
+			<to>
+				<vertex name="d"/>
+			</to>
+		</edge>
+	</edges>
+</graph>

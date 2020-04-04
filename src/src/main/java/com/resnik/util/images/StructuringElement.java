@@ -1,8 +1,12 @@
 package com.resnik.util.images;
 
+import com.resnik.util.logger.Log;
+
 import java.util.Arrays;
 
 public final class StructuringElement {
+
+    public static final String TAG = StructuringElement.class.getSimpleName();
 
     private final int[][] int_representation;
     private final int[][][] vec_representation;
@@ -23,13 +27,13 @@ public final class StructuringElement {
 
     public void print() {
         for (int i = 0; i < this.int_representation.length; i++) {
-            System.out.println(Arrays.toString(this.int_representation[i]));
+            Log.v(TAG,Arrays.toString(this.int_representation[i]));
         }
     }
 
     public void printVec() {
         for (int ROW = 0; ROW < this.vec_representation.length; ROW++) {
-            System.out.println(Arrays.deepToString(this.vec_representation[ROW]));
+            Log.v(TAG,Arrays.deepToString(this.vec_representation[ROW]));
         }
 
     }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tasks>
+    <!--   Lifecycle is: doFirst, loadTasks, loadDecorators, loadSelectors, loadSequences, doLast  -->
+    <!--   All nodes must be in a package  -->
+    <doFirst>
+        <package name="com.resnik.util.behavior.tasks">
+            <task name="ExampleDoFirst"/>
+        </package>
+    </doFirst>
+    <package name="com.resnik.util.behavior.tasks">
+        <task name="Task1"/>
+        <task name="Task2"/>
+        <task name="Task3"/>
+        <selector name="Selector1" order="Task1,Task2,Task3"/>
+        <!--   Can use loaded name from other packages    -->
+        <!--   If a custom selector doesn't exist, it will use the default selector    -->
+        <selector name="Selector2" order="Common1,Task1,Task2,Task3"/>
+        <!--   Can have selectors of previously loaded selectors    -->
+        <selector name="Selector3" order="Selector2, Common2"/>
+        <sequence name="Sequence1" order="Task1,Task2,Task3"/>
+    </package>
+    <package name="com.resnik.util.behavior.tasks.common">
+        <task name="Common1"/>
+        <task name="Common2"/>
+    </package>
+    <doLast>
+
+    </doLast>
+</tasks>

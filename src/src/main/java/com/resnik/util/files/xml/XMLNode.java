@@ -73,6 +73,18 @@ public class XMLNode<T extends XMLElement> extends TreeNode<T> {
         return this.getValue().name;
     }
 
+    public List<XMLNode> findChildrenByName(String name){
+        List<XMLNode> retList = new ArrayList<>();
+        for(TreeNode<T> child : this.getChildren()){
+            if(child instanceof XMLNode){
+                if(Objects.equals(((XMLNode) child).getName(), name)){
+                    retList.add((XMLNode) child);
+                }
+            }
+        }
+        return retList;
+    }
+
     public List<XMLNode> findAllByName(String name){
         List<XMLNode> retList = new ArrayList<>();
         if(Objects.equals(this.getName(), name)){

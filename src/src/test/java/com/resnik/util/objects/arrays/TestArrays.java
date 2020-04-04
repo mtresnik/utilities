@@ -2,6 +2,7 @@ package com.resnik.util.objects.arrays;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
+import com.resnik.util.logger.Log;
 import org.junit.Test;
 
 import java.awt.*;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class TestArrays {
+
+    public static final String TAG = TestArrays.class.getSimpleName();
 
     @Test
     public void testArrays() throws IOException {
@@ -31,7 +34,7 @@ public class TestArrays {
         }
         int count = 0;
         int max = (width*height)/2;
-        System.out.println(Arrays.deepToString(pallete));
+        Log.v(TAG,Arrays.deepToString(pallete));
         for (int i = 0; i < frames.length ; i++) {
             for (int ROW = 0; ROW < height ; ROW++) {
                 int NEW_ROW = (int)(Math.random()*height);
@@ -57,8 +60,8 @@ public class TestArrays {
                 {1,2.32,4},
                 {5.6}
         };
-        System.out.println(Arrays.toString(ArrayUtils.flatten(input)));
-        System.out.println(Arrays.toString(ArrayUtils.flatten(dInput)));
+        Log.v(TAG,Arrays.toString(ArrayUtils.flatten(input)));
+        Log.v(TAG,Arrays.toString(ArrayUtils.flatten(dInput)));
     }
 
 }

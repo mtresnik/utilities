@@ -3,6 +3,7 @@ package com.resnik.util.images;
 import com.resnik.util.files.FileUtils;
 import com.resnik.util.images.features.Gradient;
 import com.resnik.util.images.features.HOG;
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.Bounds;
 import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.objects.arrays.ArrayUtils;
@@ -33,11 +34,16 @@ import java.util.function.Function;
  */
 public final class ImageUtils {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     public static final int BLACK = 0x00000000, WHITE = 0xffffffff;
     public static final byte[] BLACK_B = new byte[]{BLACK, BLACK, BLACK}, WHITE_B = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE};
     public static final byte[] BLACK_ARGB = new byte[]{BLACK, BLACK, BLACK, -1};
     public static final byte[] WHITE_ARGB = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE, -1};
+    public static final byte[] RED_ARGB = new byte[]{(byte) 255, (byte) 0, (byte) 0, (byte) 255};
+    public static final byte[] GREEN_ARGB = new byte[]{(byte) 255, (byte) 0, (byte) 255, (byte) 0};
+    public static final byte[] BLUE_ARGB = new byte[]{(byte) 255, (byte) 255, (byte) 0, (byte) 0};
+
+    public static final String TAG = ImageUtils.class.getSimpleName();
 
     public static final Color[] RAINBOW_AWT = new Color[]{
             Color.RED,
@@ -48,6 +54,22 @@ public final class ImageUtils {
             Color.BLUE,
             Color.MAGENTA
     };
+
+    public static byte[] gradient(double val){
+        if(val <= 0){
+            return new byte[]{(byte) 255, (byte) 0, (byte) 0};
+        }
+        if(val == 0.5){
+            return new byte[]{(byte) 255, (byte) 255, (byte) 0};
+        }
+        if(val >= 1.0){
+            return new byte[]{(byte) 0, (byte) 255, (byte) 0};
+        }
+        if(val < 0.5){
+            return new byte[]{(byte) 255, (byte) (int) (255*val), (byte) 0};
+        }
+        return new byte[]{(byte) (int) (255 - 255*(val - 0.5)), (byte) 255, (byte) 0};
+    }
 
     public static byte[] gradientRainbow(Color[] inputs, double val){
         double inner = val*inputs.length;
@@ -97,7 +119,6 @@ public final class ImageUtils {
             for (int COL = 0; COL < inputImage[0].length - dim[0] + 1; COL += x_offset) {
                 byte[][][] currImage = ArrayUtils.subset(inputImage, ROW, COL, dim[1], dim[0], BLACK_B);
                 retImages.add(currImage);
-                System.out.println("row:" + ROW + "\tcol:" + COL);
             }
         }
         return retImages;
@@ -111,7 +132,6 @@ public final class ImageUtils {
             for (int COL = 0; COL < inputImage[0].length - dim[0] + 1; COL += x_offset) {
                 byte[][][] currImage = ArrayUtils.subset(inputImage, ROW, COL, dim[1], dim[0], BLACK_B);
                 results.add(callback.call(currImage));
-                System.out.println("row:" + ROW + "\tcol:" + COL);
             }
         }
         return results;
@@ -122,7 +142,6 @@ public final class ImageUtils {
         byte[][][] retImage = ImageUtils.solidRect(newRes[1], newRes[0], BLACK_B);
         double y_scalar = inputImage.length * (1.0 / retImage.length);
         double x_scalar = inputImage[0].length * (1.0 / retImage[0].length);
-        System.out.println("scalars:" + y_scalar + " " + x_scalar);
         for (int ROW = 0; ROW < retImage.length; ROW++) {
             for (int COL = 0; COL < retImage[0].length; COL++) {
                 int yVal = (int) (ROW * y_scalar);
@@ -362,16 +381,8 @@ public final class ImageUtils {
     // apply edges using regular gradients / kernals
     public static int[][] applySlopefield(int[][] inputImage, double scalar, boolean... debug) {
         int[][] retImage;
-        // {{1,c,1}}
         StructuringElement structure_x = StructuringElement.rect(3, 1, 0, 1);
-//        structure_x.print();
-//        structure_x.printVec();
-
-// {{1}, {c}, {1}}
         StructuringElement structure_y = StructuringElement.rect(1, 3, 1, 0);
-//        structure_y.print();
-//        structure_y.printVec();
-
         double[][] filter_x = {{-1}, {0}, {1}};
         double[][] filter_y = {{-1, 0, 1}};
 
@@ -394,7 +405,7 @@ public final class ImageUtils {
                 retImage = insert(retImage, intLine, square, x_ins, y_ins);
             }
             if (debug.length > 0 && debug[0]) {
-                System.out.printf("ROW:%s\n", ROW);
+                Log.v(TAG, "ROW:" + ROW);
             }
         }
         return retImage;
@@ -404,14 +415,7 @@ public final class ImageUtils {
         int[][] retImage;
         // {{1,c,1}}
         StructuringElement structure_x = StructuringElement.rect(3, 1, 0, 1);
-//        structure_x.print();
-//        structure_x.printVec();
-
-// {{1}, {c}, {1}}
         StructuringElement structure_y = StructuringElement.rect(1, 3, 1, 0);
-//        structure_y.print();
-//        structure_y.printVec();
-
         double[][] filter_x = {{-1}, {0}, {1}};
         double[][] filter_y = {{-1, 0, 1}};
 
@@ -434,7 +438,7 @@ public final class ImageUtils {
                 retImage = insert(retImage, intLine, square, x_ins, y_ins);
             }
             if (debug.length > 0 && debug[0]) {
-                System.out.printf("ROW:%s\n", ROW);
+                Log.v(TAG, "ROW:" + ROW);
             }
         }
         return retImage;
@@ -474,7 +478,7 @@ public final class ImageUtils {
                 retImage = insert(retImage, intLine, square, x_ins, y_ins);
             }
             if (debug.length > 0 && debug[0]) {
-                System.out.printf("ROW:%s\n", ROW);
+                Log.v(TAG, "ROW:" + ROW);
             }
         }
         return retImage;
@@ -527,7 +531,7 @@ public final class ImageUtils {
 
         double threshold = (int) (r_perc * d_threshold * 255 + g_perc * d_threshold * 255 + b_perc * d_threshold * 255);
 
-        // System.out.println("threshold:" + threshold);
+        // Log.v(TAG,"threshold:" + threshold);
         for (int i = 0; i < inputImage.length; i++) {
             for (int j = 0; j < inputImage[0].length; j++) {
                 int r = inputImage[i][j][0], g = inputImage[i][j][1], b = inputImage[i][j][2];
@@ -568,8 +572,7 @@ public final class ImageUtils {
             for (int j = 0; j < greyImage[0].length; j++) {
                 int val = greyImage[i][j];
                 double normalized = 0.5 - val / 255.0;
-                System.out.println("val:" + val + "\t normalized:" + normalized);
-//                retImage[i][j] = ramp.charAt((int) (normalized * ramp.length()));
+                Log.v(TAG,"val:" + val + "\t normalized:" + normalized);
             }
         }
         return retImage;
@@ -578,7 +581,6 @@ public final class ImageUtils {
     public static char[][] applySlant(byte[][][] greyValues) {
         String ramp = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
         char[][] retImage = new char[greyValues.length][greyValues[0].length];
-        System.out.println("ramp:" + ramp.length());
         for (int i = 0; i < greyValues.length; i++) {
             for (int j = 0; j < greyValues[0].length; j++) {
                 int val = greyValues[i][j][0];
@@ -589,9 +591,7 @@ public final class ImageUtils {
                     val -= 256;
                 }
                 double normalized = val / 255.0;
-//                System.out.println("val:" + val + "\t normalized:" + normalized);
                 int index = (int) (normalized * ramp.length());
-//                System.out.println(index);
                 retImage[i][j] = ramp.charAt(index);
             }
         }
@@ -602,7 +602,6 @@ public final class ImageUtils {
         byte[][][] retImage = new byte[inputImage.length / stride][inputImage[0].length / stride][inputImage[0][0].length];
         for (int ROW = stride / 2; ROW < inputImage.length - Math.ceil(stride / 2); ROW += stride) {
             for (int COL = stride / 2; COL < inputImage[0].length - Math.ceil(stride / 2); COL += stride) {
-//                System.out.println(ROW + ", " + COL);
                 double r_sum = 0, g_sum = 0, b_sum = 0;
                 for (int i = -stride / 2; i < Math.ceil(stride / 2); i++) {
                     for (int j = -stride / 2; j < Math.ceil(stride / 2); j++) {
@@ -867,7 +866,6 @@ public final class ImageUtils {
                 int START_COL = IMAGE_COL * image_width;
                 for (int ROW = 0; ROW < image_height; ROW++) {
                     for (int COL = 0; COL < image_width; COL++) {
-//                        System.out.printf("s_row:%s, s_col:%s\n", START_ROW + ROW, START_COL+COL);
                         retArray[START_ROW + ROW][START_COL + COL] = currImage[ROW][COL];
                     }
                 }
@@ -937,8 +935,10 @@ public final class ImageUtils {
         File file = new File(pathName);
         BufferedImage img = ImageIO.read(file);
         int width = img.getWidth(), height = img.getHeight();
-        System.out.printf("GIF Loaded. width=%s \theight=%s\n", width, height);
-        System.out.println("Sources:" + img.getSources());
+        if(DEBUG){
+            System.out.printf("GIF Loaded. width=%s \theight=%s\n", width, height);
+            Log.v(TAG,"Sources:" + img.getSources());
+        }
         GifDecoder gd = new GifDecoder();
         gd.read(pathName);
         List<byte[][][]> retList = gifDecoderToBytes(gd);
@@ -949,8 +949,7 @@ public final class ImageUtils {
         File file = new File(pathName);
         BufferedImage img = ImageIO.read(file);
         int width = img.getWidth(), height = img.getHeight();
-        System.out.printf("GIF Loaded. width=%s \theight=%s\n", width, height);
-        System.out.println("Sources:" + img.getSources());
+        Log.v(TAG,"Sources:" + img.getSources());
         GifDecoder gd = new GifDecoder();
         gd.read(pathName);
         return gifDecoderToBufferedImages(gd);
@@ -964,7 +963,6 @@ public final class ImageUtils {
             case "png":
                 return loadImageToByteArray(pathName, BufferedImage.TYPE_INT_ARGB);
             default:
-                System.out.printf("PATHNAME:%s \t EXTENSION:%s", pathName, extension);
                 throw new IllegalArgumentException("Invalid path, must be of type BMP or PNG.");
         }
     }
@@ -978,7 +976,6 @@ public final class ImageUtils {
     }
 
     public static BufferedImage loadImageBuffered(String pathName) throws IOException {
-        System.out.println("load:" + pathName);
         BufferedImage img = ImageIO.read(new File(pathName));
         return img;
     }
@@ -995,7 +992,7 @@ public final class ImageUtils {
         BufferedImage img = ImageIO.read(new File(pathName));
         byte[][][] retMatrix = bufferedImageToBytes(img, CODEC);
         if (DEBUG) {
-            System.out.println("Read success".toUpperCase());
+            Log.v(TAG,"Read success".toUpperCase());
         }
         return retMatrix;
     }
@@ -1018,7 +1015,7 @@ public final class ImageUtils {
             }
         }
         if (DEBUG) {
-            System.out.println("Read success".toUpperCase());
+            Log.v(TAG,"Read success".toUpperCase());
         }
         return retMatrix;
     }
@@ -1039,7 +1036,6 @@ public final class ImageUtils {
                 saveImageFromByteArray(pixels, pathName, BufferedImage.TYPE_INT_ARGB);
                 break;
             default:
-                System.out.printf("PATHNAME:%s \t EXTENSION:%s\n", pathName, extension);
                 throw new IllegalArgumentException("Invalid path, must be of type BMP or PNG.");
         }
     }
@@ -1061,7 +1057,7 @@ public final class ImageUtils {
         String extension = FileUtils.getFileExtension(file);
         ImageIO.write(image, extension.toUpperCase(), file);
         if (DEBUG) {
-            System.out.println("Write success".toUpperCase());
+            Log.v(TAG,"Write success".toUpperCase());
         }
     }
 
@@ -1090,7 +1086,7 @@ public final class ImageUtils {
         String extension = FileUtils.getFileExtension(file);
         ImageIO.write(bi, extension.toUpperCase(), file);
         if (DEBUG) {
-            System.out.println("Write success".toUpperCase());
+            Log.v(TAG,"Write success".toUpperCase());
         }
     }
 
@@ -1106,7 +1102,7 @@ public final class ImageUtils {
         String extension = FileUtils.getFileExtension(file);
         ImageIO.write(bi, extension.toUpperCase(), file);
         if (DEBUG) {
-            System.out.println("Write success".toUpperCase());
+            Log.v(TAG,"Write success".toUpperCase());
         }
     }
 
@@ -1138,7 +1134,7 @@ public final class ImageUtils {
         }
         writer.close();
         output.close();
-        System.out.println("WRITE SUCCESS");
+        Log.v(TAG,"WRITE SUCCESS");
     }
 //</editor-fold>
 
@@ -1242,7 +1238,6 @@ public final class ImageUtils {
             max_width = Math.max(coord[0], max_width);
             max_height = Math.max(coord[1], max_height);
         }
-        System.out.printf("mw:%s\tmh:%s\n", max_width, max_height);
         byte[][][] retImage = new byte[max_height + 1][max_width + 1][];
         for (int ROW = 0; ROW < max_height + 1; ROW++) {
             for (int COL = 0; COL < max_width + 1; COL++) {
@@ -1299,7 +1294,7 @@ public final class ImageUtils {
         if (b > 255) {
             b = 255;
         }
-//        System.out.println("rgb:" + r + " " + g + " " + b);
+//        Log.v(TAG,"rgb:" + r + " " + g + " " + b);
         retColor = new Color(r, g, b);
         return retColor;
     }
@@ -1314,7 +1309,7 @@ public final class ImageUtils {
 
     public static List<byte[][][]> gifDecoderToBytes(GifDecoder gd) {
         int frames = gd.getFrameCount();
-        System.out.println("Frames:" + frames);
+        Log.v(TAG,"Frames:" + frames);
         BufferedImage[] images = new BufferedImage[frames];
         for (int frame_index = 0; frame_index < frames; frame_index++) {
             images[frame_index] = gd.getFrame(frame_index);
@@ -1329,7 +1324,7 @@ public final class ImageUtils {
 
     public static BufferedImage[] gifDecoderToBufferedImages(GifDecoder gd) {
         int frames = gd.getFrameCount();
-        System.out.println("Frames:" + frames);
+        Log.v(TAG,"Frames:" + frames);
         BufferedImage[] images = new BufferedImage[frames];
         for (int frame_index = 0; frame_index < frames; frame_index++) {
             images[frame_index] = gd.getFrame(frame_index);

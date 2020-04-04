@@ -1,11 +1,14 @@
 package com.resnik.util.math.plot.histogram;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.objects.structures.CountList;
 import com.resnik.util.objects.structures.CountObject;
 
 import java.util.*;
 
 public class HistogramData<T> extends CountList<T> {
+
+    public static final String TAG = HistogramData.class.getSimpleName();
 
     public HistogramData(){
         this.setMaintainOrderPair(null);
@@ -15,7 +18,7 @@ public class HistogramData<T> extends CountList<T> {
         HistogramData<T> ret = new HistogramData<>();
         ret.setMaintainOrderPair(null);
         countList.forEach(tCountObject -> ret.add(tCountObject));
-        System.out.println("ret:" + ret);
+        Log.v(TAG,"ret:" + ret);
         return ret;
     }
 
@@ -40,7 +43,7 @@ public class HistogramData<T> extends CountList<T> {
                 }
             }
         }
-        System.out.println(retCount);
+        Log.v(TAG,retCount);
         return HistogramData.toHistogramData(retCount);
     }
 

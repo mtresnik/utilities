@@ -1,5 +1,6 @@
 package com.resnik.util.math.examples;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.operations.Constant;
 import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.math.symbo.operations.base.Negation;
@@ -9,6 +10,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public class MetaSet extends LinkedHashSet<Operation>{
+
+    public static final String TAG = MetaSet.class.getSimpleName();
 
     public Operation n;
     public Operation m;
@@ -126,10 +129,10 @@ public class MetaSet extends LinkedHashSet<Operation>{
 
     public static void main(String[] args) {
         MetaSet a = upper(2);
-        System.out.println(a);
-        System.out.println(upperAddition(a, a));
-        System.out.println(lower(50));
-        System.out.println(a.sum());
+        Log.v(TAG,a);
+        Log.v(TAG,upperAddition(a, a));
+        Log.v(TAG,lower(50));
+        Log.v(TAG,a.sum());
     }
 
 

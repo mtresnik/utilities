@@ -112,7 +112,6 @@ public class PlotLineSet3D extends PlotElement3D {
                     continue;
             }
         }
-        System.out.println(retPlot);
         retPlot.justify();
         return retPlot;
     }

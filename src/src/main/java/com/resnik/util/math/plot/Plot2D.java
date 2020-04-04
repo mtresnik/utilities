@@ -66,12 +66,12 @@ public class Plot2D {
 
         public void update() {
             if (this.stageSizeListener == null) {
-//                System.out.println("stage size is null");
+//                Log.v(TAG,"stage size is null");
                 if (this.stage != null) {
                     this.setupStage();
                     return;
                 }
-//                System.out.println("stage is null");
+//                Log.v(TAG,"stage is null");
                 return;
             }
             this.stageSizeListener.changed(null, 0.0, 0.0);
@@ -215,9 +215,9 @@ public class Plot2D {
                 this.xInc = xInc;
                 List<Shape> shapes = new ArrayList();
                 for (PlotElement2D elem : graphElements) {
-//                System.out.println(pair);
+//                Log.v(TAG,pair);
                     Shape[] shapeArray = elem.getShapes(axes, this);
-//                    System.out.println("shapes:" + Arrays.toString(shapeArray));
+//                    Log.v(TAG,"shapes:" + Arrays.toString(shapeArray));
                     shapes.addAll(Arrays.asList(shapeArray));
                 }
 

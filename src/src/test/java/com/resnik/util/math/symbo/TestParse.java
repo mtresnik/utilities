@@ -1,5 +1,6 @@
 package com.resnik.util.math.symbo;
 
+import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.operations.Constant;
 import com.resnik.util.math.symbo.operations.Equation;
 import com.resnik.util.math.symbo.operations.Operation;
@@ -17,9 +18,11 @@ import static com.resnik.util.math.symbo.parse.ParseString.balancedParenthesesCh
 
 public class TestParse {
 
+    public static final String TAG = TestParse.class.getSimpleName();
+
     @Test
     public void testConstant(){
-        System.out.println(Constant.parse("2.0 + 5i"));
+        Log.v(TAG,Constant.parse("2.0 + 5i"));
     }
 
     @Test
@@ -27,19 +30,19 @@ public class TestParse {
         SymbolicSyntaxAnalyzer analyzer = new SymbolicSyntaxAnalyzer();
         // TODO : Support |x| --> abs(x)
         Operation operation = analyzer.analyze("sin(2x)+ (5/7)x + abs(20x)");
-        System.out.println(operation);
-        System.out.println(operation.getDerivativeX());
+        Log.v(TAG,operation);
+        Log.v(TAG,operation.getDerivativeX());
     }
 
     @Test
     public void testEquation(){
         Equation equation = Equation.parse("y=mx + b");
-        System.out.println(equation);
+        Log.v(TAG,equation);
     }
 
     public static void main(String[] args) {
-        System.out.println(ComplexNumber.parse("2.0 + 5*i"));
-        System.out.println(ComplexNumber.parse("5*i - 2"));
+        Log.v(TAG,ComplexNumber.parse("2.0 + 5*i"));
+        Log.v(TAG,ComplexNumber.parse("5*i - 2"));
         balancedParenthesesCheck("(a)()");
     }
 

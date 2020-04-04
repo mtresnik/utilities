@@ -1,11 +1,15 @@
 package com.resnik.util.audio.music;
 
+import com.resnik.util.logger.Log;
+import com.resnik.util.math.plot.histogram.HistogramData;
+
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NoteCollection extends ArrayList<Note> implements Playable {
 
+    public static final String TAG = NoteCollection.class.getSimpleName();
 
     public int instrument(){
         return this.first().instrument;
@@ -43,7 +47,7 @@ public class NoteCollection extends ArrayList<Note> implements Playable {
     }
 
     public Track createTrack(Sequence sequence) throws InvalidMidiDataException {
-        System.out.println(Arrays.toString(getAllEvents()));
+        Log.v(TAG,Arrays.toString(getAllEvents()));
         Track retTrack = sequence.createTrack();
         MidiEvent[] starts = this.getStartEvents(), ends = this.getEndEvents();
         for(int i = 0; i < starts.length; i++){
