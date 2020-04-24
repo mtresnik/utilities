@@ -3,7 +3,7 @@ package com.resnik.util.math.plot.points;
 
 import com.resnik.util.files.xml.XMLElement;
 import com.resnik.util.files.xml.XMLNode;
-import com.resnik.util.math.symbo.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;

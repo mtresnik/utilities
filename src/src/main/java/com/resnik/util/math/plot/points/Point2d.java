@@ -1,10 +1,10 @@
 package com.resnik.util.math.plot.points;
 
-import com.resnik.util.math.symbo.Bounds;
-import com.resnik.util.math.symbo.ComplexNumber;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Variable;
-import com.resnik.util.math.symbo.operations.Vector;
+import com.resnik.util.math.symbo.algebra.Bounds;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Variable;
+import com.resnik.util.math.symbo.algebra.operations.Vector;
 
 
 public class Point2d extends Point {

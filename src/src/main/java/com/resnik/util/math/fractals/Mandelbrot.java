@@ -3,7 +3,7 @@ package com.resnik.util.math.fractals;
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

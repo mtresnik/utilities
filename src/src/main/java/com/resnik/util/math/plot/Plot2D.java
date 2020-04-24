@@ -23,7 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import com.resnik.util.math.symbo.Bounds;
+import com.resnik.util.math.symbo.algebra.Bounds;
 
 public class Plot2D {
 

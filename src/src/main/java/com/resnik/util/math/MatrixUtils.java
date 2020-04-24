@@ -1,14 +1,14 @@
 package com.resnik.util.math;
 
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.Algebraic;
-import com.resnik.util.math.symbo.ComplexNumber;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.operations.Variable;
-import com.resnik.util.math.symbo.operations.base.Addition;
-import com.resnik.util.math.symbo.operations.base.Division;
-import com.resnik.util.math.symbo.operations.base.Multiplication;
+import com.resnik.util.math.symbo.algebra.Algebraic;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.operations.Variable;
+import com.resnik.util.math.symbo.algebra.operations.base.Addition;
+import com.resnik.util.math.symbo.algebra.operations.base.Division;
+import com.resnik.util.math.symbo.algebra.operations.base.Multiplication;
 import com.resnik.util.objects.arrays.ArrayUtils;
 
 import java.util.ArrayList;

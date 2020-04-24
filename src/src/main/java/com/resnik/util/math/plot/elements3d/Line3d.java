@@ -3,8 +3,6 @@ package com.resnik.util.math.plot.elements3d;
 import com.resnik.util.files.xml.XMLElement;
 import com.resnik.util.files.xml.XMLNode;
 import com.resnik.util.math.plot.points.Point3d;
-import com.resnik.util.math.symbo.ComplexNumber;
-import com.resnik.util.objects.structures.graph.Vertex;
 import com.resnik.util.objects.structures.tree.TreeNode;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;

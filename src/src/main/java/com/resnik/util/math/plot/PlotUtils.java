@@ -2,11 +2,11 @@ package com.resnik.util.math.plot;
 
 import com.resnik.util.images.ImageUtils;
 import com.resnik.util.math.fractals.CircleApproximation;
-import com.resnik.util.math.symbo.Bounds;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.operations.Variable;
-import com.resnik.util.math.symbo.parse.SymbolicSyntaxAnalyzer;
+import com.resnik.util.math.symbo.algebra.Bounds;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.operations.Variable;
+import com.resnik.util.math.symbo.algebra.parse.SymbolicSyntaxAnalyzer;
 
 import java.awt.*;
 import java.io.IOException;

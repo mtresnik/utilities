@@ -1,9 +1,9 @@
 package com.resnik.util.math.plot.elements3d;
 
 import com.resnik.util.math.plot.points.Point3d;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.operations.Variable;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.operations.Variable;
 import javafx.geometry.Point2D;
 import javafx.scene.DepthTest;
 import javafx.scene.Node;

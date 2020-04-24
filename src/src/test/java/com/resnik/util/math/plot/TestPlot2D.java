@@ -4,7 +4,7 @@ import com.resnik.util.math.plot.elements2d.PlotDataset2D;
 import com.resnik.util.math.plot.elements2d.PlotElement2D;
 import com.resnik.util.math.plot.elements2d.PlotFunction2D;
 import com.resnik.util.math.plot.points.Point2d;
-import com.resnik.util.math.symbo.Bounds;
+import com.resnik.util.math.symbo.algebra.Bounds;
 import javafx.scene.paint.Color;
 
 public class TestPlot2D {

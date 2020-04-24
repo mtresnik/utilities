@@ -1,19 +1,14 @@
 package com.resnik.util.math.symbo;
 
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Equation;
-import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.operations.Variable;
-import com.resnik.util.math.symbo.parse.ParseException;
-import com.resnik.util.math.symbo.parse.ParseString;
-import com.resnik.util.math.symbo.parse.SymbolicSyntaxAnalyzer;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Equation;
+import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.parse.SymbolicSyntaxAnalyzer;
 import org.junit.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.resnik.util.math.symbo.parse.ParseString.balancedParenthesesCheck;
+import static com.resnik.util.math.symbo.algebra.parse.ParseString.balancedParenthesesCheck;
 
 
 public class TestParse {
@@ -41,7 +36,7 @@ public class TestParse {
     }
 
     public static void main(String[] args) {
-        Log.v(TAG,ComplexNumber.parse("2.0 + 5*i"));
+        Log.v(TAG, ComplexNumber.parse("2.0 + 5*i"));
         Log.v(TAG,ComplexNumber.parse("5*i - 2"));
         balancedParenthesesCheck("(a)()");
     }

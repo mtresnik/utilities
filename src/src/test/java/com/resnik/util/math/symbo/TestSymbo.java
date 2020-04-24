@@ -3,11 +3,13 @@ package com.resnik.util.math.symbo;
 import com.resnik.util.logger.Log;
 import com.resnik.util.math.MatrixUtils;
 import com.resnik.util.math.plot.points.Point2d;
-import com.resnik.util.math.symbo.interpolation.Regression;
-import com.resnik.util.math.symbo.operations.*;
-import com.resnik.util.math.symbo.operations.base.*;
-import com.resnik.util.math.symbo.operations.bulk.Sigma;
-import com.resnik.util.math.symbo.operations.polynomials.Polynomial2d;
+import com.resnik.util.math.symbo.algebra.Algebraic;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.interpolation.Regression;
+import com.resnik.util.math.symbo.algebra.operations.*;
+import com.resnik.util.math.symbo.algebra.operations.base.*;
+import com.resnik.util.math.symbo.algebra.operations.bulk.Sigma;
+import com.resnik.util.math.symbo.algebra.operations.polynomials.Polynomial2d;
 import org.junit.Test;
 
 import java.util.Arrays;

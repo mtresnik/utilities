@@ -39,7 +39,7 @@ public class Plot3D {
         public static final String TAG = CartesianPlot.class.getSimpleName();
 
         private List<PlotElement3D> graphElements;
-        private com.resnik.util.math.symbo.Bounds xBounds, yBounds, zBounds;
+        private com.resnik.util.math.symbo.algebra.Bounds xBounds, yBounds, zBounds;
         private double initHeight, initWidth;
         private static double DEFAULT_HEIGHT=720, DEFAULT_WIDTH = 1280;
 
@@ -58,18 +58,18 @@ public class Plot3D {
 
 
         public CartesianPlot(PlotElement3D... graphElements) {
-            this(com.resnik.util.math.symbo.Bounds.DEFAULT_10, com.resnik.util.math.symbo.Bounds.DEFAULT_10, com.resnik.util.math.symbo.Bounds.DEFAULT_10, graphElements);
+            this(com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, graphElements);
         }
 
         public CartesianPlot(double initHeight, double initWidth, PlotElement3D... graphElements) {
-            this(initHeight, initWidth, com.resnik.util.math.symbo.Bounds.DEFAULT_10, com.resnik.util.math.symbo.Bounds.DEFAULT_10, com.resnik.util.math.symbo.Bounds.DEFAULT_10, graphElements);
+            this(initHeight, initWidth, com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, com.resnik.util.math.symbo.algebra.Bounds.DEFAULT_10, graphElements);
         }
 
-        public CartesianPlot(com.resnik.util.math.symbo.Bounds xBounds, com.resnik.util.math.symbo.Bounds yBounds, com.resnik.util.math.symbo.Bounds zBounds, PlotElement3D... graphElements) {
+        public CartesianPlot(com.resnik.util.math.symbo.algebra.Bounds xBounds, com.resnik.util.math.symbo.algebra.Bounds yBounds, com.resnik.util.math.symbo.algebra.Bounds zBounds, PlotElement3D... graphElements) {
             this(DEFAULT_HEIGHT, DEFAULT_WIDTH, xBounds, yBounds, zBounds, graphElements);
         }
 
-        public CartesianPlot(double initHeight, double initWidth, com.resnik.util.math.symbo.Bounds xBounds, com.resnik.util.math.symbo.Bounds yBounds, com.resnik.util.math.symbo.Bounds zBounds, PlotElement3D... graphElements) {
+        public CartesianPlot(double initHeight, double initWidth, com.resnik.util.math.symbo.algebra.Bounds xBounds, com.resnik.util.math.symbo.algebra.Bounds yBounds, com.resnik.util.math.symbo.algebra.Bounds zBounds, PlotElement3D... graphElements) {
             super();
             this.graphElements = new ArrayList(Arrays.asList(graphElements));
             this.xBounds = xBounds;

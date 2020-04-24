@@ -4,8 +4,6 @@ import com.resnik.util.files.FileUtils;
 import com.resnik.util.images.features.Gradient;
 import com.resnik.util.images.features.HOG;
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.Bounds;
-import com.resnik.util.math.symbo.operations.Operation;
 import com.resnik.util.objects.arrays.ArrayUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;

@@ -1,7 +1,5 @@
 package com.resnik.util.text;
 
-import com.resnik.util.math.symbo.parse.SymbolicTokenType;
-
 import java.util.List;
 import java.util.Map;
 

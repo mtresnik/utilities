@@ -1,7 +1,7 @@
 package com.resnik.util.math.plot.points;
 
 
-import com.resnik.util.math.symbo.ComplexNumber;
+import com.resnik.util.math.symbo.algebra.ComplexNumber;
 
 public abstract class Point {
 

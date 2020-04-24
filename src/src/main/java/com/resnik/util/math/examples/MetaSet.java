@@ -1,9 +1,9 @@
 package com.resnik.util.math.examples;
 
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.operations.Constant;
-import com.resnik.util.math.symbo.operations.Operation;
-import com.resnik.util.math.symbo.operations.base.Negation;
+import com.resnik.util.math.symbo.algebra.operations.Constant;
+import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.operations.base.Negation;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

@@ -24,7 +24,6 @@ public class CountList<T> implements List<CountObject<T>> {
 
     public CountList(List<CountObject<T>> elements, boolean maintainOrder) {
         this.elements = elements;
-        Log.v(TAG,"elements:" + elements);
         this.init(maintainOrder);
     }
 
