@@ -1,4 +1,6 @@
-package com.resnik.util.objects;
+package com.resnik.util.objects.patterns;
+
+import com.resnik.util.objects.State;
 
 import java.util.ArrayList;
 import java.util.List;

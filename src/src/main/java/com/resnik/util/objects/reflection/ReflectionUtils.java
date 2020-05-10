@@ -124,6 +124,32 @@ public final class ReflectionUtils {
         return clazz;
     }
 
+    public static Object cast(String val, Class clazz){
+        if(clazz.equals(Number.class)){
+            return Double.parseDouble(val);
+        }
+        if(clazz.equals(Boolean.class)){
+            return Boolean.parseBoolean(val);
+        }
+        return val;
+    }
+
+    public static Class possibleType(String temp){
+        if(temp == null){
+            return String.class;
+        }
+        try{
+            Double.parseDouble(temp);
+            return Number.class;
+        }catch (NumberFormatException nfe){
+            // Pass
+        }
+        if(temp.equals(Boolean.FALSE.toString()) || temp.equals(Boolean.TRUE.toString())){
+            return Boolean.class;
+        }
+        return String.class;
+    }
+
     public static void main(String[] args) {
         try {
             Log.v(TAG,fromSimpleName("ReflectionUtils"));

@@ -98,4 +98,35 @@ public class XMLNode<T extends XMLElement> extends TreeNode<T> {
         return retList;
     }
 
+    public Double parseInnerDouble(){
+        if(this.getValue() != null){
+            XMLElement xmlElement = (XMLElement) this.getValue();
+            return Double.parseDouble(xmlElement.getInner());
+        }
+        return null;
+    }
+
+    public static XMLNode fromTag(final String TAG){
+        XMLElement retElement = new XMLElement(TAG);
+        return new XMLNode(retElement);
+    }
+
+    public static XMLNode fromTagValue(final String TAG, final String VALUE){
+        XMLElement retElement = new XMLElement(TAG);
+        retElement.setInner(VALUE);
+        return new XMLNode(retElement);
+    }
+
+    public static XMLNode fromTagValue(final String TAG, final Double VALUE){
+        XMLElement retElement = new XMLElement(TAG);
+        retElement.setInner(Double.toString(VALUE));
+        return new XMLNode(retElement);
+    }
+
+    public static XMLNode fromTagValue(final String TAG, final Integer VALUE){
+        XMLElement retElement = new XMLElement(TAG);
+        retElement.setInner(Integer.toString(VALUE));
+        return new XMLNode(retElement);
+    }
+
 }

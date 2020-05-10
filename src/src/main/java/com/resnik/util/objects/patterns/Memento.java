@@ -1,4 +1,6 @@
-package com.resnik.util.objects;
+package com.resnik.util.objects.patterns;
+
+import com.resnik.util.objects.State;
 
 public class Memento<T extends State> {
 
