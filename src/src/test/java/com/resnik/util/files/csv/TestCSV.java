@@ -22,7 +22,7 @@ public class TestCSV {
         Log.d(TAG, csv.getColumn(1));
         Log.d(TAG, csv.getColumn("Name"));
         try {
-            csv.save("test.csv");
+            csv.save("src/res/csv/test.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
