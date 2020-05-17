@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface Shape {
 
-    public boolean contains(PolygonPoint point);
+    boolean contains(PolygonPoint point);
 
-    public List<PolygonPoint> getPoints();
+    List<PolygonPoint> getPoints();
 
-    public default double minX(){
+    default double minX(){
         double ret = Double.MAX_VALUE;
         for(PolygonPoint polygonPoint : getPoints()){
             ret = Math.min(polygonPoint.x, ret);
@@ -16,7 +16,7 @@ public interface Shape {
         return ret;
     }
 
-    public default double minY(){
+    default double minY(){
         double ret = Double.MAX_VALUE;
         for(PolygonPoint polygonPoint : getPoints()){
             ret = Math.min(polygonPoint.y, ret);
@@ -24,7 +24,7 @@ public interface Shape {
         return ret;
     }
 
-    public default double maxX(){
+    default double maxX(){
         double ret = -Double.MAX_VALUE;
         for(PolygonPoint polygonPoint : getPoints()){
             ret = Math.max(polygonPoint.x, ret);
@@ -32,7 +32,7 @@ public interface Shape {
         return ret;
     }
 
-    public default double maxY(){
+    default double maxY(){
         double ret = -Double.MAX_VALUE;
         for(PolygonPoint polygonPoint : getPoints()){
             ret = Math.max(polygonPoint.y, ret);
@@ -40,12 +40,17 @@ public interface Shape {
         return ret;
     }
 
-    public default BoundingBox toBoundingBox(){
+    default BoundingBox toBoundingBox(){
         return new BoundingBox(this.getPoints());
     }
 
-    public default double getArea(){
+    default double getArea(){
         return toBoundingBox().getArea();
+    }
+
+    default PolygonPoint getCenter(){
+        BoundingBox boundingBox = this.toBoundingBox();
+        return boundingBox.getCenter();
     }
 
 }

@@ -29,18 +29,31 @@ public class Polygon implements Shape {
         if(!this.toBoundingBox().contains(point)){
             return false;
         }
-        int npoints = polygonPoints.size();
-        int[] xPoints = new int[npoints];
-        int[] yPoints = new int[npoints];
 
-        double mult = 1e3;
+//        int npoints = polygonPoints.size();
+//        int[] xPoints = new int[npoints];
+//        int[] yPoints = new int[npoints];
+//
+//        double mult = 1e3;
+//
+//        for(int i = 0; i < polygonPoints.size(); i++){
+//            xPoints[i] = (int)(polygonPoints.get(i).x * mult);
+//            yPoints[i] = (int)(polygonPoints.get(i).y * mult);
+//        }
+//        java.awt.Polygon innerPolygon = new java.awt.Polygon(xPoints, yPoints, npoints);
+//        return innerPolygon.contains(point.x*mult, point.y*mult);
+        return Math.abs(getAreaFromReference(point) - getAreaFromReference(getCenter())) < 0.001;
+    }
 
-        for(int i = 0; i < polygonPoints.size(); i++){
-            xPoints[i] = (int)(polygonPoints.get(i).x * mult);
-            yPoints[i] = (int)(polygonPoints.get(i).y * mult);
+    private double getAreaFromReference(PolygonPoint point){
+        double areaSum = 0.0;
+        for(int i = 0; i < getPoints().size(); i++){
+            PolygonPoint curr = getPoints().get(i);
+            PolygonPoint next = getPoints().get((i + 1) % getPoints().size());
+            Triangle currTriangle = new Triangle(curr, next, point);
+            areaSum+= currTriangle.getArea();
         }
-        java.awt.Polygon innerPolygon = new java.awt.Polygon(xPoints, yPoints, npoints);
-        return innerPolygon.contains(point.x*mult, point.y*mult);
+        return areaSum;
     }
 
     @Override
@@ -211,5 +224,10 @@ public class Polygon implements Shape {
     @Override
     public String toString() {
         return "Polygon{ size=" + this.polygonPoints.size()+ "}";
+    }
+
+    @Override
+    public double getArea() {
+        return getAreaFromReference(getCenter());
     }
 }

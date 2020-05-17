@@ -38,16 +38,11 @@ public class PolygonUtils {
         int innerWidth = width/2;
         int innerHeight = height/2;
         BoundingBox inner = new BoundingBox(innerWidth/2, innerHeight/2, width - innerWidth/2, height - innerHeight/2);
-        int size = 50;
+        int size = 30;
         int recurr = 1;
         Polygon p = randomPolygon(inner, outer, size);
         for(int i = 0; i < recurr; i++){
             p = randomPolygon(inner, p, size);
-        }
-        for(int ROW = 0; ROW < height; ROW++){
-            for(int COL = 0; COL < width; COL++){
-                PolygonPoint test = new PolygonPoint(COL, ROW);
-            }
         }
         Log.e(TAG, "init:" + p);
         List<Polygon> splitPloy = p.splitPointCloud(2);

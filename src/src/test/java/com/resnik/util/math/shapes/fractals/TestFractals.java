@@ -1,11 +1,11 @@
-package com.resnik.util.math.fractals;
+package com.resnik.util.math.shapes.fractals;
 
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.resnik.util.math.fractals.SquareFractal.generateSquareGif;
-import static com.resnik.util.math.fractals.TriangleFractal.generateTriangleGif;
+import static com.resnik.util.math.shapes.fractals.SquareFractal.generateSquareGif;
+import static com.resnik.util.math.shapes.fractals.TriangleFractal.generateTriangleGif;
 
 public class TestFractals {
 

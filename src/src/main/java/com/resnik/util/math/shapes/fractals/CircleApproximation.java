@@ -1,4 +1,4 @@
-package com.resnik.util.math.fractals;
+package com.resnik.util.math.shapes.fractals;
 
 
 import com.resnik.util.images.GifDecoder;

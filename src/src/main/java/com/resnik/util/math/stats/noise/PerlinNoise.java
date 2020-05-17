@@ -1,10 +1,4 @@
-package com.resnik.util.math.statistics.noise;
-
-import com.resnik.util.images.ImageUtils;
-import com.resnik.util.logger.Log;
-
-import java.awt.*;
-import java.io.IOException;
+package com.resnik.util.math.stats.noise;
 
 public class PerlinNoise implements Noise{
 

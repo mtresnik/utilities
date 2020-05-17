@@ -1,11 +1,10 @@
-package com.resnik.util.math.statistics.noise;
+package com.resnik.util.math.stats.noise;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
 
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import java.io.*;
 
 public class OpenSimplexNoiseTest

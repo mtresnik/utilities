@@ -1,6 +1,4 @@
-package com.resnik.util.math.fractals;
-
-import java.util.Arrays;
+package com.resnik.util.math.shapes.fractals;
 
 public class PascalGenerator {
 

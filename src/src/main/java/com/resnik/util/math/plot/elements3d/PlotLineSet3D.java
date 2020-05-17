@@ -76,12 +76,12 @@ public class PlotLineSet3D extends PlotElement3D {
             Color currColor = currPoint.color == null ? this.color : currPoint.color;
             switch (this.type){
                 case CUBE:
-                    Cube cube = new Cube(currColor, POINT_SIZE, currPoint);
+                    Cube cube = new Cube(currColor, this.type.size, currPoint);
                     retList.add(cube.getShapes(axisRatio,o2)[0]);
                     break;
                 case SPHERE:
                 default:
-                    Sphere sphere = new Sphere(currColor, POINT_SIZE, currPoint);
+                    Sphere sphere = new Sphere(currColor, this.type.size, currPoint);
                     retList.add(sphere.getShapes(axisRatio,o2)[0]);
             }
         }

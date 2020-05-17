@@ -2,7 +2,7 @@ package com.resnik.util.math.plot.histogram;
 
 import com.resnik.util.images.GifDecoder;
 import com.resnik.util.images.ImageUtils;
-import com.resnik.util.math.fractals.PascalGenerator;
+import com.resnik.util.math.shapes.fractals.PascalGenerator;
 import com.resnik.util.objects.structures.CountList;
 import com.resnik.util.objects.structures.CountObject;
 import javafx.util.Pair;
@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static com.resnik.util.math.plot.histogram.Histogram.fromGaussians;
 
 public class BinaryDistribution {
 

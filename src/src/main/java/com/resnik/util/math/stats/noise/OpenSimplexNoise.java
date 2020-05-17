@@ -1,4 +1,4 @@
-package com.resnik.util.math.statistics.noise;
+package com.resnik.util.math.stats.noise;
 
 public class OpenSimplexNoise {
 

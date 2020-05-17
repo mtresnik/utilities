@@ -35,6 +35,9 @@ public final class ImageUtils {
     private static final boolean DEBUG = false;
     public static final int BLACK = 0x00000000, WHITE = 0xffffffff;
     public static final byte[] BLACK_B = new byte[]{BLACK, BLACK, BLACK}, WHITE_B = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE};
+    public static final byte[] RED_B = new byte[]{(byte) WHITE, (byte) BLACK, (byte) BLACK};
+    public static final byte[] GREEN_B = new byte[]{(byte) BLACK, (byte) WHITE, (byte) BLACK};
+    public static final byte[] BLUE_B = new byte[]{(byte) 0, (byte) 0, (byte) 200};
     public static final byte[] BLACK_ARGB = new byte[]{BLACK, BLACK, BLACK, -1};
     public static final byte[] WHITE_ARGB = new byte[]{(byte) WHITE, (byte) WHITE, (byte) WHITE, -1};
     public static final byte[] RED_ARGB = new byte[]{(byte) 255, (byte) 0, (byte) 0, (byte) 255};

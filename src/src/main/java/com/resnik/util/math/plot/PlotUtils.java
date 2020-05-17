@@ -1,7 +1,7 @@
 package com.resnik.util.math.plot;
 
 import com.resnik.util.images.ImageUtils;
-import com.resnik.util.math.fractals.CircleApproximation;
+import com.resnik.util.math.shapes.fractals.CircleApproximation;
 import com.resnik.util.math.symbo.algebra.Bounds;
 import com.resnik.util.math.symbo.algebra.operations.Constant;
 import com.resnik.util.math.symbo.algebra.operations.Operation;

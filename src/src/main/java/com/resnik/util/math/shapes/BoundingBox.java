@@ -48,4 +48,8 @@ public class BoundingBox implements Shape {
         double dy = maxPoint.y - minPoint.y;
         return dx*dy;
     }
+
+    public PolygonPoint getCenter(){
+        return new PolygonPoint((maxX() + minX())/2, (maxY() + minY())/2);
+    }
 }
