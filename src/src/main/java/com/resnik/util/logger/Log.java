@@ -1,12 +1,10 @@
 package com.resnik.util.logger;
 
-import com.resnik.util.files.FileUtils;
+import com.resnik.util.serial.FileUtils;
 import com.resnik.util.text.StringUtils;
 
 import java.io.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 

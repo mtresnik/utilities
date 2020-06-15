@@ -1,7 +1,7 @@
 package com.resnik.util.objects.structures.graph;
 
-import com.resnik.util.files.xml.XMLTree;
-import com.resnik.util.files.xml.XMLTreeParser;
+import com.resnik.util.serial.xml.XMLTree;
+import com.resnik.util.serial.xml.XMLTreeParser;
 import com.resnik.util.logger.Log;
 import com.resnik.util.objects.structures.graph.traversals.BFSTraversal;
 import org.junit.Test;

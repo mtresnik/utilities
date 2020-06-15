@@ -1,8 +1,6 @@
 package com.resnik.util.math.plot.elements3d;
 
-import com.resnik.util.files.xml.*;
-import com.resnik.util.math.plot.points.Point3d;
-import com.resnik.util.objects.structures.graph.Graph;
+import com.resnik.util.serial.xml.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.resnik.util.math.plot.points.Point2d;
-import com.resnik.util.math.MatrixUtils;
+import com.resnik.util.math.linear.MatrixUtils;
 import com.resnik.util.math.symbo.algebra.ComplexNumber;
 import com.resnik.util.math.symbo.algebra.operations.polynomials.Polynomial2d;
 

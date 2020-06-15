@@ -21,7 +21,8 @@ public class Constant extends Operation<Algebraic> {
             I = new Constant(ComplexNumber.I),
             PI = new Constant(Math.PI), 
             E = new Constant(Math.E),
-            NaN = new Constant(ComplexNumber.NaN);
+            NaN = new Constant(ComplexNumber.NaN),
+            INFINITY = new Constant(ComplexNumber.INFINITY);
 
     protected final ComplexNumber value;
 

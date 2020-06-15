@@ -1,7 +1,7 @@
 package com.resnik.util.objects;
 
 
-import com.resnik.util.interfaces.Updatable;
+import com.resnik.util.objects.interfaces.Updatable;
 
 public class Temporal implements Updatable {
 

@@ -1,6 +1,6 @@
 package com.resnik.util.images;
 
-import com.resnik.util.files.FileUtils;
+import com.resnik.util.serial.FileUtils;
 import com.resnik.util.images.features.Gradient;
 import com.resnik.util.images.features.HOG;
 import com.resnik.util.logger.Log;
@@ -140,7 +140,7 @@ public final class ImageUtils {
 
     //<editor-fold defaultstate="collapsed" desc="Resize">
     public static byte[][][] resizeNearest(byte[][][] inputImage, int[] newRes) {
-        byte[][][] retImage = ImageUtils.solidRect(newRes[1], newRes[0], BLACK_B);
+        byte[][][] retImage = new byte[newRes[1]][newRes[0]][];
         double y_scalar = inputImage.length * (1.0 / retImage.length);
         double x_scalar = inputImage[0].length * (1.0 / retImage[0].length);
         for (int ROW = 0; ROW < retImage.length; ROW++) {
@@ -160,6 +160,93 @@ public final class ImageUtils {
         }
         return retList;
     }
+
+    public static byte[][][] resizeNearestSurface(byte[][][] inputSurface, int[] newRes){
+        byte[][][] retImage = new byte[newRes[1]][newRes[0]][];
+        double y_scalar = inputSurface.length * (1.0 / retImage.length);
+        double x_scalar = inputSurface[0].length * (1.0 / retImage[0].length);
+        // Find three closest pixels to draw
+        for(int ROW = 0; ROW < inputSurface.length; ROW++){
+            for(int COL = 0; COL < inputSurface[0].length; COL++){
+                // nearest
+                int yVal = (int) (ROW / y_scalar);
+                int xVal = (int) (COL / x_scalar);
+                // Populate with present values
+                retImage[yVal][xVal] = inputSurface[ROW][COL];
+            }
+        }
+        for(int ROW = 0; ROW < retImage.length; ROW++){
+            for(int COL = 0; COL < retImage[0].length; COL++){
+                // Get nearest values and make surface
+                double[] coords = new double[]{ROW * y_scalar, COL * x_scalar};
+                int[] topLeftCoords = new int[]{(int) (coords[0]), (int) (coords[1])};
+                double[] uv = new double[]{coords[0] - topLeftCoords[0], coords[1] - topLeftCoords[1]};
+                if(topLeftCoords[0] + 1 < inputSurface.length && topLeftCoords[1] + 1 < inputSurface[0].length){
+                    // Fill in nearest plane of points
+
+                    /*
+                    * c00       v       c01
+                    *
+                    * u         c
+                    *
+                    * c10               c11
+                    * */
+
+                    byte[] c00 = inputSurface[topLeftCoords[0]][topLeftCoords[1]];
+                    byte[] c10 = inputSurface[topLeftCoords[0] + 1][topLeftCoords[1]];
+                    byte[] c01 = inputSurface[topLeftCoords[0]][topLeftCoords[1] + 1];
+                    byte[] c11 = inputSurface[topLeftCoords[0] + 1][topLeftCoords[1] + 1];
+                    byte[] currPixel = new byte[c00.length];
+                    double u = uv[0], v = uv[1];
+                    u = Math.max(0, Math.min(u, 1.0));
+                    v = Math.max(0, Math.min(v, 1.0));
+                    for(int index = 0; index < currPixel.length; index++){
+                        double a = (c10[index] - c00[index])*u + c00[index];
+                        double b = (c11[index] - c01[index])*u + c01[index];
+                        double c = (b - a)*v + a;
+                        double val = (c) / 2.0;
+                        if(val < 0){
+                            val += 255;
+                        }
+                        if(val >=256){
+                            val -= 255;
+                        }
+                        currPixel[index] = (byte)(val);
+                    }
+                    retImage[ROW][COL] = currPixel;
+                }else{
+                    // Use nn for edges
+                    retImage[ROW][COL] = inputSurface[topLeftCoords[0]][topLeftCoords[1]];
+                }
+            }
+        }
+
+        return retImage;
+    }
+
+    private static int get(int self, int n) {
+        return (self >> (n * 8)) & 0xFF;
+    }
+
+    private static float lerp(float s, float e, float t) {
+        return s + (e - s) * t;
+    }
+
+    private static float blerp(final Float c00, float c10, float c01, float c11, float tx, float ty) {
+        return lerp(lerp(c00, c10, tx), lerp(c01, c11, tx), ty);
+    }
+
+    public static BufferedImage scaleBest(BufferedImage image, int width, int height) {
+        BufferedImage scaledImage = new BufferedImage(width, height, image.getType());
+        Graphics2D graphics2D = scaledImage.createGraphics();
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics2D.drawImage(image, 0, 0, width, height, null);
+        graphics2D.dispose();
+        return scaledImage;
+    }
+
+
 //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -308,6 +395,7 @@ public final class ImageUtils {
         }
         return retImage;
     }
+
 // </editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Apply">
@@ -959,6 +1047,7 @@ public final class ImageUtils {
     public static byte[][][] loadImageBytes(String pathName) throws IOException {
         String extension = FileUtils.getFileExtension(new File(pathName));
         switch (extension) {
+            case "jpg":
             case "bmp":
                 return loadImageToByteArray(pathName, BufferedImage.TYPE_INT_RGB);
             case "png":

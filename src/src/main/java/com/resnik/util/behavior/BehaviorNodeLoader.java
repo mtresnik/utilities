@@ -1,10 +1,10 @@
 package com.resnik.util.behavior;
 
 import com.resnik.util.behavior.tasks.BehaviorTask;
-import com.resnik.util.files.xml.XMLElement;
-import com.resnik.util.files.xml.XMLNode;
-import com.resnik.util.files.xml.XMLTree;
-import com.resnik.util.files.xml.XMLTreeParser;
+import com.resnik.util.serial.xml.XMLElement;
+import com.resnik.util.serial.xml.XMLNode;
+import com.resnik.util.serial.xml.XMLTree;
+import com.resnik.util.serial.xml.XMLTreeParser;
 import com.resnik.util.logger.Log;
 import com.resnik.util.objects.reflection.ReflectionUtils;
 import org.xml.sax.SAXException;

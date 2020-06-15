@@ -3,9 +3,9 @@ package com.resnik.util.images.features;
 import com.resnik.util.images.StructuringElement;
 import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.MatrixUtils;
+import com.resnik.util.math.linear.MatrixUtils;
 import com.resnik.util.objects.arrays.ArrayUtils;
-import com.resnik.util.files.FileUtils;
+import com.resnik.util.serial.FileUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -1,6 +1,6 @@
 package com.resnik.util.math.plot.elements3d;
 
-import com.resnik.util.files.xml.XMLNode;
+import com.resnik.util.serial.xml.XMLNode;
 import com.resnik.util.math.plot.points.Point3d;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

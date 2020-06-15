@@ -23,7 +23,8 @@ public class ComplexNumber
             I = ComplexNumber.b(1),
             PI = ComplexNumber.a(Math.PI),
             E = ComplexNumber.a(Math.E),
-            NaN = ComplexNumber.ab(Double.NaN, Double.NaN);
+            NaN = ComplexNumber.ab(Double.NaN, Double.NaN),
+            INFINITY = ComplexNumber.a(Double.POSITIVE_INFINITY);
 
     public double real, imaginary;
 

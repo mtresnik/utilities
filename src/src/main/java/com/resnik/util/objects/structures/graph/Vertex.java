@@ -1,8 +1,8 @@
 package com.resnik.util.objects.structures.graph;
 
-import com.resnik.util.files.xml.XMLElement;
-import com.resnik.util.files.xml.XMLElementConvertable;
-import com.resnik.util.files.xml.XMLNode;
+import com.resnik.util.serial.xml.XMLElement;
+import com.resnik.util.serial.xml.XMLElementConvertable;
+import com.resnik.util.serial.xml.XMLNode;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

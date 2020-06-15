@@ -1,7 +1,7 @@
 package com.resnik.util.math.symbo;
 
 import com.resnik.util.logger.Log;
-import com.resnik.util.math.MatrixUtils;
+import com.resnik.util.math.linear.MatrixUtils;
 import com.resnik.util.math.plot.points.Point2d;
 import com.resnik.util.math.symbo.algebra.Algebraic;
 import com.resnik.util.math.symbo.algebra.ComplexNumber;

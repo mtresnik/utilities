@@ -13,7 +13,10 @@ import com.resnik.util.math.shapes.PolygonPoint;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
@@ -360,7 +363,7 @@ public class TestCluster {
     }
 
     public static void testImageCluster(){
-        String fileLocation = "res/sunday.png";
+        String fileLocation = "src/res/star.jpg";
         byte[][][] image = null;
         try {
             image = ImageUtils.loadImageBytes(fileLocation);
@@ -395,10 +398,10 @@ public class TestCluster {
         double[][] dataArray = new double[data.size()][];
         dataArray = data.toArray(dataArray);
         List<BufferedImage> images = new ArrayList<>();
-        int[] clusterVals = new int[]{8,12,16,24,32,48,64,80,100,128,164,180,200,232,256,300};
+        int[] clusterVals = new int[]{2,4,6,8,12,32};
         for(int numClusters : clusterVals){
             Log.d(TAG, "Clustering k=" + numClusters);
-            List<KMeans> allKMeans = getKMeans(numClusters, dataArray, 1);
+            List<KMeans> allKMeans = getKMeans(numClusters, dataArray, 2);
             Collections.sort(allKMeans, Comparator.comparingDouble(KMeans::getVariance));
             byte[][][] retImage = new byte[image.length][image[0].length][];
             for(int ROW = 0; ROW < image.length; ROW++){
@@ -438,7 +441,7 @@ public class TestCluster {
         BufferedImage[] bufferedImages = new BufferedImage[images.size()];
         bufferedImages = images.toArray(bufferedImages);
         try {
-            ImageUtils.saveGifBuffered(bufferedImages, new GifDecoder(), "res/sunday.gif", 1000, true);
+            ImageUtils.saveGifBuffered(bufferedImages, new GifDecoder(), "src/res/star.gif", 1000, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -447,7 +450,7 @@ public class TestCluster {
     }
 
     public static void testPlotImage(){
-        String fileLocation = "res/sunday.png";
+        String fileLocation = "src/res/star.jpg";
         byte[][][] image = null;
         try {
             image = ImageUtils.loadImageBytes(fileLocation);
@@ -481,7 +484,7 @@ public class TestCluster {
         }
         double[][] dataArray = new double[data.size()][];
         dataArray = data.toArray(dataArray);
-        int numClusters = 256;
+        int numClusters = 32;
         List<KMeans> allKMeans = getKMeans(numClusters, dataArray, 1);
         Collections.sort(allKMeans, Comparator.comparingDouble(KMeans::getVariance));
         List<Cluster> clusters = allKMeans.get(0).getClusters();
@@ -530,8 +533,172 @@ public class TestCluster {
         plot.show();
     }
 
+
+    public static KMeans getKMeansFromImage(byte[][][] image, int numClusters){
+        List<double[]> allData = new ArrayList<>();
+        for(int ROW = 0; ROW < image.length; ROW++){
+            for(int COL = 0; COL < image[0].length; COL++){
+                byte[] pixel = image[ROW][COL];
+                double r = pixel[0];
+                double g = pixel[1];
+                double b = pixel[2];
+                double a = pixel[3];
+                while(r < 0){
+                    r += 256;
+                }
+                while(g < 0){
+                    g += 256;
+                }
+                while(b < 0){
+                    b += 256;
+                }
+                while(a < 0){
+                    a += 256;
+                }
+                allData.add(new double[]{r,g,b,a});
+            }
+        }
+        int numSample = 10000;
+        List<double[]> data = new ArrayList<>();
+        while(data.size() < numSample){
+            data.add(allData.get((int)(Math.random() * (allData.size() - 1))));
+        }
+        double[][] dataArray = new double[data.size()][];
+        dataArray = data.toArray(dataArray);
+        List<KMeans> allKMeans = getKMeans(numClusters, dataArray, 2);
+        Collections.sort(allKMeans, Comparator.comparingDouble(KMeans::getVariance));
+        return allKMeans.get(0);
+    }
+
+    public static void testCombinations(){
+        byte[][][] firstImage = new byte[0][][];
+        try {
+            firstImage = ImageUtils.loadImageBytes("src/res/sunday.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[][][] secondImage = new byte[0][][];
+        try {
+            secondImage = ImageUtils.loadImageBytes("src/res/sunday.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        KMeans firstKMeans = getKMeansFromImage(firstImage, 256);
+        byte[][][] retImage = new byte[secondImage.length][secondImage[0].length][];
+        int greenCluster = firstKMeans.getClusterIndex(new double[]{0,255,0,255});
+        int blueCluster = firstKMeans.getClusterIndex(new double[]{0,0,255,255});
+        for(int ROW = 0; ROW < secondImage.length; ROW++){
+            for(int COL = 0; COL < secondImage[0].length; COL++){
+                byte[] pixel = secondImage[ROW][COL];
+                double r = pixel[0];
+                double g = pixel[1];
+                double b = pixel[2];
+                double a = pixel[3];
+                while(r < 0){
+                    r += 256;
+                }
+                while(g < 0){
+                    g += 256;
+                }
+                while(b < 0){
+                    b += 256;
+                }
+                while(a < 0){
+                    a += 256;
+                }
+                Cluster nextCluster = firstKMeans.getCluster(new double[]{r,g,b,a});
+                double[] mean = nextCluster.getMean();
+                r = mean[0];
+                g = mean[1];
+                b = mean[2];
+                a = mean[3];
+                while(r < 0){
+                    r += 256;
+                }
+                while(g < 0){
+                    g += 256;
+                }
+                while(b < 0){
+                    b += 256;
+                }
+                while(a < 0){
+                    a += 256;
+                }
+                if(a == 0){
+                    a = 255;
+                }
+                retImage[ROW][COL] = new byte[]{(byte)r, (byte)g, (byte)b, (byte) a};
+            }
+        }
+        try {
+            ImageUtils.saveImageBytes(retImage, "src/res/sunday-star.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void testCompression(){
+        byte[][][] sundayImage = new byte[0][][];
+        try {
+            sundayImage = ImageUtils.loadImageBytes("src/res/sunday.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        KMeans sundayKmeans = getKMeansFromImage(sundayImage, 16);
+        Map<Integer, List<Integer>> clusterMap = new LinkedHashMap<>();
+        for(int ROW = 0; ROW < sundayImage.length; ROW++){
+            for(int COL = 0; COL < sundayImage[0].length; COL++){
+                int[] coord = new int[]{ROW, COL};
+                byte[] pixel = sundayImage[ROW][COL];
+                double r = pixel[0];
+                double g = pixel[1];
+                double b = pixel[2];
+                double a = pixel[3];
+                while(r < 0){
+                    r += 256;
+                }
+                while(g < 0){
+                    g += 256;
+                }
+                while(b < 0){
+                    b += 256;
+                }
+                while(a < 0){
+                    a += 256;
+                }
+                int index = sundayKmeans.getClusterIndex(new double[]{r,g,b,a});
+                if(!clusterMap.containsKey(index)){
+                    clusterMap.put(index, new ArrayList<>());
+                }
+                clusterMap.get(index).add(ROW);
+                clusterMap.get(index).add(COL);
+            }
+        }
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("src/res/sunday.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        List<Cluster> clusters = sundayKmeans.getClusters();
+        for(int i = 0; i < clusters.size(); i++){
+            String line = "";
+            line += Arrays.toString(clusters.get(i).getMean());
+            line += ":";
+            List<Integer> coordList = clusterMap.get(i);
+            for(int j = 0; j < coordList.size(); j++){
+                line += coordList.get(j);
+                if(j < coordList.size() -1){
+                    line += " ";
+                }
+            }
+            pw.println(line);
+        }
+        pw.close();
+    }
+
     public static void main(String[] args) {
-        testImageCluster();
+        testCompression();
     }
 
 }

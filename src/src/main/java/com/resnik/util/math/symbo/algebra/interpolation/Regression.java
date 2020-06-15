@@ -12,7 +12,7 @@ import com.resnik.util.math.plot.Plot2D.CartesianPlot;
 import com.resnik.util.math.plot.elements2d.PlotDataset2D;
 import com.resnik.util.math.plot.elements2d.PlotElement2D;
 import com.resnik.util.math.plot.elements2d.PlotFunction2D;
-import com.resnik.util.math.MatrixUtils;
+import com.resnik.util.math.linear.MatrixUtils;
 import com.resnik.util.math.symbo.algebra.operations.Constant;
 import com.resnik.util.math.symbo.algebra.operations.base.Multiplication;
 import com.resnik.util.math.symbo.algebra.operations.Operation;

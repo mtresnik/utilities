@@ -6,7 +6,9 @@ import com.resnik.util.objects.structures.tree.kd.KDTreeNode;
 import com.resnik.util.objects.structures.tree.kd.KDTreeValue;
 import org.junit.Test;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -167,6 +169,17 @@ public class TestImages {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testRescale(){
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File("src/res/giraffe.png"));
+            bufferedImage = ImageUtils.scaleBest(bufferedImage, 1280, 720);
+            ImageIO.write(bufferedImage, "png", new File("src/res/giraffe_up.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

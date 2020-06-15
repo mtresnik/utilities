@@ -277,4 +277,8 @@ public class Histogram<T> {
     }
 
 
+    public void putColor(String name, Color color){
+        this.colorMap.put(name, color);
+    }
+
 }
