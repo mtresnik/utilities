@@ -290,6 +290,10 @@ public abstract class Operation<EVAL extends Algebraic>
         return new Power(this, a1);
     }
 
+    public Power sqrt(){
+        return pow(Constant.ONE_HALF);
+    }
+
     public Operation evaluateAllSigmaBounds(Variable index_variable, Bounds b){
         Operation[] newOpList = new Operation[this.values.length];
         for (int i = 0; i < newOpList.length; i++) {

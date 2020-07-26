@@ -37,7 +37,7 @@ public final class ContinuedFraction {
             return new BigDecimal(a_0);
         }
         if(a_0.equals(BigInteger.ZERO)){
-            return BigDecimal.ONE.divide(simpleContinuedFraction(a));
+            return BigDecimal.ONE.divide(simpleContinuedFraction(a), MathContext.DECIMAL128);
         }
         return new BigDecimal(a_0).add(BigDecimal.ONE.divide(simpleContinuedFraction(a), mc), mc);
     }
@@ -92,6 +92,9 @@ public final class ContinuedFraction {
 
     private static BigInteger[] generateContinuedFraction(BigDecimal input, BigInteger[] currArr){
         if(BigNumberUtils.abs(simpleContinuedFraction(currArr).subtract(input)).compareTo(new BigDecimal(Double.toString(1e-3))) < 0){
+            return currArr;
+        }
+        if(currArr.length > 20){
             return currArr;
         }
         BigInteger a_0 = new BigInteger(input.toString().substring(0, input.toString().indexOf(".")));

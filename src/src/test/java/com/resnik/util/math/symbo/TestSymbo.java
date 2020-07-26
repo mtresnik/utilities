@@ -1,5 +1,7 @@
 package com.resnik.util.math.symbo;
 
+import com.resnik.util.images.GifDecoder;
+import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
 import com.resnik.util.math.linear.MatrixUtils;
 import com.resnik.util.math.plot.points.Point2d;
@@ -12,6 +14,8 @@ import com.resnik.util.math.symbo.algebra.operations.bulk.Sigma;
 import com.resnik.util.math.symbo.algebra.operations.polynomials.Polynomial2d;
 import org.junit.Test;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -194,6 +198,66 @@ public class TestSymbo {
     public static void main(String[] args){
         testEquationPlot();
 //        testLinearRegressionPlot();
+    }
+
+    @Test
+    public void testEquation3(){
+        double min = 0.5;
+        double max = 5;
+        int num = 2000;
+        double dt = (max - min) / num;
+        double[] abc = new double[]{};
+        double minDiff = Double.MAX_VALUE;
+        int numFrames = 100;
+        int width = 1000;
+        int height = 1000;
+        byte[][][][] images = new byte[numFrames][][][];
+        for(int i = 0; i < numFrames; i++){
+            images[i] = new byte[height][width][];
+            for(int ROW = 0; ROW < height; ROW++){
+                for(int COL = 0; COL < width; COL++){
+                    images[i][ROW][COL] = new byte[]{(byte) 128, (byte) 0, (byte) 0, (byte) 128};
+                }
+            }
+        }
+        for(double a = min; a < max; a+=dt){
+            double x = width * (a-min)/(max - min);
+            for(double b = min; b < max; b+=dt){
+                if(a == b){
+                    continue;
+                }
+                double y = height * (b - min) / (max - min);
+                for(double c = min; c < max; c+=dt){
+                    if(a == c || b == c){
+                        continue;
+                    }
+                    double z = numFrames * (c - min) / (max - min);
+                    double lhs = a + b + c;
+                    double rhs = a * b * c;
+                    double diff = Math.abs(lhs - rhs);
+                    byte[] pixel = null;
+                    if(diff > 1){
+                        pixel = ImageUtils.BLACK_B;
+                    }else{
+                        int grey = (int)(128 * diff);
+                        pixel = new byte[]{(byte) grey, (byte) grey, (byte) grey, (byte) 255};
+                    }
+                    images[(int)z][(int)y][(int)x] = pixel;
+                }
+            }
+        }
+        BufferedImage[] bufferedImages = new BufferedImage[numFrames];
+        for(int i = 0; i < numFrames; i++){
+            bufferedImages[i] = ImageUtils.bytesToBufferedImage(images[i]);
+        }
+        GifDecoder gd = new GifDecoder();
+        try {
+            ImageUtils.saveGifBuffered(bufferedImages, gd, "src/res/eq3.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, Arrays.toString(abc));
+        Log.d(TAG, minDiff);
     }
 
 }

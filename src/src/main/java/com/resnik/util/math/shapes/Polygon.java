@@ -4,16 +4,18 @@ import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 public class Polygon implements Shape {
 
 
     List<PolygonPoint> polygonPoints;
+
+
+    public Polygon(PolygonPoint ... points){
+        this(Arrays.asList(points));
+    }
 
     public Polygon(List<PolygonPoint> points){
         this.polygonPoints = points;
@@ -29,19 +31,6 @@ public class Polygon implements Shape {
         if(!this.toBoundingBox().contains(point)){
             return false;
         }
-
-//        int npoints = polygonPoints.size();
-//        int[] xPoints = new int[npoints];
-//        int[] yPoints = new int[npoints];
-//
-//        double mult = 1e3;
-//
-//        for(int i = 0; i < polygonPoints.size(); i++){
-//            xPoints[i] = (int)(polygonPoints.get(i).x * mult);
-//            yPoints[i] = (int)(polygonPoints.get(i).y * mult);
-//        }
-//        java.awt.Polygon innerPolygon = new java.awt.Polygon(xPoints, yPoints, npoints);
-//        return innerPolygon.contains(point.x*mult, point.y*mult);
         return Math.abs(getAreaFromReference(point) - getAreaFromReference(getCenter())) < 0.001;
     }
 

@@ -108,6 +108,11 @@ public class ComplexNumber
         return exp(exponent);
     }
 
+    @Override
+    public ComplexNumber sqrt() {
+        return pow(0.5);
+    }
+
     public ComplexNumber add(ComplexNumber c2) {
         double a_1 = this.real + c2.real;
         double b_1 = this.imaginary + c2.imaginary;

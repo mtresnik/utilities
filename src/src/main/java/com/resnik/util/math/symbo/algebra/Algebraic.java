@@ -17,4 +17,6 @@ public interface Algebraic<
 
     POWRET pow(POWPARAM a1);
 
+    POWRET sqrt();
+
 }

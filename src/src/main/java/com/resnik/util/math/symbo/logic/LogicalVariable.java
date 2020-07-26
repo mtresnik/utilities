@@ -40,6 +40,10 @@ public class LogicalVariable extends LogicalOperation {
         return new LogicalVariable(this.name);
     }
 
+    public boolean allConstants(){
+        return false;
+    }
+
     @Override
     public LogicalVariable[] getVariables() {
         return new LogicalVariable[]{this};

@@ -129,10 +129,10 @@ public class TestCluster {
         // Create circles in an image
         final int WIDTH = 1000;
         final int HEIGHT = 1000;
-        int clusterSize = 5;
+        int clusterSize = 10;
         int maxPixelsPerCluster = WIDTH * HEIGHT / clusterSize;
         double minThreshold = 0.2;
-        int pixelsPerCluster = (int) ((Math.random() + minThreshold) * maxPixelsPerCluster);
+        int pixelsPerCluster = 500;
         List<double[]> centers = new ArrayList<>();
         for(int i = 0; i < clusterSize; i++){
             centers.add(new double[]{Math.random()*(HEIGHT - 1), Math.random()*(WIDTH - 1)});
@@ -143,16 +143,13 @@ public class TestCluster {
             double radius = Math.sqrt(area / Math.PI);
             radii.add(radius);
         }
-        byte[] red = ImageUtils.awtToByte(Color.red);
-        byte[] yellow = ImageUtils.awtToByte(Color.yellow);
-        byte[] orange = new byte[]{(byte)255,(byte) 165, 0};
-        byte[] blue = new byte[]{0,0,(byte) 127};
-        byte[] green = new byte[]{0,(byte)127, 0};
-        byte[][] palette = new byte[][]{
-                blue, green, red, yellow, orange};
+        byte[][] palette = new byte[clusterSize][];
+        for(int i = 0; i < clusterSize; i++){
+            palette[i] = ImageUtils.awtToByte(new Color((float)Math.random(), (float)Math.random(), (float)Math.random()));
+        }
         List<double[]> data = new ArrayList<>();
         for(int i = 0; i < clusterSize; i++){
-            for(int subSize = 0; subSize < 1000; subSize++){
+            for(int subSize = 0; subSize < pixelsPerCluster; subSize++){
                 int ROW = (int)(Math.random() * (HEIGHT - 1));
                 int COL = (int)(Math.random() * (WIDTH - 1));
                 data.add(new double[]{ROW, COL});
@@ -160,7 +157,7 @@ public class TestCluster {
         }
         double[][] dataArray = new double[data.size()][];
         dataArray = data.toArray(dataArray);
-        List<KMeans> allKMeans = getKMeans(clusterSize, dataArray, 100);
+        List<KMeans> allKMeans = getKMeans(clusterSize, dataArray, 5);
         Collections.sort(allKMeans, Comparator.comparingDouble(KMeans::getVariance));
         List<Cluster> clusters = allKMeans.get(0).getClusters();
         byte[][][] image = new byte[HEIGHT][WIDTH][];
@@ -698,7 +695,7 @@ public class TestCluster {
     }
 
     public static void main(String[] args) {
-        testCompression();
+        testRandom();
     }
 
 }

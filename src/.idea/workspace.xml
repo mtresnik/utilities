@@ -31,6 +31,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1VR7nE6Gw1ZR2rz12GFElf8UL8Q" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -78,7 +81,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestKML.testKML">
+  <component name="RunManager" selected="JUnit.TestCounties.testCounties">
     <configuration name="TestAudio" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.resnik.util.audio.TestAudio" />
       <module name="utilities" />
@@ -92,17 +95,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestAudio.testScales" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCounties.testCounties" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="utilities" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.resnik.util.audio.*" />
+          <option name="PATTERN" value="com.resnik.util.serial.geo.kml.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.resnik.util.audio" />
-      <option name="MAIN_CLASS_NAME" value="com.resnik.util.audio.TestAudio" />
-      <option name="METHOD_NAME" value="testScales" />
+      <option name="PACKAGE_NAME" value="com.resnik.util.serial.geo.kml" />
+      <option name="MAIN_CLASS_NAME" value="com.resnik.util.serial.geo.kml.TestCounties" />
+      <option name="METHOD_NAME" value="testCounties" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -158,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestCounties.testCounties" />
         <item itemvalue="JUnit.TestKML.testKML" />
         <item itemvalue="JUnit.TestText.testSimilarity" />
         <item itemvalue="JUnit.TestHistogram.fromGaussianGif" />
         <item itemvalue="Application.TestAudio" />
-        <item itemvalue="JUnit.TestAudio.testScales" />
       </list>
     </recent_temporary>
   </component>
@@ -178,5 +181,18 @@
       <updated>1577204218332</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -2,12 +2,14 @@ package com.resnik.util.math.examples;
 
 import com.resnik.util.logger.Log;
 import com.resnik.util.math.numbers.BigNumberUtils;
+import com.resnik.util.math.numbers.ContinuedFraction;
 import com.resnik.util.math.numbers.Factorial;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -159,8 +161,10 @@ public final class CircleProblem {
         Log.v(TAG,R(new BigInteger("12")));
         Log.v(TAG,generateAFromR(new BigInteger("3000")));
         Log.v(TAG,A);
-        Log.v(TAG,wFromTest(DEFAULT_CAP, new BigDecimal("0"), 20));
+        BigDecimal w = wFromTest(DEFAULT_CAP, new BigDecimal("0"), 20);
+        BigInteger[] frac = ContinuedFraction.generateContinuedFraction(w);
         Log.v(TAG,W_test_MAP);
+        Log.v(TAG, "Frac:" + Arrays.asList(frac));
     }
 
 }

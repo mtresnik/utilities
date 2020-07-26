@@ -7,7 +7,6 @@ public class LogicalConstant extends LogicalOperation<LogicalInterface> {
 
     protected final boolean value;
 
-
     public static final LogicalConstant TRUE = new LogicalConstant(true);
     public static final LogicalConstant FALSE = new LogicalConstant(false);
 

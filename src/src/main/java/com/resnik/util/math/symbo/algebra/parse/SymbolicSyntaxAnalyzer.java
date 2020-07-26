@@ -28,9 +28,9 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
     @Override
     public Operation analyze(List<Token<SymbolicTokenType>> inputList) throws SyntaxException{
         justifySyntax(inputList);
-        IntermediateOperation intermediateOperation = genIntermediateOperation(inputList);
-        if(intermediateOperation != null){
-            return intermediateOperation.compile().substitute(Variable.I, Constant.I);
+        SymbolicIntermediateOperation symbolicIntermediateOperation = genIntermediateOperation(inputList);
+        if(symbolicIntermediateOperation != null){
+            return symbolicIntermediateOperation.compile().substitute(Variable.I, Constant.I);
         }
         return null;
     }
@@ -141,10 +141,10 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static IntermediateOperation genIntermediateOperation(List<Token<SymbolicTokenType>> inputList){
+    public static SymbolicIntermediateOperation genIntermediateOperation(List<Token<SymbolicTokenType>> inputList){
         List<SymbolicTokenSet> tokenSets = genTokenSets(inputList);
-        List<IntermediateOperation> intermediateOperations = genIntermediateOperations(tokenSets);
-        List<IntermediateOperation> operators = generateIntermediateOperators(intermediateOperations, tokenSets, inputList);
+        List<SymbolicIntermediateOperation> symbolicIntermediateOperations = genIntermediateOperations(tokenSets);
+        List<SymbolicIntermediateOperation> operators = generateIntermediateOperators(symbolicIntermediateOperations, tokenSets, inputList);
 
         if(operators.size() == 1){
             return operators.get(0);
@@ -152,21 +152,21 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return null;
     }
 
-    public static List<IntermediateOperation> genIntermediateOperations(List<SymbolicTokenSet> curr){
-        List<IntermediateOperation> retList = new ArrayList<>();
+    public static List<SymbolicIntermediateOperation> genIntermediateOperations(List<SymbolicTokenSet> curr){
+        List<SymbolicIntermediateOperation> retList = new ArrayList<>();
         for(SymbolicTokenSet symbolicTokenSet : curr){
             switch (symbolicTokenSet.type){
                 case NUMBER:
-                    retList.add(new IntermediateNumber(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, symbolicTokenSet.tokens.get(0)));
+                    retList.add(new SymbolicIntermediateNumber(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, symbolicTokenSet.tokens.get(0)));
                     break;
                 case VARIABLE:
-                    retList.add(new IntermediateVariable(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, symbolicTokenSet.tokens.get(0)));
+                    retList.add(new SymbolicIntermediateVariable(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, symbolicTokenSet.tokens.get(0)));
                     break;
                 case PARENTHESES:
-                    retList.add(new IntermediateParentheses(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, genIntermediateOperation(symbolicTokenSet.tokens)));
+                    retList.add(new SymbolicIntermediateParentheses(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, genIntermediateOperation(symbolicTokenSet.tokens)));
                     break;
                 case FUNCTION:
-                    retList.add(new IntermediateFunction(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, genIntermediateOperation(symbolicTokenSet.tokens), symbolicTokenSet.rep));
+                    retList.add(new SymbolicIntermediateFunction(symbolicTokenSet.startIndex, symbolicTokenSet.endIndex, genIntermediateOperation(symbolicTokenSet.tokens), symbolicTokenSet.rep));
                     break;
                 default:
             }
@@ -174,17 +174,17 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static List<IntermediateOperation> generateIntermediateOperators(List<IntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
-        List<IntermediateOperation> ident = generateIdentities(curr, tokenSets, inputList);
-        List<IntermediateOperation> powers = generatePowerOperators(ident, tokenSets, inputList);
-        List<IntermediateOperation> mulDiv = generateMultDivOperators(powers, tokenSets, inputList);
-        List<IntermediateOperation> addSub = generateAddSub(mulDiv, tokenSets, inputList);
+    public static List<SymbolicIntermediateOperation> generateIntermediateOperators(List<SymbolicIntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
+        List<SymbolicIntermediateOperation> ident = generateIdentities(curr, tokenSets, inputList);
+        List<SymbolicIntermediateOperation> powers = generatePowerOperators(ident, tokenSets, inputList);
+        List<SymbolicIntermediateOperation> mulDiv = generateMultDivOperators(powers, tokenSets, inputList);
+        List<SymbolicIntermediateOperation> addSub = generateAddSub(mulDiv, tokenSets, inputList);
         return addSub;
     }
 
-    public static List<IntermediateOperation> generateIdentities(List<IntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
-        List<IntermediateOperation> clone = new ArrayList<>(curr);
-        List<IntermediateOperation> retList = new ArrayList<>();
+    public static List<SymbolicIntermediateOperation> generateIdentities(List<SymbolicIntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
+        List<SymbolicIntermediateOperation> clone = new ArrayList<>(curr);
+        List<SymbolicIntermediateOperation> retList = new ArrayList<>();
         for (int i = 0; i < inputList.size(); i++) {
             Token<SymbolicTokenType> token = inputList.get(i);
             if(indexProcessedOperation(i, clone)){
@@ -194,24 +194,24 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
                 continue;
             }
             if(token.rep.equals(SymbolicTokenizer.PLUS)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(right == null){
                     throw new SyntaxException("PLUS requires a right element.");
                 }
                 if(left == null){
                     clone.remove(right);
-                    clone.add(new IntermediateIdentity(i, right.endIndex, right));
+                    clone.add(new SymbolicIntermediateIdentity(i, right.endIndex, right));
                 }
             }else if(token.rep.equals(SymbolicTokenizer.MINUS)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(right == null){
                     throw new SyntaxException("SUB requires a right element.");
                 }
                 if(left == null){
                     clone.remove(right);
-                    clone.add(new IntermediateNegation(i, right.endIndex, right));
+                    clone.add(new SymbolicIntermediateNegation(i, right.endIndex, right));
                 }
             }
         }
@@ -220,9 +220,9 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static List<IntermediateOperation> generatePowerOperators(List<IntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
-        List<IntermediateOperation> clone = new ArrayList<>(curr);
-        List<IntermediateOperation> retList = new ArrayList<>();
+    public static List<SymbolicIntermediateOperation> generatePowerOperators(List<SymbolicIntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
+        List<SymbolicIntermediateOperation> clone = new ArrayList<>(curr);
+        List<SymbolicIntermediateOperation> retList = new ArrayList<>();
         for (int i = 0; i < inputList.size(); i++) {
             Token<SymbolicTokenType> token = inputList.get(i);
             if(indexProcessedOperation(i, clone)){
@@ -232,14 +232,14 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
                 continue;
             }
             if(token.rep.equals(SymbolicTokenizer.POW)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(left == null || right == null){
                     throw new SyntaxException("POW requires both left and right elements.");
                 }
                 clone.remove(left);
                 clone.remove(right);
-                clone.add(new IntermediatePower(left.startIndex, right.endIndex, left, right));
+                clone.add(new SymbolicIntermediatePower(left.startIndex, right.endIndex, left, right));
             }
         }
         retList = new ArrayList<>(clone);
@@ -247,9 +247,9 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static List<IntermediateOperation> generateMultDivOperators(List<IntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
-        List<IntermediateOperation> clone = new ArrayList<>(curr);
-        List<IntermediateOperation> retList = new ArrayList<>();
+    public static List<SymbolicIntermediateOperation> generateMultDivOperators(List<SymbolicIntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
+        List<SymbolicIntermediateOperation> clone = new ArrayList<>(curr);
+        List<SymbolicIntermediateOperation> retList = new ArrayList<>();
         for (int i = 0; i < inputList.size(); i++) {
             Token<SymbolicTokenType> token = inputList.get(i);
             if(indexProcessedOperation(i, clone)){
@@ -259,23 +259,23 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
                 continue;
             }
             if(token.rep.equals(SymbolicTokenizer.MULT)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(left == null || right == null){
                     throw new SyntaxException("MULT requires both left and right elements.");
                 }
                 clone.remove(left);
                 clone.remove(right);
-                clone.add(new IntermediateMultiplication(left.startIndex, right.endIndex, left, right));
+                clone.add(new SymbolicIntermediateMultiplication(left.startIndex, right.endIndex, left, right));
             }else if(token.rep.equals(SymbolicTokenizer.DIVIDE)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(left == null || right == null){
                     throw new SyntaxException("DIV requires both left and right elements.");
                 }
                 clone.remove(left);
                 clone.remove(right);
-                clone.add(new IntermediateDivision(left.startIndex, right.endIndex, left, right));
+                clone.add(new SymbolicIntermediateDivision(left.startIndex, right.endIndex, left, right));
             }
         }
         retList = new ArrayList<>(clone);
@@ -283,9 +283,9 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static List<IntermediateOperation> generateAddSub(List<IntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
-        List<IntermediateOperation> clone = new ArrayList<>(curr);
-        List<IntermediateOperation> retList = new ArrayList<>();
+    public static List<SymbolicIntermediateOperation> generateAddSub(List<SymbolicIntermediateOperation> curr, List<SymbolicTokenSet> tokenSets, List<Token<SymbolicTokenType>> inputList){
+        List<SymbolicIntermediateOperation> clone = new ArrayList<>(curr);
+        List<SymbolicIntermediateOperation> retList = new ArrayList<>();
         for (int i = 0; i < inputList.size(); i++) {
             Token<SymbolicTokenType> token = inputList.get(i);
             if(indexProcessedOperation(i, clone)){
@@ -295,26 +295,26 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
                 continue;
             }
             if(token.rep.equals(SymbolicTokenizer.PLUS)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(right == null){
                     throw new SyntaxException("PLUS requires a right element.");
                 }
                 if(left != null){
                     clone.remove(left);
                     clone.remove(right);
-                    clone.add(new IntermediateAddition(left.startIndex, right.endIndex, left, right));
+                    clone.add(new SymbolicIntermediateAddition(left.startIndex, right.endIndex, left, right));
                 }
             }else if(token.rep.equals(SymbolicTokenizer.MINUS)){
-                IntermediateOperation left = left(i, clone);
-                IntermediateOperation right = right(i, clone);
+                SymbolicIntermediateOperation left = left(i, clone);
+                SymbolicIntermediateOperation right = right(i, clone);
                 if(right == null){
                     throw new SyntaxException("SUB requires a right element.");
                 }
                 if(left != null){
                     clone.remove(left);
                     clone.remove(right);
-                    clone.add(new IntermediateSubtraction(left.startIndex, right.endIndex, left, right));
+                    clone.add(new SymbolicIntermediateSubtraction(left.startIndex, right.endIndex, left, right));
                 }
             }
         }
@@ -323,8 +323,8 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return retList;
     }
 
-    public static IntermediateOperation left(int i, List<IntermediateOperation> tokenList){
-        for(IntermediateOperation tokenSet : tokenList){
+    public static SymbolicIntermediateOperation left(int i, List<SymbolicIntermediateOperation> tokenList){
+        for(SymbolicIntermediateOperation tokenSet : tokenList){
             if(RangeUtils.inRange(i - 1, tokenSet.startIndex, tokenSet.endIndex)){
                 return tokenSet;
             }
@@ -332,8 +332,8 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return null;
     }
 
-    public static IntermediateOperation right(int i, List<IntermediateOperation> tokenList){
-        for(IntermediateOperation tokenSet : tokenList){
+    public static SymbolicIntermediateOperation right(int i, List<SymbolicIntermediateOperation> tokenList){
+        for(SymbolicIntermediateOperation tokenSet : tokenList){
             if(RangeUtils.inRange(i + 1, tokenSet.startIndex, tokenSet.endIndex)){
                 return tokenSet;
             }
@@ -341,8 +341,8 @@ public class SymbolicSyntaxAnalyzer extends SyntaxAnalyzer<SymbolicTokenizer, Sy
         return null;
     }
 
-    public static boolean indexProcessedOperation(int i, List<IntermediateOperation> opList){
-        for(IntermediateOperation t : opList){
+    public static boolean indexProcessedOperation(int i, List<SymbolicIntermediateOperation> opList){
+        for(SymbolicIntermediateOperation t : opList){
             if(RangeUtils.inRange(i, t.startIndex, t.endIndex)){
                 return true;
             }

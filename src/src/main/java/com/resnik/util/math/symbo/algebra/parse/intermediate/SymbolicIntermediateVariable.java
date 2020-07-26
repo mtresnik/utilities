@@ -8,9 +8,9 @@ import com.resnik.util.text.TokenizationException;
 
 import java.util.Collections;
 
-public class IntermediateVariable extends IntermediateOperation {
+public class SymbolicIntermediateVariable extends SymbolicIntermediateOperation {
 
-    public IntermediateVariable(int startIndex, int endIndex, Token<SymbolicTokenType> token) {
+    public SymbolicIntermediateVariable(int startIndex, int endIndex, Token<SymbolicTokenType> token) {
         super(startIndex, endIndex, Collections.singletonList(token));
         if(token.type != SymbolicTokenType.VARIABLE){
             throw new TokenizationException("IntermediateVariable requires variable type.");

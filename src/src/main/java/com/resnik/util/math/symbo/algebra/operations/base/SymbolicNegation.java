@@ -6,11 +6,11 @@ import com.resnik.util.math.symbo.algebra.operations.Operation;
 import com.resnik.util.math.symbo.algebra.operations.Variable;
 
 
-public class Negation extends Operation {
+public class SymbolicNegation extends Operation {
 
     private Operation elem;
 
-    public Negation(Operation elem) {
+    public SymbolicNegation(Operation elem) {
         super(elem);
         this.elem = elem;
     }
@@ -22,14 +22,14 @@ public class Negation extends Operation {
 
     @Override
     public Operation getDerivative(Variable dVar) {
-        return new Negation(elem.getDerivative(dVar));
+        return new SymbolicNegation(elem.getDerivative(dVar));
     }
     
-    public Negation generate(Operation[] ops){
+    public SymbolicNegation generate(Operation[] ops){
         if(ops.length == 0){
-            return new Negation(Constant.ONE);
+            return new SymbolicNegation(Constant.ONE);
         }
-        return new Negation(ops[0]);
+        return new SymbolicNegation(ops[0]);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Negation extends Operation {
 
     @Override
     public Operation getIntegral(Variable dVar) {
-        return new Negation(elem.getIntegral(dVar));
+        return new SymbolicNegation(elem.getIntegral(dVar));
     }
 
 

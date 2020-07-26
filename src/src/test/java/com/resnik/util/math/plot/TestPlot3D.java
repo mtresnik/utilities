@@ -22,6 +22,37 @@ public class TestPlot3D {
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 
+        List<Point3d> points = new ArrayList<>();
+        double min = -10;
+        double max = 10;
+        int num = 200;
+        double dt = (max - min) / num;
+        for(double a = min; a < max; a+=dt){
+            for(double b = min; b < max; b+=dt){
+                if(a == b){
+                    continue;
+                }
+                for(double c = min; c < max; c+=dt){
+                    if(a == c || b == c){
+                        continue;
+                    }
+                    double lhs = a + b + c;
+                    double rhs = a * b * c;
+                    double diff = Math.abs(lhs - rhs);
+                    if(diff < 1){
+                        points.add(new Point3d(a,b,c));
+                    }
+                }
+            }
+        }
+        PlotDataset3D plotDataset3D = new PlotDataset3D(Color.BLUE, points);
+        plotDataset3D.setType(PointType.SMALL_SPHERE);
+        Plot3D.CartesianPlot plot = new Plot3D.CartesianPlot(plotDataset3D);
+        plot.useAxes = true;
+        plot.show();
+    }
+
+    private void testRandom(){
         PlotLineSet3D plotLineSet3D = new PlotLineSet3D();
         List<Point3d> basePoints = getRandomProjection();
         List<Line3d> baseLines = connectClosest(basePoints, 4);

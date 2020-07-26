@@ -2,9 +2,9 @@ package com.resnik.util.math.symbo.algebra.parse.intermediate;
 
 import com.resnik.util.math.symbo.algebra.operations.Operation;
 
-public class IntermediateIdentity extends IntermediateUnaryOperator {
+public class SymbolicIntermediateIdentity extends SymbolicIntermediateUnaryOperator {
 
-    public IntermediateIdentity(int startIndex, int endIndex, IntermediateOperation operation) {
+    public SymbolicIntermediateIdentity(int startIndex, int endIndex, SymbolicIntermediateOperation operation) {
         super(startIndex, endIndex, operation);
     }
 

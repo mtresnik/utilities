@@ -6,7 +6,7 @@ import com.resnik.util.math.symbo.algebra.operations.IntegrationException;
 import com.resnik.util.math.symbo.algebra.operations.Operation;
 import com.resnik.util.math.symbo.algebra.operations.Variable;
 import com.resnik.util.math.symbo.algebra.operations.base.Multiplication;
-import com.resnik.util.math.symbo.algebra.operations.base.Negation;
+import com.resnik.util.math.symbo.algebra.operations.base.SymbolicNegation;
 
 
 public class Sine extends Operation {
@@ -51,7 +51,7 @@ public class Sine extends Operation {
     public Operation getIntegral(Variable dVar) {
         if(inside.equals(dVar)){
             Operation firstTerm = new Cosine(inside);
-            return new Negation(firstTerm);
+            return new SymbolicNegation(firstTerm);
         }
         throw IntegrationException.TRIG_EXCEPTION;
     }

@@ -82,4 +82,17 @@ public class TestLogic {
         Log.v(TAG, after);
     }
 
+    @Test
+    public void testEval(){
+        LogicalVariable a = LogicalVariable.A;
+        LogicalVariable b = LogicalVariable.B;
+        LogicalVariable c = LogicalVariable.C;
+        LogicalOperation operation = a.implies(b.or(c));
+        LogicalVariable[] variables = operation.getVariables();
+        Log.v(TAG, variables);
+        Log.v(TAG, operation.getStateMap());
+        Log.v(TAG, operation.getStateMapString());
+    }
+
+
 }

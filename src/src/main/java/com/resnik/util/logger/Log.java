@@ -5,6 +5,7 @@ import com.resnik.util.text.StringUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -99,6 +100,10 @@ public class Log {
         d(TAG, Double.toString(message));
     }
 
+    public static <T> void d(String TAG, T[] message){
+        d(TAG, Arrays.toString(message));
+    }
+
     public static void d(String TAG, Object message){
         d(TAG, Objects.toString(message));
     }
@@ -113,6 +118,10 @@ public class Log {
 
     public static void i(String TAG, double message){
         i(TAG, Double.toString(message));
+    }
+
+    public static <T> void i(String TAG, T[] message){
+        i(TAG, Arrays.toString(message));
     }
 
     public static void i(String TAG, Object message){
@@ -135,6 +144,10 @@ public class Log {
         e(TAG, Objects.toString(message));
     }
 
+    public static <T> void e(String TAG, T[] message){
+        e(TAG, Arrays.toString(message));
+    }
+
     public static void v(String TAG, String message){
         write(verbose, "VERBOSE", TAG, message, VERBOSE_COLOR);
     }
@@ -149,6 +162,10 @@ public class Log {
 
     public static void v(String TAG, Object message){
         v(TAG, Objects.toString(message));
+    }
+
+    public static <T> void v(String TAG, T[] message){
+        v(TAG, Arrays.toString(message));
     }
 
 

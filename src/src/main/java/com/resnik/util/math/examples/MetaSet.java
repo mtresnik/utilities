@@ -3,7 +3,7 @@ package com.resnik.util.math.examples;
 import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.algebra.operations.Constant;
 import com.resnik.util.math.symbo.algebra.operations.Operation;
-import com.resnik.util.math.symbo.algebra.operations.base.Negation;
+import com.resnik.util.math.symbo.algebra.operations.base.SymbolicNegation;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -24,7 +24,7 @@ public class MetaSet extends LinkedHashSet<Operation>{
         MetaSet ret = new MetaSet();
         ret.n = n;
         ret.m = Constant.ONE;
-        ret.add(new Negation(n));
+        ret.add(new SymbolicNegation(n));
         ret.add(n);
         return ret;
     }

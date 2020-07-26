@@ -19,6 +19,44 @@ public interface OperatorInterface<T> {
 
     T getInfinity();
 
+    OperatorInterface<Integer> INTEGER_OPERATOR_INTERFACE = new OperatorInterface<Integer>() {
+        @Override
+        public Integer add(Integer first, Integer other) {
+            return first + other;
+        }
+
+        @Override
+        public Integer subtract(Integer first, Integer other) {
+            return first - other;
+        }
+
+        @Override
+        public Integer multiply(Integer first, Integer other) {
+            return first * other;
+        }
+
+        @Override
+        public Integer divide(Integer first, Integer other) {
+            return first / other;
+        }
+
+        @Override
+        public Integer getZero() {
+            return 0;
+        }
+
+        @Override
+        public Integer getNaN() {
+            return null;
+        }
+
+        @Override
+        public Integer getInfinity() {
+            return Integer.MAX_VALUE;
+        }
+    };
+
+
     OperatorInterface<Double> DOUBLE_OPERATOR_INTERFACE = new OperatorInterface<Double>() {
 
         @Override

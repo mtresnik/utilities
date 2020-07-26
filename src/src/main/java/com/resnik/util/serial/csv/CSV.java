@@ -164,6 +164,16 @@ public class CSV {
         return this.lines.size();
     }
 
+    public Map<String, Double> getNumberMap(int col1, int col2){
+        Map<String, Double> numberMap = new LinkedHashMap<>();
+        for(int i = 0; i < lines.size(); i++){
+            String key = Objects.toString(this.objectLines.get(i).get(col1));
+            double value = ((Number)this.objectLines.get(i).get(col2)).doubleValue();
+            numberMap.put(key.toLowerCase(), value);
+        }
+        return numberMap;
+    }
+
     public String toString(){
         String ret = "\n";
         String headerString = "";

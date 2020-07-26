@@ -1,4 +1,8 @@
 package com.resnik.util.math.symbo.logic.parse;
 
-public class LogicalTokenSetType {
+public enum LogicalTokenSetType {
+    BOOLEAN,
+    PARENTHESES,
+    VARIABLE,
+    USED
 }

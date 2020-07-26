@@ -3,11 +3,11 @@ package com.resnik.util.math.symbo.logic.operations;
 import com.resnik.util.math.symbo.logic.LogicalConstant;
 import com.resnik.util.math.symbo.logic.LogicalVariable;
 
-public class Not extends LogicalOperation {
+public class LogicalNegation extends LogicalOperation {
 
     private LogicalOperation elem;
 
-    public Not(LogicalOperation elem){
+    public LogicalNegation(LogicalOperation elem){
         super(elem);
         this.elem = elem;
     }
@@ -21,21 +21,16 @@ public class Not extends LogicalOperation {
     }
 
     @Override
-    public LogicalVariable[] getVariables() {
-        return new LogicalVariable[0];
-    }
-
-    @Override
     public String nonConstantString() {
-        return "~" + elem.toString();
+        return "!" + elem.toString();
     }
 
     @Override
-    public Not generate(LogicalOperation[] ops) {
+    public LogicalNegation generate(LogicalOperation[] ops) {
         if(ops.length == 0){
-            return new Not(LogicalConstant.TRUE);
+            return new LogicalNegation(LogicalConstant.TRUE);
         }
-        return new Not(ops[0]);
+        return new LogicalNegation(ops[0]);
     }
 
 

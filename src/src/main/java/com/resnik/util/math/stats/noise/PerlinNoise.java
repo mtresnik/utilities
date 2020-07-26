@@ -18,6 +18,16 @@ public class PerlinNoise implements Noise{
     };
     static { for (int i=0; i < 256 ; i++) p[256+i] = p[i] = permutation[i]; }
 
+    private final double seed;
+
+    public PerlinNoise(){
+        this(0.0d);
+    }
+
+    public PerlinNoise(double seed){
+        this.seed = seed;
+    }
+
     static public double noise(double x, double y, double z) {
         int X = (int)Math.floor(x) & 255,                  // FIND UNIT CUBE THAT
                 Y = (int)Math.floor(y) & 255,                  // CONTAINS POINT.
@@ -52,7 +62,7 @@ public class PerlinNoise implements Noise{
 
     @Override
     public double noise(double x, double y) {
-        return noise(x, y, 0);
+        return noise(x, y, seed);
     }
 
 }

@@ -3,9 +3,9 @@ package com.resnik.util.math.symbo.algebra.parse.intermediate;
 import com.resnik.util.math.symbo.algebra.operations.Operation;
 import com.resnik.util.math.symbo.algebra.operations.base.Addition;
 
-public class IntermediateAddition extends IntermediateBinaryOperator {
+public class SymbolicIntermediateAddition extends SymbolicIntermediateBinaryOperator {
 
-    public IntermediateAddition(int startIndex, int endIndex, IntermediateOperation op1, IntermediateOperation op2) {
+    public SymbolicIntermediateAddition(int startIndex, int endIndex, SymbolicIntermediateOperation op1, SymbolicIntermediateOperation op2) {
         super(startIndex, endIndex, op1, op2);
     }
 

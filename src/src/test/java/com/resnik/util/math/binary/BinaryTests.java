@@ -3,7 +3,9 @@ package com.resnik.util.math.binary;
 import com.resnik.util.logger.Log;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BinaryTests {
 
@@ -61,6 +63,43 @@ public class BinaryTests {
         Log.v(TAG,num);
         LongWord lw1 = LongWord.fromInt(num);
         Log.v(TAG,lw1);
+    }
+
+    @Test
+    public void testFunction(){
+        List<boolean[]> inputs = new ArrayList<>();
+        int size = 3;
+        for(int i = 0; i <= 1; i++){
+            boolean a = i > 0;
+            for(int j = 0; j <= 1; j++){
+                boolean b = j > 0;
+                for(int k = 0; k <= 1; k++){
+                    boolean c = k > 0;
+                    boolean[] input = new boolean[]{a, b, c};
+                    inputs.add(input);
+                }
+            }
+        }
+        for(boolean[] input : inputs){
+            boolean a = input[0];
+            boolean b = input[1];
+            boolean x = input[2];
+
+            int aInt = a ? 1 : 0;
+            int aBarInt = !a ? 1 : 0;
+            int bInt = b ? 1 : 0;
+            int bBarInt = !b ? 1 : 0;
+            int xInt = 4;
+
+            int[] intInputs = new int[]{aInt, bInt, xInt};
+
+            int result = 3*aInt + 2*bInt + aBarInt*bBarInt*xInt;
+
+            System.out.println(Arrays.toString(intInputs) + "\t=" + result + "\t->" + (result>0));
+
+
+        }
+
     }
 
 }

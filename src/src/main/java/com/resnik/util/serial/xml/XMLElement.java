@@ -63,6 +63,14 @@ public class XMLElement extends LinkedHashMap<String, Object>{
         return inner;
     }
 
+    public Node getElement(){
+        return element;
+    }
+
+    public String getNodeInner(){
+        return element.getTextContent();
+    }
+
     public String toString(){
         String retString = "";
         if(this.size() == 0){

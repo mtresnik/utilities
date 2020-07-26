@@ -1,5 +1,7 @@
 package com.resnik.util.text;
 
+import java.util.Arrays;
+
 public class Token<TOKEN_TYPE> {
 
     public int startIndex, endIndex;
@@ -42,6 +44,6 @@ public class Token<TOKEN_TYPE> {
     }
 
     public String toString(){
-        return "[" + type +":"+ rep + "]";
+        return "[" + type +":"+ rep +Arrays.toString(new int[]{startIndex, endIndex}) + "]";
     }
 }

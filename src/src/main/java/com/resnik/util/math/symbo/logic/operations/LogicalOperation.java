@@ -1,22 +1,17 @@
 package com.resnik.util.math.symbo.logic.operations;
 
-import com.resnik.util.logger.Log;
-import com.resnik.util.math.symbo.algebra.operations.Operation;
 import com.resnik.util.math.symbo.logic.LogicalConstant;
 import com.resnik.util.math.symbo.logic.LogicalInterface;
 import com.resnik.util.math.symbo.logic.LogicalVariable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public abstract class LogicalOperation<EVAL extends LogicalInterface>
         implements LogicalInterface<
         LogicalOperation, And,
         LogicalOperation, Or,
         LogicalOperation, Xor,
-        Not,
+        LogicalNegation,
         LogicalOperation, Implies>{
 
 
@@ -42,8 +37,8 @@ public abstract class LogicalOperation<EVAL extends LogicalInterface>
     }
 
     @Override
-    public Not not() {
-        return new Not(this);
+    public LogicalNegation not() {
+        return new LogicalNegation(this);
     }
 
     @Override
@@ -62,17 +57,71 @@ public abstract class LogicalOperation<EVAL extends LogicalInterface>
 
     public abstract LogicalConstant constantRepresentation();
 
+
+    public String getStateMapString(){
+        Map<Map<LogicalVariable, Boolean>, Boolean> stateMap = getStateMap();
+        String retString = "\n" + this.toString() + "\n";
+        retString += Arrays.toString(this.getVariables()) + "\n";
+        for(Map.Entry<Map<LogicalVariable, Boolean>, Boolean> entry : stateMap.entrySet()){
+            String lineString = "";
+            for(Map.Entry<LogicalVariable, Boolean> subEntry : entry.getKey().entrySet()){
+                boolean val = subEntry.getValue();
+                if(val){
+                    lineString += "1";
+                }else {
+                    lineString += "0";
+                }
+                lineString += "\t";
+            }
+            lineString += "=" + (entry.getValue() ? "1" : "0");
+            retString += lineString + "\n";
+        }
+        return retString;
+    }
+
+    public Map<Map<LogicalVariable, Boolean>, Boolean> getStateMap(){
+        Map<Map<LogicalVariable, Boolean>, Boolean> retMap = new LinkedHashMap<>();
+        LogicalVariable[] variables = getVariables();
+        if(variables.length == 0){
+            return retMap;
+        }
+        int numIterations = (int) Math.pow(2, variables.length);
+        boolean[] testSet = new boolean[variables.length];
+        for(int count = 0; count <= numIterations; count++){
+            LogicalOperation currOp = this;
+            Map<LogicalVariable, Boolean> innerMap = new LinkedHashMap<>();
+            for(int varIndex = 0; varIndex < variables.length; varIndex++){
+                LogicalVariable logicalVariable = variables[varIndex];
+                boolean value = testSet[varIndex];
+                currOp = currOp.substitute(logicalVariable, value);
+                innerMap.put(logicalVariable, value);
+            }
+            LogicalConstant constant = currOp.constantRepresentation();
+            if(constant == null){
+                System.out.println("null constant for:" + currOp);
+            }
+            retMap.put(innerMap, constant.getValue());
+            String bitRep = Integer.toString(count, 2);
+            while(bitRep.length() < testSet.length){
+                bitRep = "0" + bitRep;
+            }
+            for(int varAssign = 0; varAssign < testSet.length; varAssign++){
+                char c = bitRep.charAt(varAssign);
+                testSet[varAssign] = c != '0';
+            }
+
+        }
+        return retMap;
+    }
+
     public LogicalVariable[] getVariables(){
         LogicalVariable[] retArray;
         List<LogicalVariable> varList = new ArrayList();
         for (int i = 0; i < this.values.length; i++) {
             LogicalOperation currOp = this.values[i];
-            if (currOp.allConstants()) {
-                continue;
-            }
             LogicalVariable[] allVars = currOp.getVariables();
             for (LogicalVariable currVar : allVars) {
-                if (varList.contains(currVar) == false) {
+                if (!varList.contains(currVar)) {
                     varList.add(currVar);
                 }
             }
@@ -93,6 +142,11 @@ public abstract class LogicalOperation<EVAL extends LogicalInterface>
         }
         for(LogicalOperation curr : this.values){
             if(curr.equals(variable)){
+                return true;
+            }
+        }
+        for(LogicalVariable variable1 : this.getVariables()){
+            if(variable.equals(variable1)){
                 return true;
             }
         }

@@ -8,9 +8,9 @@ import com.resnik.util.text.TokenizationException;
 
 import java.util.Collections;
 
-public class IntermediateNumber extends IntermediateOperation {
+public class SymbolicIntermediateNumber extends SymbolicIntermediateOperation {
 
-    public IntermediateNumber(int startIndex, int endIndex, Token<SymbolicTokenType> token) {
+    public SymbolicIntermediateNumber(int startIndex, int endIndex, Token<SymbolicTokenType> token) {
         super(startIndex, endIndex, Collections.singletonList(token));
         if(token.type != SymbolicTokenType.NUMBER){
             throw new TokenizationException("IntermediateNumber requires number type.");

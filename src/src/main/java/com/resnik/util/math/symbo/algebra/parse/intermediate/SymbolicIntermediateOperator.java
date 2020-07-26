@@ -6,18 +6,18 @@ import com.resnik.util.text.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class IntermediateOperator extends IntermediateOperation {
+public abstract class SymbolicIntermediateOperator extends SymbolicIntermediateOperation {
 
-    List<IntermediateOperation> operations;
+    List<SymbolicIntermediateOperation> operations;
 
-    public IntermediateOperator(int startIndex, int endIndex, List<IntermediateOperation> operations) {
+    public SymbolicIntermediateOperator(int startIndex, int endIndex, List<SymbolicIntermediateOperation> operations) {
         super(startIndex, endIndex, yokeAll(operations));
         this.operations = operations;
     }
 
-    public static List<Token<SymbolicTokenType>> yokeAll(List<IntermediateOperation> operations){
+    public static List<Token<SymbolicTokenType>> yokeAll(List<SymbolicIntermediateOperation> operations){
         List<Token<SymbolicTokenType>> retList = new ArrayList<>();
-        for(IntermediateOperation op : operations){
+        for(SymbolicIntermediateOperation op : operations){
             retList.addAll(op.tokens);
         }
         return retList;
