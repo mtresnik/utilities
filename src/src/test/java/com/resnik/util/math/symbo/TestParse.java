@@ -45,23 +45,4 @@ public class TestParse {
         balancedParenthesesCheck("(a)()");
     }
 
-    @Test
-    public void testLogicalTokenizer(){
-        String testString = "!ab!c";
-        LogicalTokenizer tokenizer = new LogicalTokenizer();
-        System.out.println(tokenizer.tokenize(testString));
-    }
-
-    @Test
-    public void testLogicalSyntax(){
-        LogicalSyntaxAnalyzer analyzer = new LogicalSyntaxAnalyzer();
-        LogicalOperation operation = analyzer.analyze("true or false");
-        Log.v(TAG, operation);
-        operation = analyzer.analyze("a && b");
-        Log.v(TAG, operation);
-        System.out.println(operation.getStateMapString());
-        System.out.println(analyzer.analyze("a || b").getStateMapString());
-        operation = analyzer.analyze("!ab!c or abc implies c & d NAND e");
-        System.out.println(operation.getStateMapString());
-    }
 }

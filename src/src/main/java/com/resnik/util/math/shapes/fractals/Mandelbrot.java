@@ -100,9 +100,37 @@ public class Mandelbrot {
         return retImage;
     }
 
+    public static byte[][][] convergencePlotGreyscale(){
+        double iMin = -1.5;
+        double iMax = 1.5;
+        double xMin = -2;
+        double xMax = 1;
+        int height = 8000;
+        int width = height;
+        double d_i = (iMax - iMin)/height;
+        double d_x = (xMax - xMin)/width;
+        byte[][][] retImage = new byte[height][width][];
+        for(int ROW = 0; ROW < height; ROW++){
+            double curr_i = d_i*(height - ROW - 1) + iMin;
+            for(int COL = 0; COL < width; COL++){
+                double curr_x = d_x*COL + xMin;
+                ComplexNumber curr = new ComplexNumber(curr_x, curr_i);
+                double convergenceNumber = convergenceLinear(curr);
+                double gradient = Math.min(convergenceNumber / MAX_CONVERGENCE, 1.0);
+                byte[] pixel = ImageUtils.grey(1.0 - gradient);
+                if(convergenceNumber == MAX_CONVERGENCE){
+                    pixel = ImageUtils.BLACK_B;
+                }
+                retImage[ROW][COL] = pixel;
+            }
+            Log.v(TAG,"Completed Row:" + ROW);
+        }
+        return retImage;
+    }
+
     public static void main(String[] args) throws IOException {
-        writeGif();
-//        ImageUtils.saveImageBytes(convergencePlot(), "res/convergence.bmp");
+        // writeGif();
+        ImageUtils.saveImageBytes(convergencePlotGreyscale(), "src/res/convergence.bmp");
     }
 
 }

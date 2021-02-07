@@ -21,8 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.AttributedString;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 import java.util.function.Function;
 
@@ -1017,6 +1016,11 @@ public final class ImageUtils {
     public static byte[][][] toGreyscale_b(byte[][][] inputImage) {
         return intToRGB(toGreyscale(inputImage, RPERC, GPERC, BPERC));
     }
+
+    public static byte[] grey(double gradient){
+        byte grey = (byte) (gradient * 255);
+        return new byte[]{grey, grey, grey};
+    }
     // </editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Load">
@@ -1218,7 +1222,7 @@ public final class ImageUtils {
         }
         BufferedImage firstImage = inputImages[0];
         ImageOutputStream output = new FileImageOutputStream(new File(pathName));
-        GifSequenceWriter writer = new GifSequenceWriter(output, firstImage.getType(), gd.getDelay(0), (gd.getLoopCount() == 0 ? true : false));
+        GifSequenceWriter writer = new GifSequenceWriter(output, firstImage.getType(), gd.getDelay(0), (gd.getLoopCount() == 0));
         for (BufferedImage img : inputImages) {
             writer.writeToSequence(img);
         }
@@ -1580,4 +1584,34 @@ public final class ImageUtils {
         return new byte[]{(byte) 255, 0, 0};
 
     }
+
+    public static BufferedImage sort(BufferedImage image){
+        final int height = image.getHeight();
+        final int width = image.getWidth();
+        BufferedImage ret = new BufferedImage(width, height, image.getType());
+        int[] pixels = new int[height*width];
+        Color[] pixelArr = new Color[height*width];
+        for(int ROW = 0; ROW < height; ROW++){
+            for(int COL = 0; COL < width; COL++){
+                Color color = new Color(image.getRGB(COL, ROW));
+                pixelArr[ROW*width + COL] = color;
+                pixels[ROW*width + COL] = image.getRGB(COL, ROW);
+            }
+        }
+        Arrays.sort(pixels);
+        Arrays.sort(pixelArr, new Comparator<Color>() {
+            @Override
+            public int compare(Color t, Color t1) {
+                return Double.compare(t.getRGB(), t1.getRGB());
+            }
+        });
+        for(int ROW = 0; ROW < height; ROW++){
+            for(int COL = 0; COL < width; COL++){
+                int pixel = pixelArr[ROW*width + COL].getRGB();
+                ret.setRGB(COL, ROW, pixel);
+            }
+        }
+        return ret;
+    }
+
 }

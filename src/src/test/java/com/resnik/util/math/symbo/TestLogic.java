@@ -4,11 +4,32 @@ import com.resnik.util.logger.Log;
 import com.resnik.util.math.symbo.logic.LogicalConstant;
 import com.resnik.util.math.symbo.logic.LogicalVariable;
 import com.resnik.util.math.symbo.logic.operations.LogicalOperation;
+import com.resnik.util.math.symbo.logic.parse.LogicalSyntaxAnalyzer;
+import com.resnik.util.math.symbo.logic.parse.LogicalTokenizer;
 import org.junit.Test;
 
 public class TestLogic {
 
     public static final String TAG = TestLogic.class.getSimpleName();
+
+    @Test
+    public void testLogicalTokenizer(){
+        String testString = "!ab!c";
+        LogicalTokenizer tokenizer = new LogicalTokenizer();
+        System.out.println(tokenizer.tokenize(testString));
+    }
+
+    @Test
+    public void testLogicalSyntax(){
+        LogicalSyntaxAnalyzer analyzer = new LogicalSyntaxAnalyzer();
+        LogicalOperation operation = analyzer.analyze("true or false");
+        Log.v(TAG, operation);
+        operation = analyzer.analyze("a && b");
+        Log.v(TAG, operation);
+        System.out.println(analyzer.analyze("a || b"));
+        operation = analyzer.analyze("!ab!c or abc implies c & d NAND e");
+        System.out.println(operation);
+    }
 
     @Test
     public void testOr(){
@@ -80,6 +101,19 @@ public class TestLogic {
         Log.v(TAG, operation);
         Log.v(TAG, next);
         Log.v(TAG, after);
+    }
+
+    @Test
+    public void testIff(){
+        LogicalVariable a = LogicalVariable.A;
+        LogicalVariable b = LogicalVariable.B;
+        LogicalOperation operation = a.iff(b);
+        Log.v(TAG, operation);
+        Log.v(TAG, operation.getStateMapString());
+        operation = operation.substitute(b, a);
+        Log.v(TAG, operation);
+        Log.v(TAG, operation.constantRepresentation());
+        Log.v(TAG, operation.getStateMapString());
     }
 
     @Test

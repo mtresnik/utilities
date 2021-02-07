@@ -204,13 +204,13 @@ public class TestSymbo {
     public void testEquation3(){
         double min = 0.5;
         double max = 5;
-        int num = 2000;
+        int num = 1000;
         double dt = (max - min) / num;
         double[] abc = new double[]{};
         double minDiff = Double.MAX_VALUE;
         int numFrames = 100;
-        int width = 1000;
-        int height = 1000;
+        int width = 500;
+        int height = 500;
         byte[][][][] images = new byte[numFrames][][][];
         for(int i = 0; i < numFrames; i++){
             images[i] = new byte[height][width][];

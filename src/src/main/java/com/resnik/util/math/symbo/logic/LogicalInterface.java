@@ -5,7 +5,8 @@ public interface LogicalInterface<
         ORPARAM extends LogicalInterface, ORRET extends LogicalInterface,
         XORPARAM extends LogicalInterface, XORRET extends LogicalInterface,
         NOTRET extends LogicalInterface,
-        IMPLIESPARAM extends LogicalInterface, IMPLIESRET extends LogicalInterface
+        IMPLIESPARAM extends LogicalInterface, IMPLIESRET extends LogicalInterface,
+        IFFPARAM extends LogicalInterface, IFFRET extends LogicalInterface
         > {
 
     ANDRET and(ANDPARAM a1);
@@ -17,4 +18,6 @@ public interface LogicalInterface<
     NOTRET not();
 
     IMPLIESRET implies(IMPLIESPARAM a1);
+
+    IFFRET iff(IFFPARAM a1);
 }

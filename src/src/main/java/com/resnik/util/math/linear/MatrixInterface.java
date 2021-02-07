@@ -8,13 +8,13 @@ public interface MatrixInterface<T> {
 
     int height();
 
-    MatrixInterface dot(MatrixInterface other);
+    MatrixInterface<T> dot(MatrixInterface<T> other);
 
-    MatrixInterface transpose();
+    MatrixInterface<T> transpose();
 
-    List<RowVector> getRows();
+    List<RowVector<T>> getRows();
 
-    List<ColumnVector> getColumns();
+    List<ColumnVector<T>> getColumns();
 
     T[][] getElements();
 

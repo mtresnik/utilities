@@ -2,6 +2,9 @@ package com.resnik.util.math;
 
 import com.resnik.util.math.symbo.algebra.operations.Constant;
 import com.resnik.util.math.symbo.algebra.operations.Operation;
+import com.resnik.util.math.symbo.algebra.operations.base.Power;
+import com.resnik.util.math.symbo.algebra.operations.base.SymbolicNegation;
+import com.resnik.util.math.symbo.algebra.operations.functions.*;
 
 public interface OperatorInterface<T> {
 
@@ -15,9 +18,23 @@ public interface OperatorInterface<T> {
 
     T getZero();
 
+    T getOne();
+
+    T negate(T other);
+
     T getNaN();
 
     T getInfinity();
+
+    T sin(T theta);
+
+    T asin(T y);
+
+    T cos(T theta);
+
+    T acos(T x);
+
+    T sqrt(T x);
 
     OperatorInterface<Integer> INTEGER_OPERATOR_INTERFACE = new OperatorInterface<Integer>() {
         @Override
@@ -46,6 +63,16 @@ public interface OperatorInterface<T> {
         }
 
         @Override
+        public Integer getOne() {
+            return 1;
+        }
+
+        @Override
+        public Integer negate(Integer other) {
+            return - other;
+        }
+
+        @Override
         public Integer getNaN() {
             return null;
         }
@@ -53,6 +80,31 @@ public interface OperatorInterface<T> {
         @Override
         public Integer getInfinity() {
             return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public Integer sin(Integer theta) {
+            return 0;
+        }
+
+        @Override
+        public Integer asin(Integer y) {
+            return (int) Math.asin(y);
+        }
+
+        @Override
+        public Integer cos(Integer theta) {
+            return 0;
+        }
+
+        @Override
+        public Integer acos(Integer x) {
+            return (int) Math.acos(x);
+        }
+
+        @Override
+        public Integer sqrt(Integer x) {
+            return (int) Math.sqrt(x);
         }
     };
 
@@ -85,6 +137,16 @@ public interface OperatorInterface<T> {
         }
 
         @Override
+        public Double getOne() {
+            return 1.0;
+        }
+
+        @Override
+        public Double negate(Double other) {
+            return  - other;
+        }
+
+        @Override
         public Double getNaN() {
             return Double.NaN;
         }
@@ -93,6 +155,33 @@ public interface OperatorInterface<T> {
         public Double getInfinity() {
             return Double.POSITIVE_INFINITY;
         }
+
+        @Override
+        public Double sin(Double theta) {
+            return Math.sin(theta);
+        }
+
+        @Override
+        public Double asin(Double y) {
+            return Math.asin(y);
+        }
+
+        @Override
+        public Double cos(Double theta) {
+            return Math.cos(theta);
+        }
+
+        @Override
+        public Double acos(Double x) {
+            return Math.acos(x);
+        }
+
+        @Override
+        public Double sqrt(Double x) {
+            return Math.sqrt(x);
+        }
+
+
     };
 
     OperatorInterface<Operation> OPERATION_INTERFACE = new OperatorInterface<Operation>() {
@@ -122,6 +211,11 @@ public interface OperatorInterface<T> {
         }
 
         @Override
+        public Operation getOne() {
+            return Constant.ONE;
+        }
+
+        @Override
         public Operation getNaN() {
             return Constant.NaN;
         }
@@ -129,6 +223,36 @@ public interface OperatorInterface<T> {
         @Override
         public Operation getInfinity() {
             return Constant.INFINITY;
+        }
+
+        @Override
+        public Operation sin(Operation theta) {
+            return new Sine(theta);
+        }
+
+        @Override
+        public Operation asin(Operation y) {
+            return new ArcSine(y);
+        }
+
+        @Override
+        public Operation cos(Operation theta) {
+            return new Cosine(theta);
+        }
+
+        @Override
+        public Operation acos(Operation x) {
+            return new ArcCosine(x);
+        }
+
+        @Override
+        public Operation sqrt(Operation x) {
+            return new Power(x, Constant.ONE_HALF);
+        }
+
+        @Override
+        public Operation negate(Operation other) {
+            return new SymbolicNegation(other);
         }
     };
 

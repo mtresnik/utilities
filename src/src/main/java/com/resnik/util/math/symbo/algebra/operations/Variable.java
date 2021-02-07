@@ -17,6 +17,10 @@ public class Variable extends Operation {
     public static final Variable T = new Variable("t");
     public static final Variable I = new Variable("i");
     public static final Variable N = new Variable("n");
+    public static final Variable A = new Variable("a");
+    public static final Variable B = new Variable("b");
+    public static final Variable C = new Variable("c");
+    public static final Variable D = new Variable("d");
     public static final Variable THETA = new Variable("\u03F4");
     public static final Variable SIGMA = new Variable("\u03A3");
     public static final Variable CAPITAL_PI = new Variable("\u03A0");

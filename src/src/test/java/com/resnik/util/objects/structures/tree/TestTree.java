@@ -140,15 +140,15 @@ public class TestTree {
         List<byte[]> matchingColors = new ArrayList<>();
         points.add(new double[]{Math.random()*width, Math.random()*height});
         double greyVal = Math.random();
-        matchingColors.add(ImageUtils.gradient(greyVal));
-        int iterations = 100;
+        matchingColors.add(ImageUtils.grey(greyVal));
+        int iterations = 150;
         BufferedImage[] images = new BufferedImage[iterations];
         for(int i = 0; i < iterations; i++){
             Log.e(TAG, "Iteration:" + i);
             byte[][][] image = new byte[height][width][];
             points.add(new double[]{Math.random()*width, Math.random()*height});
             greyVal = Math.random();
-            matchingColors.add(ImageUtils.gradient(greyVal));
+            matchingColors.add(ImageUtils.grey(greyVal));
             for(int ROW = 0; ROW < height; ROW++){
                 for(int COL = 0; COL < width; COL++){
                     image[ROW][COL] = ImageUtils.WHITE_B;
@@ -178,6 +178,119 @@ public class TestTree {
         gd.delay = 100;
         try {
             ImageUtils.saveGifBuffered(images, gd, "src/res/testNN.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNNImageInput() throws IOException {
+        byte[][][] sourceImage = ImageUtils.loadImageBytes("src/res/giraffe.jpg");
+
+        int height = sourceImage.length;
+        int width = sourceImage[0].length;
+
+        List<double[]> points = new ArrayList<>();
+        List<byte[]> matchingColors = new ArrayList<>();
+        double tmpX = Math.random()*width;
+        double tmpY = Math.random()*height;
+        double[] pt = new double[]{tmpX, tmpY};
+        points.add(pt);
+        matchingColors.add(sourceImage[(int)tmpY][(int)tmpX]);
+        int iterations = 1800;
+        int saveBy = 30;
+        BufferedImage[] images = new BufferedImage[iterations/saveBy];
+        for(int i = 0; i < iterations; i++){
+            Log.e(TAG, "Iteration:" + i);
+            tmpX = Math.random()*width;
+            tmpY = Math.random()*height;
+            pt = new double[]{tmpX, tmpY};
+            points.add(pt);
+            matchingColors.add(sourceImage[(int)tmpY][(int)tmpX]);
+            if(i % saveBy == 0){
+                byte[][][] image = new byte[height][width][];
+                for(int ROW = 0; ROW < height; ROW++){
+                    for(int COL = 0; COL < width; COL++){
+                        image[ROW][COL] = ImageUtils.WHITE_B;
+                    }
+                }
+                for(int ROW = 0; ROW < height; ROW++){
+                    for(int COL = 0; COL < width; COL++){
+                        int minIndex = -1;
+                        double minDistance = Double.MAX_VALUE;
+                        for(int index = 0; index < points.size(); index++){
+                            double[] point = points.get(index);
+                            double dx = COL - point[0];
+                            double dy = ROW - point[1];
+                            double dist = Math.sqrt(dx*dx + dy*dy);
+                            if(dist < minDistance){
+                                minDistance = dist;
+                                minIndex = index;
+                            }
+                        }
+                        image[ROW][COL] = matchingColors.get(minIndex);
+                    }
+                }
+                images[i/saveBy] = ImageUtils.bytesToBufferedImage(image);
+            }
+
+        }
+
+        GifDecoder gd = new GifDecoder();
+        gd.delay = 100;
+        try {
+            ImageUtils.saveGifBuffered(images, gd, "src/res/testNNImage.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNNImageInput2() throws IOException {
+        byte[][][] sourceImage = ImageUtils.loadImageBytes("src/res/giraffe.jpg");
+
+        int height = sourceImage.length;
+        int width = sourceImage[0].length;
+
+        List<double[]> points = new ArrayList<>();
+        List<byte[]> matchingColors = new ArrayList<>();
+        double tmpX = Math.random()*width;
+        double tmpY = Math.random()*height;
+        double[] pt = new double[]{tmpX, tmpY};
+        points.add(pt);
+        matchingColors.add(sourceImage[(int)tmpY][(int)tmpX]);
+        int iterations = 20000;
+        for(int i = 0; i < iterations; i++){
+            Log.e(TAG, "Iteration:" + i);
+            tmpX = Math.random()*width;
+            tmpY = Math.random()*height;
+            pt = new double[]{tmpX, tmpY};
+            points.add(pt);
+            matchingColors.add(sourceImage[(int)tmpY][(int)tmpX]);
+        }
+        byte[][][] image = new byte[height][width][];
+        for(int ROW = 0; ROW < height; ROW++){
+            for(int COL = 0; COL < width; COL++){
+                int minIndex = -1;
+                double minDistance = Double.MAX_VALUE;
+                for(int index = 0; index < points.size(); index++){
+                    double[] point = points.get(index);
+                    double dx = COL - point[0];
+                    double dy = ROW - point[1];
+                    double dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < minDistance){
+                        minDistance = dist;
+                        minIndex = index;
+                    }
+                }
+                image[ROW][COL] = matchingColors.get(minIndex);
+            }
+        }
+
+        GifDecoder gd = new GifDecoder();
+        gd.delay = 100;
+        try {
+            ImageUtils.saveImageBytes(image, "src/res/testNNImageOut.bmp");
         } catch (IOException e) {
             e.printStackTrace();
         }

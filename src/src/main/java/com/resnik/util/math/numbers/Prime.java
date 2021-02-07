@@ -178,6 +178,75 @@ public final class Prime {
         return retArray;
     }
 
+    public static List<Integer> getMultiples(int n, List<Integer> input){
+        List<Integer> retList = new ArrayList<>();
+        for(Integer m : input){
+            if(m == n){
+                continue;
+            }
+            if(m % n == 0){
+                retList.add(m);
+            }
+        }
+        return retList;
+    }
+
+    public static int[] listPrimesSieve(int num){
+        int[] ret = new int[num];
+        List<Integer> allPrimes = new ArrayList<>();
+
+        List<Integer> allNumbers = new ArrayList<>();
+        double maxNum = 2*num * Math.log(num);
+        int base = 2;
+        for(int i = base; i <= maxNum + base; i++){
+            allNumbers.add(i);
+        }
+        allPrimes = new ArrayList<>(allNumbers);
+        int lastSize = allPrimes.size();
+        for(int n : allNumbers){
+            List<Integer> multiples = getMultiples(n, allPrimes);
+            allPrimes.removeAll(multiples);
+            if(allPrimes.size() >= num || allPrimes.size() == lastSize){
+                break;
+            }
+            lastSize = allPrimes.size();
+        }
+        for(int i = 0; i < num; i++){
+            ret[i] = allPrimes.get(i);
+        }
+        return ret;
+    }
+
+    public static int primeSieveLast(int num){
+        int[] primeSieve = listPrimesSieve(num);
+        return primeSieve[primeSieve.length - 1];
+    }
+
+    public static boolean isPrimeDefault(int n){
+        if(n <= 1){
+            return false;
+        }
+        for(int i = 2; i < Math.sqrt(n*n) + 1; i++){
+            if(n == i){
+                continue;
+            }
+            if(n % i == 0){
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public static void nthPrime(int n){
+        double pi = n / Math.log(n);
+        System.out.println(pi);
+    }
+
+    public static void main(String[] args) {
+        nthPrime(104729);
+    }
+
 
     public static BufferedImage[] getEndingsGif(int n){
         return getEndingsGif(10, n, 5);

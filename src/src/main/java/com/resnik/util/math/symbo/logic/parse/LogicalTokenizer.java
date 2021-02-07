@@ -1,6 +1,5 @@
 package com.resnik.util.math.symbo.logic.parse;
 
-import com.resnik.util.math.symbo.algebra.parse.SymbolicTokenType;
 import com.resnik.util.objects.RangeUtils;
 import com.resnik.util.text.Token;
 import com.resnik.util.text.TokenizationException;

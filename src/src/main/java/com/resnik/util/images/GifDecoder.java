@@ -64,7 +64,7 @@ public class GifDecoder {
 	protected int height; // full image height
 	protected boolean gctFlag; // global color table used
 	protected int gctSize; // size of global color table
-	protected int loopCount = 0; // iterations; 0 = repeat forever
+	public int loopCount = 0; // iterations; 0 = repeat forever
 
 	protected int[] gct; // global color table
 	protected int[] lct; // local color table

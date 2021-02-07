@@ -12,7 +12,8 @@ public abstract class LogicalOperation<EVAL extends LogicalInterface>
         LogicalOperation, Or,
         LogicalOperation, Xor,
         LogicalNegation,
-        LogicalOperation, Implies>{
+        LogicalOperation, Implies,
+        LogicalOperation, Iff>{
 
 
     protected LogicalOperation[] values;
@@ -44,6 +45,11 @@ public abstract class LogicalOperation<EVAL extends LogicalInterface>
     @Override
     public Implies implies(LogicalOperation a1){
         return new Implies(this, a1);
+    }
+
+    @Override
+    public Iff iff(LogicalOperation a1){
+        return new Iff(this, a1);
     }
 
     public boolean allConstants(){

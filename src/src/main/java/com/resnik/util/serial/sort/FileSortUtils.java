@@ -6,9 +6,9 @@ import com.resnik.util.logger.Log;
 import java.io.File;
 import java.util.*;
 
-public class SortUtils {
+public class FileSortUtils {
 
-    public static final String TAG = SortUtils.class.getSimpleName();
+    public static final String TAG = FileSortUtils.class.getSimpleName();
 
     public static final String outputName = "SORTED";
 

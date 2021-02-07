@@ -1,10 +1,12 @@
 package com.resnik.util.math.examples;
 
+import com.resnik.util.images.ImageUtils;
 import com.resnik.util.logger.Log;
 import com.resnik.util.math.numbers.BigNumberUtils;
 import com.resnik.util.math.numbers.ContinuedFraction;
 import com.resnik.util.math.numbers.Factorial;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -157,14 +159,41 @@ public final class CircleProblem {
     }
 
     public static void main(String[] args) {
-        Log.v(TAG,r(new BigInteger("0")));
-        Log.v(TAG,R(new BigInteger("12")));
-        Log.v(TAG,generateAFromR(new BigInteger("3000")));
-        Log.v(TAG,A);
-        BigDecimal w = wFromTest(DEFAULT_CAP, new BigDecimal("0"), 20);
-        BigInteger[] frac = ContinuedFraction.generateContinuedFraction(w);
-        Log.v(TAG,W_test_MAP);
-        Log.v(TAG, "Frac:" + Arrays.asList(frac));
+        double w = 0.480068840868035244581566735;
+        double s = Math.PI / 4 - 3 * w * w;
+        System.out.println(w);
+        System.out.println(s);
+        double comp = Math.sin(4*s);
+        double thresh = 10E-12;
+        int height = 400;
+        int width = 400;
+        byte[][][] img = new byte[height][width][];
+        double[][] diff = new double[height][width];
+        double max = -1;
+        for(int row = 0; row < height; row++){
+            double wComp = Math.sin(row * w * w);
+            for(int col = 0; col < width; col++){
+                double sComp = Math.sin(col * s);
+                max = Math.max(Math.abs(wComp - sComp), max);
+                diff[row][col] = Math.abs(wComp - sComp);
+            }
+        }
+        for(int row = 0; row < height; row++){
+            for(int col = 0; col < width; col++){
+                double diffComp = diff[row][col];
+                if(diffComp <= thresh){
+                    System.out.println("w_int:" + row + "\ts_int:" + col + "\tdiff:" + diffComp);
+                }
+                double t = diffComp / max;
+                img[row][col] = ImageUtils.gradient(t);
+            }
+        }
+
+        try {
+            ImageUtils.saveImageBytes(img, "res/testw.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
