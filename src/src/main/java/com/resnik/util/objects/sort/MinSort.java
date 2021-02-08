@@ -36,7 +36,6 @@ public class MinSort extends SortingAlgoritihm<Double>{
             ret[i] = toSort.remove(minIndex);
             i++;
         }
-        Log.d("MinSort", num);
         return ret;
     }
 
